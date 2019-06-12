@@ -1,0 +1,32 @@
+body{
+    margin: 0;
+}
+
+.navigation a {
+    padding: 10px;
+    float: left;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    margin: 5px;
+   
+    border-radius: 5px;
+}
+.navigation a:hover {
+    background-color: rgb(109, 120, 131);
+}
+
+.navigation{
+    background-color: rgb(187, 187, 189);
+    overflow: hidden;
+    padding: 5px;
+}
+.header-right {
+    float: right;
+    border-right: 2px solid black;
+    text-transform: uppercase;
+}
+.header-right .about {
+    background-color: rgb(32, 36, 88);
+    color: white;
+}

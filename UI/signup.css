@@ -1,32 +1,235 @@
 body{
     margin: 0;
+    background-color: rgb(220, 226, 231)
 }
 
 .navigation a {
-    padding: 10px;
+    padding: 5px;
     float: left;
     text-decoration: none;
-    color: black;
-    font-size: 15px;
+    color: white;
+    text-transform: capitalize;
+    font-size: 20px;
     margin: 5px;
-   
+   border-right: 1px solid rgb(97, 92, 92);
     border-radius: 5px;
+}
+.navigation a.logo {
+    font-style: italic;
 }
 .navigation a:hover {
     background-color: rgb(109, 120, 131);
 }
 
 .navigation{
-    background-color: rgb(187, 187, 189);
+    background-color: #24292E;
     overflow: hidden;
     padding: 5px;
 }
 .header-right {
     float: right;
     border-right: 2px solid black;
-    text-transform: uppercase;
+    
 }
-.header-right .about {
-    background-color: rgb(32, 36, 88);
+.header-right a {
+    margin: 10px;
+    
+}
+.header-right .sign-up {
+    border: 1px solid white;
+}
+article .page-title{
+    margin: 50px;
+}
+article .page-title h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+article .page-title p {
+    font-size: 1.5em;
+    margin: 0;
+    color: rgb(73, 77, 77);
+}
+article .steps{
+    margin: 0 auto;
+    display: block;
+    width: 85%;
+    border: 1px solid rgb(189, 184, 184);
+    border-radius: 5px;
+    height: 70px;
+
+}
+article .steps div{
+    float: left;
+    width: 33.33%;
+    height: 99%;
+}
+
+
+.step :nth-child(1), .step :nth-child(2){
+   
+   float: left;
+   margin-left: 15px;
+}
+.step img{
+    height: 40px;
+    width: 40px;
+    margin-top: 15px
+}
+.step .content{
+    width: 40%;
+    margin-top: 15px;
+}
+.content p{
+    margin: 0;
+    padding: 2.5px;
+}
+.content p:nth-child(1){
+    font-weight: bold;
+}
+article .intro-div{
+    margin: 0 auto;
+    display: block;
+    width: 500px;
+}
+article .intro-div p.intro{
+    font-size: 2em;
+    text-transform: capitalize;
+    margin: 50px;
+}
+form{
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    width: 50%;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    background-color: rgba(100, 98, 98, 0.034) 
+}
+form .form-content{
+    margin:  0 auto;
+    display: block;
+    width: 95%
+}
+form div + div{
+    margin-top: 1em;
+}
+label{
+    display: inline-block;
+    width:40%;
+    font-size: 1.5em;
+    text-align: left;
+}
+
+label span{
+    font-weight: bold;
+    color: rgb(168, 29, 29);
+}
+
+.form-content [name]{
+    font: 1em sans-serif;
+    width: 50%;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #999;
+    background-color: rgb(222, 227, 231)
+}
+.form-content [name]:hover{
+    
+    background-color: rgb(255, 255, 255)
+}
+.checkbox input{
+    float: left;
+    margin: 6px;
+    width: 30px;
+    height: 40px;
+    border: 1px solid #999;
+}
+.checkbox span{
+    float: left;
+    margin:12px;
+    font-weight: bold;
+    color: rgb(82, 69, 69)
+}
+
+
+button {
+    margin: 0 auto;
+    margin-top: 20px;
+    display: block;
+    height: 40px;
+    width: 140px;
+    border-radius: 10px;
     color: white;
+    background-color: rgba(50, 116, 22, 0.575)
+}
+form .form-content .login{
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}
+.sticky {
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.sticky + .content {
+padding-top: 200px;
+}
+.form-content .challenge{
+    margin: 0 auto;
+    margin-bottom: 25px;
+    width: 95%;
+   float: left;
+   border: 1px solid rgb(209, 202, 202);
+   border-radius: 5px;
+   padding: 10px;
+}
+.challenge .caption{
+    color: rgb(63, 71, 80);
+}
+.question p{
+    font-weight: bold;
+    margin-left: 5px;
+}
+ .challenge .word {
+float: left;
+width: 40%;
+}
+.challenge .answer input {
+    width: 95%;
+    height: 30px;
+    border-radius: 10px;
+    background-color: rgb(192, 197, 201)
+
+    }
+    .challenge .answer span {
+        color: blue;
+    }
+@media screen and (max-width: 1110px) {
+    article .steps{
+        width: 93%;
+        height: 80px;
+    
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    form{
+        width: 70%;
+        
+    }
+}
+@media screen and (max-width: 700px) {
+    form{
+        width: 90%;
+        
+    }
+    .page-title{
+        margin: 0 auto;
+        display: block;
+        width: 100%;
+    }
 }

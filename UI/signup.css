@@ -249,6 +249,7 @@ width: 40%;
 
     }
     .challenge .answer span {
+        width: fit-content;
         margin: 20px;
         color: blue;
     }
@@ -275,6 +276,9 @@ width: 40%;
         margin: 0 auto;
         display: block;
         width: 100%;
+    }
+    .form-content .challenge{
+        width: 80%;
     }
 }
 

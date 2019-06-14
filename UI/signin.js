@@ -1,6 +1,5 @@
 const header = document.querySelector('header');
 const menuIcon = document.querySelector('.icon');
-stickyFrom = header.offsetTop;
 
 
 window.onscroll =  () =>{

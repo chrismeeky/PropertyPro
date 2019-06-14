@@ -168,7 +168,7 @@ label span{
     background-color: rgb(255, 255, 255)
 }
 
-button {
+[type="submit"] {
     margin: 0 auto;
     margin-top: 20px;
     display: block;
@@ -177,6 +177,9 @@ button {
     border-radius: 10px;
     color: white;
     background-color: rgba(50, 116, 22, 0.575)
+}
+[type="submit"]:hover {
+    background-color: rgb(66, 146, 122)
 }
 form .form-content .login{
     display: block;
@@ -193,6 +196,7 @@ form .form-content .login{
 padding-top: 200px;
 }
 
+
 @media screen and (max-width: 1110px) {
     article .steps{
         width: 93%;
@@ -206,6 +210,7 @@ padding-top: 200px;
         width: 70%;
         
     }
+    
 }
 @media screen and (max-width: 700px) {
     form{
@@ -216,6 +221,9 @@ padding-top: 200px;
         margin: 0 auto;
         display: block;
         width: 100%;
+    }
+    .show{
+        width:90%
     }
 }
 footer{

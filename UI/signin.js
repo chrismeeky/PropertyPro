@@ -1,6 +1,11 @@
 const header = document.querySelector('header');
 const menuIcon = document.querySelector('.icon');
-
+const recoverPassButton = document.querySelector('.recover-password');
+const recoveryDiv = document.querySelector('.hide');
+stickyFrom = header.offsetTop;
+recoverPassButton.addEventListener('click' ,() =>{
+    recoveryDiv.setAttribute('class' ,'show');
+});
 
 window.onscroll =  () =>{
      myFunction ();

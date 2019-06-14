@@ -195,7 +195,46 @@ form .form-content .login{
 .sticky + .content {
 padding-top: 200px;
 }
-
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    overflow: hidden;
+    border: 1px solid rgb(197, 189, 189);
+    padding: 20px;
+    background-color: rgba(161, 146, 99, 0.164);
+    border-radius:10px;
+}
+.show .container{
+    padding: none;
+    float: left;
+    width: 50%;
+    
+}
+.show p{
+    font-style: italic
+}
+.container input {
+    margin-top : 15px;
+    padding: none;
+    height:25px;
+    width: 90%;
+    border-radius: 7px;
+    border: 2px solid rgba(88, 74, 126, 0.678);
+}
+.container button {
+    padding: none;
+    height:30px;
+    width: 120px;
+    background-color: rgb(224, 215, 215);
+    border-radius: 10px;
+}
+.container button:hover{
+    background-color: rgb(155, 160, 165)
+}
 
 @media screen and (max-width: 1110px) {
     article .steps{

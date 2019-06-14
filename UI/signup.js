@@ -1,4 +1,5 @@
-let header = document.querySelector('header');
+const header = document.querySelector('header');
+const menuIcon = document.querySelector('.icon');
 stickyFrom = header.offsetTop;
 
 
@@ -14,6 +15,17 @@ else {
     header.classList.remove("sticky");
 }
 }
+
+
+const responsiveNav = () => {
+    let x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
+  }
+menuIcon.addEventListener('click' ,responsiveNav);
 
 // develop algorithm for the bot challenge
 let refreshWord = document.querySelector('.answer span');

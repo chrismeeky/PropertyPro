@@ -244,7 +244,7 @@ width: 40%;
 .challenge .answer input {
     width: 95%;
     height: 30px;
-    border-radius: 10px;
+    border-radius: 2px;
     background-color: rgb(192, 197, 201)
 
     }
@@ -288,6 +288,7 @@ footer .navigation a{
     font-size: 15px;
     color: #24292E;
     border-radius: 3px;
+    font-weight: bold
 }
 footer .navigation a:hover{
     background-color: rgb(204, 193, 193)

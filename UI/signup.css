@@ -249,6 +249,7 @@ width: 40%;
 
     }
     .challenge .answer span {
+        margin: 20px;
         color: blue;
     }
 @media screen and (max-width: 1110px) {

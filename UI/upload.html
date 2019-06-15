@@ -28,7 +28,7 @@
         <div class="main-container">
          <div class="sidebar left">
            <div class="content">
-            <h2>Ad Details</h2>
+            <h2 id="sub-caption">Ad Details</h2>
             <div class="form-wrap">
             <form method="POST" action="/upload">
                 <div class="cat-div"> 
@@ -37,18 +37,23 @@
                         <select name="category" id="category">
                                 <option selected disabled>-- Select property type --</option>
                             <option value="Two-bedroom-flat">Two-bedroom flat</option>
-                            <option value="three-bedroom-flat">Three-bedroom flat</option>
+                            <option value="Three-bedroom-flat">Three-bedroom flat</option>
+                            <option value="Four-bedroom-flat">Four-bedroom flat</option>
+                            <option value="Mini-flat">Mini flat</option>
+                            <option value="Four-bedroom-duplex">Four-bedroom duplex</option>
+                            <option value="Five-bedroom-duplex">Five-bedroom duplex</option>
                         </select>
                 </div>
                     <div class="photo"> 
-                        <h3>Photos</h3>
+                        <h2>Photos</h2>
                         <p>Ads with photos get 20% more clients. <span>Upload at least one image. Image should be clear and square</span></p>
                             <div class="box">
                                    
                             </div>
-                    
-                            <div class="scrolling-wrapper">
+                            <input type="file" id="file-upload" accept=".gif, .jpg, .png, .jpeg">
+                            <div class="scrolling-wrapper" type="file">
                         <div class="image-wrapper">
+                            
                          <img src="addImage.png">
                         </div>    
                         <div class="image-wrapper">
@@ -205,11 +210,7 @@
             </div>
            </div>
          </div>
-         <div class="sidebar right">
-        <div class="content">
-            
-        </div>
-            </div>
+         
         </div>
     </main>
 

@@ -1,12 +1,12 @@
 .main-container {
 
-    height: 2000px;
+    height: fit-content;
     width: 97%;
     display: block;
     margin: 0 auto;
-    margin-top: 30px;
     border-radius:5px;
     background-color: rgb(202, 207, 211);
+    padding-top: 20px;
 }
 
 .page-title{
@@ -15,19 +15,15 @@
     width: fit-content;
 }
 .main-container .left {
-    float: left;
-    width: 75%;
+    padding-top: 20px;
+    display: block;
+    margin: 0 auto;
+    width: 80%;
     height: fit-content;
     padding-bottom: 20px;
 
 }
-.main-container .right {
-    float: left;
-    width: 25%;
-    height: fit-content;
-    padding-bottom: 20px;
 
-}
 .left .content{
     width: 97%;
     height: fit-content;
@@ -35,25 +31,17 @@
     display: block;
     background-color: rgb(220, 226, 231);
     border-radius: 10px;
-    margin-top:20px;
-    padding-top: 10px;
-    padding-bottom: 50px;
+    padding-top:20px;
+   
 }
-.right .content{
-    width: 97%;
-    height: 1000px;
-    margin: 0 auto;
-    display: block;
-    background-color: rgb(220, 226, 231);
-    border-radius: 10px;
-    margin-top:20px;
-    padding-top: 10px;
-    padding-bottom: 50px;
-    margin-bottom: 50px;
-}
+
+
 .left .content h2 {
     margin: 20px;
     color: brown
+}
+#sub-caption{
+    margin-left:110px;
 }
 .left .content p {
     margin: 20px;
@@ -141,9 +129,7 @@
     .form-wrap {
         width: 100%;
     }
-    .main-container{
-        height: 3050px;
-    }
+    
     .main-container .left {
         margin: 0 auto;
         display: block;;
@@ -221,11 +207,14 @@ button{
 
 .main-container2 {
 
-    height: 2300px;
+    height: fit-content;
     width: 97%;
     display: block;
     margin: 0 auto;
     margin-top: 30px;
     border-radius:5px;
     background-color: rgb(202, 207, 211);
+}
+#file-upload{
+    display: none;
 }

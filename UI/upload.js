@@ -46,3 +46,30 @@ const responsiveNav = () => {
     }
   }
 menuIcon.addEventListener('click' ,responsiveNav);
+const fileUpload = document.querySelector('#file-upload');
+const img = document.querySelectorAll('.image-wrapper');
+const loadImage = (target) =>{
+    fileUpload.click();
+    
+
+};
+img.forEach(element =>{
+    element.addEventListener('click' ,({target})=>{
+        loadImage(target);
+    })
+})
+
+
+
+window.addEventListener('load', () =>{
+    fileUpload.addEventListener('change' , (event) =>{
+let reader =fileUpload.value;
+reader.readAsDataURL(event.srcElement.files[0]);
+let me = this;
+reader.onload(function(){
+    let fileContent = reader.result;
+    alert(fileContent);
+})
+
+    });
+});

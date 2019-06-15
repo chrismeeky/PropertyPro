@@ -125,7 +125,7 @@ article .intro-div .lock img{
     width: 100px;
     height: 100px;
 }    
-form{
+.form-wraper form{
     padding-top: 30px;
     padding-bottom: 30px;
     margin: 0 auto;
@@ -135,27 +135,27 @@ form{
     border-radius: 1em;
     background-color: rgba(100, 98, 98, 0.034) 
 }
-form .form-content{
+.form-wraper form .form-content{
     margin:  0 auto;
     display: block;
     width: 95%
 }
-form div + div{
+.form-wraper form div + div{
     margin-top: 1em;
 }
-label{
+.form-wraper label{
     display: inline-block;
     width:40%;
     font-size: 1.5em;
     text-align: left;
 }
 
-label span{
+.form-wraper label span{
     font-weight: bold;
     color: rgb(168, 29, 29);
 }
 
-.form-content [name]{
+.form-wraper .form-content [name]{
     font: 1em sans-serif;
     width: 50%;
     height: 40px;
@@ -163,7 +163,7 @@ label span{
     border: 1px solid #999;
     background-color: rgb(222, 227, 231)
 }
-.form-content [name]:hover{
+.form-wraper .form-content [name]:hover{
     
     background-color: rgb(255, 255, 255)
 }
@@ -252,7 +252,7 @@ padding-top: 200px;
     
 }
 @media screen and (max-width: 700px) {
-    form{
+    .form-wraper form{
         width: 90%;
         
     }

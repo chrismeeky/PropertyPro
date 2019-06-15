@@ -1,0 +1,231 @@
+.main-container {
+
+    height: 2000px;
+    width: 97%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    border-radius:5px;
+    background-color: rgb(202, 207, 211);
+}
+
+.page-title{
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+}
+.main-container .left {
+    float: left;
+    width: 75%;
+    height: fit-content;
+    padding-bottom: 20px;
+
+}
+.main-container .right {
+    float: left;
+    width: 25%;
+    height: fit-content;
+    padding-bottom: 20px;
+
+}
+.left .content{
+    width: 97%;
+    height: fit-content;
+    margin: 0 auto;
+    display: block;
+    background-color: rgb(220, 226, 231);
+    border-radius: 10px;
+    margin-top:20px;
+    padding-top: 10px;
+    padding-bottom: 50px;
+}
+.right .content{
+    width: 97%;
+    height: 1000px;
+    margin: 0 auto;
+    display: block;
+    background-color: rgb(220, 226, 231);
+    border-radius: 10px;
+    margin-top:20px;
+    padding-top: 10px;
+    padding-bottom: 50px;
+    margin-bottom: 50px;
+}
+.left .content h2 {
+    margin: 20px;
+    color: brown
+}
+.left .content p {
+    margin: 20px;
+}
+.right .content h2 {
+    margin: 20px;
+}
+.form-wrap {
+    margin: 0 auto;
+    width: 90%;
+}
+.form-wrap form {
+    padding-bottom: 20px;
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    height:fit-content;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+    background-color: rgba(100, 98, 98, 0.034);
+    
+}
+   .cat-div label {
+    display: block;
+    margin: 10px 20px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+.box select {
+    margin: 10px 20px;
+    width: 280px;
+    height: 50px;
+    padding: 12px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    background-color: rgb(226, 231, 235)
+}
+
+.box select option{
+    line-height: 30px;
+    padding: 0px;
+}
+.photo h3 {
+    margin: 15px 20px;
+}
+.photo p{
+    font-weight: bold;
+}
+.photo p span {
+    font-weight: normal;
+}
+.image-wrapper{
+    border: 1px solid rgba(183, 196, 187, 0.685);
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    margin: 7px;
+    display: inline-block;
+    padding: none;
+    flex: 0 0 auto;
+}
+.image-wrapper:hover{
+    background-color: rgba(180, 173, 169, 0.726);
+    
+}
+.image-wrapper img{
+    width: 150px;
+    height: 150px;
+}
+.image-wrapper img:hover{
+    width: 140px;
+    height: 140px;
+    
+}
+.scrolling-wrapper{
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+
+}
+@media screen and (max-width:1250px){
+    .form-wrap {
+        width: 100%;
+    }
+    .main-container{
+        height: 3050px;
+    }
+    .main-container .left {
+        margin: 0 auto;
+        display: block;;
+        width: 100%;
+        margin: 0;
+    
+    }
+    .main-container .right {
+        margin: 0 auto;
+        display: block;;
+        width: 100%;
+        max-height: fit-content;
+        margin: 0;
+    
+    }
+    [name ="title"]{
+        width: 95%;
+    }
+    
+  
+}
+form hr {
+    border: 10px solid rgb(220, 226, 231);
+    margin-bottom: 20px;
+}
+[name ="title"]{
+    margin: 10px 20px;
+    height: 40px;
+    width: 90%;
+    border-radius: 5px;
+    border: 1px solid rgb(179, 173, 173);
+    background-color: rgb(226, 231, 235);
+    font-size: 15px;
+}
+[name = "price"]{
+    margin: 10px 20px;
+    height: 40px;
+    width: fit-content;
+    border-radius: 5px;
+    border: 1px solid rgb(179, 173, 173);
+    font-size: 22px;
+}
+
+[name = "adEmail"] ,[name = "adEmail"] ,[name = "adPhone"] ,[name = "adState"] ,[name = "adAddress"], [name = "adCity"]{
+    margin: 10px 20px;
+    height: 40px;
+    width: 340px;
+    border-radius: 5px;
+    border: 1px solid #999;
+    background-color: rgb(226, 231, 235);
+    font-size: 22px;
+}
+.cat-div input:hover{
+    background-color: rgb(240, 221, 196)
+}
+.hidden{
+    display: none;
+}
+.showing{
+    display: block;
+}
+.cat-div textarea {
+    margin: 10px 20px;
+    height: 200px;
+    width: 90%;
+    border-radius: 5px;
+    border: 1px solid #999;
+    background-color: rgb(226, 231, 235);
+    font-size: 15px;
+    resize: none;
+}
+button{
+    margin: 20px;
+}
+
+.main-container2 {
+
+    height: 2300px;
+    width: 97%;
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    border-radius:5px;
+    background-color: rgb(202, 207, 211);
+}

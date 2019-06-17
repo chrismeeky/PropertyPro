@@ -37,7 +37,7 @@ width: 70%;
 .rows .column-right{
     float: left;
     width: 30%;
-    height: 1420px;
+    height: 900px;
     }
     
 .rows:after{
@@ -57,11 +57,77 @@ width: 70%;
     display: block;
     margin: 0 auto;
     width: 95%;
-    height: inherit;
-    background-color:rgb(190, 200, 207);
+    height:900px;;
     border-radius: 10px;
+    background-color: rgb(235, 233, 234);
 }
 
+
+
+.inner-image-div{
+    margin:  0 auto;
+    display: block;
+    width: fit-content;
+    margin-top: 10px;
+    border-radius:5px;
+    overflow: hidden;
+}
+.inner-image-div img:hover{
+    padding-bottom: 10px;
+}
+
+.image-div p {
+    padding: none;
+    margin: 0;
+    margin:5px;
+    line-height: 14px;
+}
+.price {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.description {
+    color: rgb(85, 83, 81);
+    overflow: hidden;
+    
+    
+}
+.details-div{
+    border-left: 3px solid rgb(37, 172, 48);
+    border-right: 3px solid rgb(37, 172, 48)
+}
+.featured{
+    margin:  0 auto;
+    display: block;
+    width: 300px;
+    border-left: 3px solid brown;
+    border-right: 3px solid brown;
+    background-color: rgb(28, 52, 71);
+    padding-top: 10px;
+    padding-bottom: 10px;
+   
+}
+.featured h3{
+    margin: 0;
+    color: white;
+    margin: 0px 0 0px 100px;
+    font-size: 25px;
+}
+.featured-holder{
+    margin: 0 auto;
+    display: block;
+    width: 65%;
+}
+.image-div-rightbar{
+    display: block;
+    width: 260px;
+    height: 260px;
+    margin: 20px 10px 0 10px;
+    background-color: rgb(243, 234, 234);
+    overflow: hidden;
+    border-radius: 20px
+}
 
 @media screen and (max-width:1250px) {
 
@@ -73,7 +139,6 @@ width: 70%;
     .rows .column-right{
         margin-top: 20px;
         width: 100%;
-        height: 250px;
         display: block;
         float: none;
     }
@@ -82,7 +147,21 @@ width: 70%;
     }
     .column-right .right-sidebar{
         width: 80%;
+        
     }
+    .column-left .left-sidebar{
+        height:1150px;
+   }
+   
+   .image-div-rightbar{
+    float: left;
+    width: 40%
+}
+.featured-holder{
+    margin: 0 auto;
+    display: block;
+    width: 100%;
+}
 }
 @media screen and (max-width:900px){
     .column-left .left-sidebar{
@@ -140,33 +219,11 @@ width: 70%;
         margin-left: 5px;
     }
     .column-left .left-sidebar{
-         height:2200px;
+         height:1650px;
     }
+    .column-right .right-sidebar {
+        height:650px;
+   }
+   
 
-}
-.inner-image-div{
-    margin:  0 auto;
-    display: block;
-    width: fit-content;
-    margin-top: 10px;
-    border-radius:5px;
-    overflow: hidden;
-}
-.inner-image-div img:hover{
-    width: 245px;
-    width: 245px;
-}
-.image-div p {
-    padding: none;
-    margin: 0;
-    margin:5px;
-    line-height: 14px;
-}
-.price {
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.description {
-    color: rgb(85, 83, 81)
 }

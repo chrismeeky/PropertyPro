@@ -73,7 +73,27 @@
                         <p>Awka , Anambra</p>
                         <div class="map-wrapper"><img src="googlemap.jpg" alt=""></div>
                                 </div>
+                                <div class="report-ad"><a href="javascript:void(0);">report this ad</a></div>
+                                <form action="/report_post" method="POST" class="report-form form-hide">
+                                    <div class="report-type">
+                                            <select name="report-type" id="report-type">
+                                                    <option selected disabled>  Select reason </option>
+                                                <option value="Policy-Violation">Policy Violation</option>
+                                                <option value="Fraudulent">Fraudulent</option>
+                                                <option value="Spam">Spam</option>
+                                                <option value="Sold">Property Sold</option>
+                                                
+                                            </select>
+                                            
+                                    </div>
+                                            <div class="more-information">
+                                                    <label for="report-body">Provide more information</label>
+                                                    <textarea name="report-body" id="report-body"></textarea>
+                                            </div>
+                                            <div><button type="submit">Submit</button></div>
+                                </form>
             </div>
+           
         </div>    
     </main>
 
@@ -86,7 +106,7 @@
         </div>
     </nav>
     </footer>
-    <script src="view_property.js">
+    <script src="view_property.js" async>
     </script>
 </body>
 </html>

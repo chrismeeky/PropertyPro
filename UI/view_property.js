@@ -1,3 +1,9 @@
+const reportButton = document.querySelector('.report-ad');
+const reportForm = document.querySelector('.report-form');
+reportButton.addEventListener('click' ,() =>{
+reportForm.setAttribute('class' ,'report-form form-show');
+});
+
 const header = document.querySelector('header');
 const menuIcon = document.querySelector('.icon');
 stickyFrom = header.offsetTop;

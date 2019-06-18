@@ -7,7 +7,7 @@
 .columns .right-column{
     float: left;
     width: 30%;
-    height: 1000px;
+    height: fit-content;
     padding-top: 20px;
 }
 .columns:after{
@@ -159,7 +159,85 @@ margin: 25px;
             width: 80%;
             height:50%;
         }
-     
+     .report-ad{
+         display: block;
+         margin: 0 auto;
+         width: 80%;
+         text-transform: capitalize;
+         font-size: 20px;
+         
+     }
+     .report-ad a{
+        font-weight: 400;
+        text-decoration: none;
+        text-emphasis: none;
+        color: blue;
+     }
+     .form-show{
+         width:80%;
+         display: block;
+         margin: 0 auto;
+         margin-top: 20px;
+         height: fit-content;
+         background-color: rgb(234, 236, 243);
+         
+     }
+     .form-hide{
+         display: none;
+     }
+       .report-type{
+           display: block;
+           margin: 0 auto;
+           width: fit fit-content;
+       }
+       
+     .report-type select {
+        margin: 10px 20px;
+        width: 220px;
+        height: 45px;
+        padding: 8px;
+        font-size: 18px;
+        border-radius: 2px;
+        border: 1px solid rgb(58, 58, 82);
+        outline: none;
+        background-color: rgb(226, 231, 235)
+    }
+    
+    .report-type select option{
+        line-height: 30px;
+        padding: 0px;
+        outline: none;
+    }
+    .more-information label {
+        display: block;
+        margin-top: 10px;
+        font-weight: 500;
+        font-size: 20px;
+    }
+    .more-information{
+        width: 90%;
+        display: block;
+        margin: 0 auto;
+    }
+    .more-information textarea {
+        margin: 10px 0 20px 0;
+        height: 180px;
+        width: 95%;
+        border-radius: 5px;
+        border: 1px solid #999;
+        background-color: rgb(226, 231, 235);
+        font-size: 15px;
+        resize: none;
+    }
+    button{
+        margin: 20px;
+        width: 200px;
+        height: 40px;
+        font-weight: bold;
+        border: 2px solid rgb(84, 84, 95);
+        background: rgba(238, 233, 233, 0.438);
+        outline: none;
+    }
       @media screen and (max-width:1230px){
      
         .email-user span{
@@ -196,4 +274,5 @@ margin: 25px;
             width: 30%;
         }
       }
+
       

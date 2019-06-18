@@ -168,7 +168,7 @@ article .intro-div .lock img{
     background-color: rgb(255, 255, 255)
 }
 
-[type="submit"] {
+.sign-in {
     margin: 0 auto;
     margin-top: 20px;
     display: block;

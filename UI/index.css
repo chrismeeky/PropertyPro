@@ -141,7 +141,13 @@ width: 70%;
         width: 100%;
         display: block;
         float: none;
+        height: 500px;
     }
+    .column-right .right-sidebar{
+        width: 97%;
+        height: 640px;
+    }
+   
     .column-left .left-sidebar{
         width: 80%;
     }
@@ -169,10 +175,10 @@ width: 70%;
     }
     .column-right .right-sidebar{
         width: 97%;
-        height: 400px;
+        height: 640px;
     }
     .rows .column-right {
-        height: 400px;
+        height: 500px;
     }
 }
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */

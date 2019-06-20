@@ -179,6 +179,7 @@ article .intro-div .lock img{
 [type="submit"]:hover {
     background-color: rgb(66, 146, 122)
 }
+
 form .form-content .login{
     display: block;
     margin: 0 auto;
@@ -215,12 +216,12 @@ padding-top: 200px;
 .show p{
     font-style: italic
 }
-.container input {
+#recoveryEmail {
     margin-top : 15px;
     padding: none;
     height:25px;
     width: 90%;
-    border-radius: 7px;
+    border-radius: 2px;
     border: 2px solid rgba(88, 74, 126, 0.678);
 }
 .container button {
@@ -249,7 +250,7 @@ padding-top: 200px;
     }
     
 }
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1140px) {
     .form-wraper form{
         width: 90%;
         
@@ -283,4 +284,7 @@ footer .navigation a{
 }
 footer .navigation a:hover{
     background-color: rgb(204, 193, 193)
+}
+[name ="recover-email"]{
+    width: 100%
 }

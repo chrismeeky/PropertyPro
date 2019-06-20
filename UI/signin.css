@@ -24,9 +24,7 @@ body{
   float: right;
   
   }
-  .topnav .signin{
-      border: 1px solid white;
-  }
+  
   
   /* Add an active class to highlight the current page */
   .active {

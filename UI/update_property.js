@@ -70,3 +70,5 @@ const showPrice = () => {
     price.value = agentPost[0].price;
 };
 showPrice();
+
+

@@ -57,7 +57,7 @@ img.forEach(element =>{
     element.addEventListener('click' ,({target})=>{
         loadImage(target);
     })
-})
+});
 
 
 

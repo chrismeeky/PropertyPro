@@ -1,3 +1,7 @@
+const updatePostIcon = document.querySelector('.update-icon-wrapper');
+updatePostIcon.addEventListener('click' ,()=>{
+  location.href = 'update_property.html';
+})
 const options = document.querySelector('#post-options-hidden');
 const showOptions = ({target}) =>{
     

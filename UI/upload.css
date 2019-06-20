@@ -1,3 +1,6 @@
+body{
+    background-color: rgb(198, 200, 202);
+}
 .main-container {
 
     height: fit-content;
@@ -5,8 +8,8 @@
     display: block;
     margin: 0 auto;
     border-radius:5px;
-    background-color: rgb(202, 207, 211);
-    padding-top: 20px;
+    background-color: rgb(198, 200, 202);
+    padding-top: 10px;
 }
 
 .page-title{
@@ -52,6 +55,7 @@
 .form-wrap {
     margin: 0 auto;
     width: 90%;
+    padding-bottom: 20px;
 }
 .form-wrap form {
     padding-bottom: 20px;
@@ -202,7 +206,11 @@ form hr {
     resize: none;
 }
 button{
+    width: 100px;
+    height: 45px;
     margin: 20px;
+    background-color: green;
+    color: white;
 }
 
 .main-container2 {

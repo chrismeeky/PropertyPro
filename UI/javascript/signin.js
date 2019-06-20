@@ -7,20 +7,20 @@ recoverPassButton.addEventListener('click' ,() =>{
     recoveryDiv.setAttribute('class' ,'show');
 });
 
-window.onscroll =  () =>{
-     myFunction ();
-}
-
-const myFunction = ()=> {
-if (window.pageYOffset > stickyFrom) {
+const makeSticky = () => {
+  //add a sticky class when the page scrolls beyond the header
+  if (window.pageYOffset > stickyFrom) {
     header.classList.add("sticky");
-}
-else {
+  }
+  else {
     header.classList.remove("sticky");
+  }
 }
+// call makeSticky function when the window scrolls
+window.onscroll = () => {
+  makeSticky();
 }
-
-
+// make the menu a dropdown list when the screen size becomes small
 const responsiveNav = () => {
     let x = document.getElementById("myTopnav");
     if (x.className === "topnav") {

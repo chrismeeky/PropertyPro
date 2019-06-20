@@ -32,6 +32,9 @@ properties.forEach(element =>{
   description.textContent = element.description;
   description.setAttribute('class', 'description');
   let imgDiv = document.createElement('div');
+  imgDiv.addEventListener('click' ,()=>{
+    location.href = 'view_property.html'
+  })
   let innerImgdiv = document.createElement('div');
   let image = document.createElement('img');
   image.setAttribute('src', element.imgSrc);
@@ -93,6 +96,5 @@ img.forEach(element =>{
         loadImage(target);
     })
 })
-
 
 

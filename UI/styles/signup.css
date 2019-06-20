@@ -148,6 +148,9 @@ form{
     border-radius: 1em;
     background-color: rgba(100, 98, 98, 0.034) 
 }
+form a{
+    text-decoration: none;
+}
 form .form-content{
     margin:  0 auto;
     display: block;
@@ -208,7 +211,7 @@ button {
 form .form-content .login{
     display: block;
     margin: 0 auto;
-    width: 50%;
+    width: 70%;
 }
 .sticky {
     position: fixed;
@@ -222,7 +225,7 @@ padding-top: 200px;
 .form-content .challenge{
     margin: 0 auto;
     margin-bottom: 25px;
-    width: 95%;
+    width: 100%;
    float: left;
    border: 1px solid rgb(209, 202, 202);
    border-radius: 5px;

@@ -1,6 +1,6 @@
 const agentPost = [{
     categories: "Mini flat",
-    photos: ['img6.png', 'img4.png', 'img11.png', 'img6.png', 'img7.png'],
+    photos: ['images/photos/img6.png', 'images/photos/img4.png', 'images/photos/img11.png', 'images/photos/img6.png', 'images/photos/img7.png'],
     title: 'Three bedroom bungalow with cozzy furniture for sale',
     transactionType: 'For-rent',
     duration: '3 years',
@@ -45,7 +45,7 @@ const displayImages = () => {
     const photos = agentPost[0].photos;
     for (let index = 0; index < photos.length; index++) {
         imageElements[index].setAttribute('src', photos[index]);
-        deleteIconWrapper[index].setAttribute('src', 'delete_image.png');
+        deleteIconWrapper[index].setAttribute('src', 'images/icons/delete_image.png');
     }
 }
 displayImages();

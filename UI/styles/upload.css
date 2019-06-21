@@ -180,7 +180,7 @@ form hr {
 [name = "adEmail"] ,[name = "adEmail"] ,[name = "adPhone"] ,[name = "adState"] ,[name = "adAddress"], [name = "adCity"]{
     margin: 10px 20px;
     height: 40px;
-    width: 340px;
+    width: fit-content;
     border-radius: 5px;
     border: 1px solid #999;
     background-color: rgb(226, 231, 235);

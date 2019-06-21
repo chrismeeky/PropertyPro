@@ -23,6 +23,22 @@
     width: 1590px;
     height: 200px;
 }
+.cover-image .page-intro{
+    margin: 0 auto;
+    width: fit-content;
+    display: none
+}
+.cover-image .page-intro div h2{
+    font-size: 2em;
+}
+.cover-image .page-intro div p{
+    font-size: 1.5em;
+}
+.cover-image .page-intro div:nth-child(2){
+    display: block;
+    margin: 0 auto;
+    width: fit-content;
+}
 #caption{
     font-size: 25px;
     margin-left: 20px;
@@ -189,6 +205,13 @@ width: 70%;
     .topnav a.icon {
       float: right;
       display: block;
+    }
+    .cover-image .page-intro{
+        display: block;
+        
+    }
+    .cover-image img{
+        display: none;
     }
   }
   

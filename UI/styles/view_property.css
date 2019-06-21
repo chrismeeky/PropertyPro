@@ -236,12 +236,12 @@ margin: 25px;
     .mapouter{
     position:relative;
     text-align:right;
-    height:500px;
-    width:600px;}
+    height:400px;
+    width:400px;}
     .gmap_canvas{
     overflow:hidden;
     background:none!important;
-    height:500px;width:600px;
+    height:400px;width:400px;
 }
       @media screen and (max-width:1230px){
      
@@ -266,7 +266,7 @@ margin: 25px;
             padding-bottom: 20px;
         }
         .email-user span{
-            width: 20%;
+            width: 40%;
         }
         .right-column .property-details ,.right-column .seller-details{
         width: 80%;        

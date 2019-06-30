@@ -1,13 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/users');
+const agentRoutes = require('./routes/agents');
 
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/v1', userRoutes);
+app.use('/api/v1', agentRoutes);
 
 app.use((req, res)=>{
   let err = new Error();

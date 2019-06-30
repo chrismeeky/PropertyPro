@@ -1,17 +1,23 @@
-var bar = 20;
-var foo = bar;
-const emeka = 25;
-
 const express = require('express');
+const bodyParser = require('body-parser');
+const agentRoutes = require('./routes/agents');
+const userRoutes = require('./routes/users');
+
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('ci with travis');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use('/', userRoutes);
+
+app.use((req, res)=>{
+  let err = new Error();
+  return res.status(500).json({
+    status: "error",
+    error: 'route not found or wrong request method'
+  })
 });
 
-const server = app.listen(3000, () => {
-  console.log('App running on port 3000');
-});
-
-module.exports = server;
+const port = 5000;
+app.listen(port, console.log(`server started on port ${port}`))
+module.exports = app;

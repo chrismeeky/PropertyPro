@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "10.15.3"
+  - "stable"
 install:
   - "npm install"
 cache:
@@ -12,3 +12,4 @@ after_success: npm run coverage
 branches:
   only:
     - develop
+    - master

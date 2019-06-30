@@ -7,7 +7,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', userRoutes);
+app.use('/api/v1', userRoutes);
 
 app.use((req, res)=>{
   let err = new Error();

@@ -9,7 +9,7 @@ const verifySignup = require('../middlewares/verify_signup');
 const verifySignin = require('../middlewares/verify_signin');
 const properties = require('../db/properties');
 
-userRouter.post('/api/signup', verifySignup, (req, res) => {
+userRouter.post('/auth/signup', verifySignup, (req, res) => {
         jwt.sign(req.user, 'secretkey', (err, tokens) => {
           if (err) {
             res.json({status: 'error',

@@ -52,6 +52,17 @@ userRouter.get('/property/', (req, res) =>{
     })
 });
 
-
+userRouter.get('/property/:id', (req, res) =>{
+  const {id} = req.params;
+  properties.map((prop) => {
+    if(prop.id === parseInt(id, 10)) {
+      let data = prop;
+      return res.json({
+        status: 200,
+        data,
+      })
+    }
+  });
+});
 
 module.exports = userRouter;

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update Property</title>
+    <link rel="stylesheet" type="text/css" href="styles/signin.css">
+    <link rel="stylesheet" type="text/css" href="styles/upload.css">
+    <link rel="stylesheet" type="text/css" href="styles/update_property.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="topnav" id="myTopnav">
+                <a href="index.html" class="active">Property Pro Lite</a>
+                <a href="#news"></a>
+                <a href="dashboard.html">Manage Ads</a>
+                <a href="signin.html">Log Out</a>
+                <a href="upload.html" class="signin">Upload</a>
+                <a href="javascript:void(0);" class="icon">&#9776;</a>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="page-title">
+            <h1>Add some flavours...</h1>
+        </div>
+        <div class="main-container">
+            <div class="sidebar left">
+                <div class="content">
+                    <h2 id="sub-caption">Ad Details</h2>
+                    <div class="form-wrap">
+                        <form method="POST" action="/upload">
+                            <div class="cat-div">
+                                <label for="category">Categories <span>*</span></label>
+                                <div class="box">
+                                    <select name="category" id="category">
+                                        <option selected disabled>-- Select property type --</option>
+                                        <option value="Two-bedroom-flat">Two-bedroom flat</option>
+                                        <option value="Three-bedroom-flat">Three-bedroom flat</option>
+                                        <option value="Four-bedroom-flat">Four-bedroom flat</option>
+                                        <option value="Mini-flat">Mini flat</option>
+                                        <option value="Four-bedroom-duplex">Four-bedroom duplex</option>
+                                        <option value="Five-bedroom-duplex">Five-bedroom duplex</option>
+                                    </select>
+                                </div>
+                                <div class="photo">
+                                    <h2>Photos</h2>
+                                    <p>Ads with photos get 20% more clients. <span>Upload at least one image. Image
+                                            should be clear and square</span></p>
+                                    <div class="box">
+
+                                    </div>
+                                    <input type="file" id="file-upload" accept=".gif, .jpg, .png, .jpeg">
+                                    <div class="scrolling-wrapper" type="file">
+                                        <div class="image-wrap">
+                                            <div class="close-button"><img src="" title="delete this image" alt="">
+                                            </div>
+                                            <img id="property-image">
+                                        </div>
+                                        <div class="image-wrap">
+                                            <div class="close-button"><img title="delete this image" alt=""></div>
+                                            <img id="property-image">
+                                        </div>
+                                        <div class="image-wrap">
+                                            <div class="close-button"><img title="delete this image" alt=""></div>
+                                            <img id="property-image">
+                                        </div>
+                                        <div class="image-wrap">
+                                            <div class="close-button"><img title="delete this image" alt=""></div>
+                                            <img id="property-image">
+                                        </div>
+                                        <div class="image-wrap">
+                                            <div class="close-button"><img title="delete this image" alt=""></div>
+                                            <img src="images/icons/addImage.png" id="property-image" alt="">
+                                        </div>
+                                        <div class="image-wrap">
+                                            <div class="close-button"><img title="delete this image" alt=""></div>
+                                            <img src="images/icons/addImage.png" id="property-image">
+                                        </div>
+                                        <div class="image-wrap">
+                                            <div class="close-button"><img title="delete this image" alt=""></div>
+                                            <img src="images/icons/addImage.png" id="property-image">
+                                        </div>
+                                        <div class="image-wrap">
+                                            <div class="close-button"><img title="delete this image" alt=""></div>
+                                            <img src="images/icons/addImage.png" id="property-image">
+                                        </div>
+                                    </div>
+                                    <p>First picture will be used as the default display picture</p>
+                                </div>
+
+                            </div>
+                            <hr>
+                            <h2>Propert Description</h2>
+                            <p>A good, catchy description description that should boost your revenue</p>
+                            </h2>
+                            <div class="cat-div title">
+                                <label for="title">Give your Ad a shiny title <span>*</span></label>
+                                <input type="text" id="title" name="title"
+                                    placeholder=" New Two-bedroom apartment with jacuzzi and garage">
+                            </div>
+                            <div class="cat-div">
+                                <label for="transaction-type">Transaction type <span>*</span></label>
+                                <div class="box">
+                                    <select name="transaction-type" id="transaction-type">
+                                        <option selected disabled>-- Select transaction type --</option>
+                                        <option value="For-rent">For rent</option>
+                                        <option value="For-sale">For sale</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="cat-div hidden">
+                                <label for="price">Price (Naira) <span>*</span></label>
+                                <input type="text" id="price" name="price" placeholder="254,000">
+                            </div>
+                            <div class="cat-div duration box hidden">
+
+                                <label for="duration">Duration <span>*</span></label>
+
+                                <select name="duration" id="duration">
+                                    <option selected disabled>-- Select Duration --</option>
+                                    <option value="one-month">1 month</option>
+                                    <option value="two months">2 months</option>
+                                    <option value="three-month">3 months</option>
+                                    <option value="four months">4 months</option>
+                                    <option value="five-month">5 months</option>
+                                    <option value="six months">6 months</option>
+                                    <option value="seven-month">7 mmonths</option>
+                                    <option value="eight-months">8 months</option>
+                                    <option value="nine-month">9 months</option>
+                                    <option value="ten-months">10months </option>
+                                    <option value="eleven-month">11 months</option>
+                                    <option value="twelve-months">12 mmonths</option>
+
+                                    <option value="one-year">1 year</option>
+                                    <option value="two-years">2 years</option>
+                                    <option value="three-year">3 years</option>
+                                    <option value="four-years">4 years</option>
+                                    <option value="five-year">5 years</option>
+                                    <option value="six-years">6 years</option>
+                                    <option value="seven-year">7 years</option>
+                                    <option value="eight-years">8 years</option>
+                                    <option value="nine-year">9 years</option>
+                                    <option value="ten-years">10 years </option>
+                                    <option value="eleven-year">11 years</option>
+                                    <option value="twelve-years">12 years</option>
+                                </select>
+                            </div>
+                            <div class="cat-div title">
+                                <label for="title">Give your Ad description <span>*</span></label>
+                                <textarea></textarea>
+                            </div>
+                            <hr>
+
+                            <div class="cat-div contactInfo">
+                                <h2>Contact information for Ad</h2>
+                                <label for="adEmail">Email <span>*</span></label>
+                                <input type="email" id="adEmail" name="adEmail" placeholder=" email@example.com">
+                            </div>
+                            <div class="cat-div contactInfo">
+                                <label for="adPhone">Phone <span>*</span></label>
+                                <input type="text" id="adPhone" name="adPhone" placeholder=" +2348012345678">
+                            </div>
+                            <div class="cat-div contactInfo box">
+                                <label for="adState">State <span>*</span></label>
+                                <select name="adState" id="adState">
+                                    <option selected disabled>-- Select State --</option>
+                                    <option value="one-month">Abia</option>
+                                    <option value="two months">Adamawa</option>
+                                    <option value="three-month">Akwa Ibom</option>
+                                    <option value="four months">Anambra</option>
+                                    <option value="five-month">Bauchi</option>
+                                    <option value="six months">Bayelsa</option>
+                                    <option value="seven-month">Benue</option>
+                                    <option value="eight months">Borno</option>
+                                    <option value="nine-month">Cross River</option>
+                                    <option value="ten months">Delta</option>
+                                    <option value="eleven-month">Ebonyi Edo</option>
+                                    <option value="twelve months">Edo</option>
+
+                                    <option value="one-year">Ekiti</option>
+                                    <option value="two years">Enugu</option>
+                                    <option value="three-year">Gombe</option>
+                                    <option value="four years">Imo</option>
+                                    <option value="five-year">Jigawa</option>
+                                    <option value="six years">Kaduna</option>
+                                    <option value="seven-year">Katsina</option>
+                                    <option value="eight years">Kebbi</option>
+                                    <option value="nine-year">Kogi</option>
+                                    <option value="ten years">Kwara</option>
+                                    <option value="eleven-year">Lagos</option>
+                                    <option value="twelve years">Nasarawa</option>
+                                    <option value="four years">Niger</option>
+                                    <option value="five-year">Ogun</option>
+                                    <option value="six years">Ondo</option>
+                                    <option value="seven-year">Osun</option>
+                                    <option value="eight years">Oyo</option>
+                                    <option value="nine-year">Plateu</option>
+                                    <option value="ten years">Rivers</option>
+                                    <option value="eleven-year">Sokoto</option>
+                                    <option value="twelve years">Taraba</option>
+                                    <option value="ten years">Yobe</option>
+                                    <option value="eleven-year">Zamfara</option>
+                                    <option value="twelve years">FCT</option>
+
+                                </select>
+                            </div>
+                            <div class="cat-div contactInfo">
+                                <label for="adCity">City <span>*</span></label>
+                                <input type="email" id="adCity" name="adCity" placeholder=" -- Enter City --">
+                            </div>
+                            <div class="cat-div contactInfo">
+                                <label for="adAddress">Address <span>*</span></label>
+                                <input type="text" id="adAddress" name="adAddress"
+                                    placeholder=" 5 University way, Yaba">
+                            </div>
+                            <button type="submit">Save AD</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <nav>
+            <div class="navigation">
+                <a href="#">About </a>
+                <a href="#">Contact </a>
+                <a href="#">Policy </a>
+            </div>
+        </nav>
+    </footer>
+    <script src="javascript/upload.js"></script>
+    <script src="javascript/update_property.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,283 @@
+.columns .left-column{
+    float: left;
+    width: 70%;
+    height: 1000px;
+    padding-top: 20px;
+}
+.columns .right-column{
+    float: left;
+    width: 30%;
+    height: fit-content;
+    padding-top: 20px;
+}
+.columns:after{
+    content:"";
+    display: table;
+    clear: both;
+    
+}
+.left-column .prop-image-wrapper{
+    padding-top: 20px;
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    height:70%;
+    background-color: rgb(234, 236, 243);
+    border: 1px solid rgb(192, 186, 186);
+
+}
+.inner-image-wrapper{
+    display: block;
+    margin: 0 auto;
+    width: 95%;
+    height:90%;
+}
+.inner-image-wrapper img{
+    margin: 0 auto;
+    display: block;
+    width: 95%;
+    height:85%;
+}
+.description-wrapper{
+    padding-top: 2px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    height: fit-content;
+    background-color: rgb(234, 236, 243);
+    border: 1px solid rgb(192, 186, 186);
+    margin-top: 20px;
+    line-height: 8px;
+}
+.description-wrapper p:nth-child(1){
+font-size: 25px;
+font-weight: bold;
+margin: 25px;
+}
+.description-wrapper p:nth-child(2){
+    font-size: 17px;
+    margin: 25px;
+    line-height: 20px;
+    }
+
+    .right-column .property-details ,.right-column .seller-details{
+        
+            padding-top: 2px;
+            overflow: hidden;
+            padding-bottom: 10px;
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+            height: fit-content;
+            background-color: rgb(234, 236, 243);
+            border: 1px solid rgb(192, 186, 186);
+            line-height: 8px;
+            margin-bottom: 15px;
+        
+    }
+
+    .property-details p ,.seller-details p{
+      margin: 25px;
+    }
+    .property-details p:nth-child(1){
+        font-size: 30px;
+        font-weight: bold;
+      }
+
+      .property-details p:nth-child(2){
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(50, 50, 73);
+        color: rgb(44, 46, 48);
+      }
+      .property-details p:nth-child(3){
+        font-style: italic;
+      }
+      .seller-details p:nth-child(1) {
+          font-weight: bold;
+          font-size: 20px;
+      }
+      .contact-icon{
+          padding-top: 15px;
+      }
+      .contact-icon .icon-wrapper{
+          float: left;
+          width: 30%;
+      }
+      .contact-icon .contact-name{
+        float: left;
+        width: 70%;
+    }
+    .contact-icon:after{
+        content:"";
+        display: table;
+        clear: both;
+        
+    }
+      .icon-wrapper img{
+          margin-left: 20px;
+      }
+      .contact-name p{
+          margin-left: 35px;
+          font-size: 25px;
+          font-weight: bold;
+      }
+      
+      .email-user {
+          display: block;
+          margin: 0 auto;
+          margin-top: 10px;
+          width: 90%;
+          padding-top: 20px;
+          height: 35px;
+          background-color: rgb(75, 79, 104);
+          color: white;
+          border-radius: 15px;
+      }
+      [src="phone.png"]{
+          width: 40px;
+          height: 40px;
+      }
+      .email-user span{
+          display: block;
+          margin: 0 auto;
+          width:fit-content;
+          font-size: 1.2em;
+          font-weight: 100;
+          
+      }
+      .map-wrapper{
+          display: block;
+          margin: 0 auto;
+          width: fit-content;
+      }
+       
+     .report-ad{
+         display: block;
+         margin: 0 auto;
+         width: 80%;
+         text-transform: capitalize;
+         font-size: 20px;
+         
+     }
+     .report-ad a{
+        font-weight: 400;
+        text-decoration: none;
+        text-emphasis: none;
+        color: blue;
+     }
+     .form-show{
+         width:80%;
+         display: block;
+         margin: 0 auto;
+         margin-top: 20px;
+         height: fit-content;
+         background-color: rgb(234, 236, 243);
+         
+     }
+     .form-hide{
+         display: none;
+     }
+       .report-type{
+           display: block;
+           margin: 0 auto;
+           width: fit fit-content;
+       }
+       
+     .report-type select {
+        margin: 10px 20px;
+        width: 220px;
+        height: 45px;
+        padding: 8px;
+        font-size: 18px;
+        border-radius: 2px;
+        border: 1px solid rgb(58, 58, 82);
+        outline: none;
+        background-color: rgb(226, 231, 235)
+    }
+    
+    .report-type select option{
+        line-height: 30px;
+        padding: 0px;
+        outline: none;
+    }
+    .more-information label {
+        display: block;
+        margin-top: 10px;
+        font-weight: 500;
+        font-size: 20px;
+    }
+    .more-information{
+        width: 90%;
+        display: block;
+        margin: 0 auto;
+    }
+    .more-information textarea {
+        margin: 10px 0 20px 0;
+        height: 180px;
+        width: 95%;
+        border-radius: 5px;
+        border: 1px solid #999;
+        background-color: rgb(226, 231, 235);
+        font-size: 15px;
+        resize: none;
+    }
+    button{
+        margin: 20px;
+        width: 200px;
+        height: 40px;
+        font-weight: bold;
+        border: 2px solid rgb(84, 84, 95);
+        background: rgba(238, 233, 233, 0.438);
+        outline: none;
+    }
+    .mapouter{
+    position:relative;
+    text-align:right;
+    height:400px;
+    width:400px;}
+    .gmap_canvas{
+    overflow:hidden;
+    background:none!important;
+    height:400px;width:400px;
+}
+      @media screen and (max-width:1230px){
+     
+        .email-user span{
+            width: 45%;
+        }
+      }
+      @media screen and (max-width:1103px){
+        .columns .left-column{
+            float: none;
+            display: block;
+            width: 100%;
+            height: fit-content;
+            padding-bottom: 20px;
+           
+        }
+        .columns .right-column{
+            float: none;
+            display: block;
+            width: 100%;
+            height: fit-content;
+            padding-bottom: 20px;
+        }
+        .email-user span{
+            width: 40%;
+        }
+        .right-column .property-details ,.right-column .seller-details{
+        width: 80%;        
+      }
+      
+      }
+      @media screen and (max-width:687px){
+     
+        .email-user span{
+            width: 30%;
+        }
+      }
+
+      

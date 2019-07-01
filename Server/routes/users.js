@@ -33,37 +33,43 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 
 // users can view all property adverts
 userRouter.get('/property/', (req, res) =>{
-  if(properties.length === 0) {
-    return res.status(404).json({
-      status:'error',
-      error: 'There are currently no properties'
+  let data;
+  let found = true;
+  if(typeof req.query.type === 'string'){
+    let holder = [];
+    properties.map((prop) => {
+      if(prop.type === req.query.type) {
+        holder.push(prop)
+        data = holder;
+        found = true
+      }
+      else{
+        found = false;
+      }
     });
   }
   else{
-    let data;
-    if(typeof req.query.type === 'string'){
-      let holder = [];
-      properties.map((prop) => {
-        if(prop.type === req.query.type) {
-          holder.push(prop)
-          data = holder;
-        }
-        else {
-          return res.status(404).json({
-            status: 'error',
-            error: 'property does not exist'
-          });
-        }
-      });
+    if(properties.length === 0){
+      found = false;
     }
     else{
       data = properties;
-      }
+    }
+    
+    }
+    if(!found){
+      return res.status(404).json({
+        status: 'error',
+        error: 'property does not exist'
+      });  
+    }
+    else{
       return res.json({
-        status: 403,
+        status: 200,
         data,
       })
-  }
+    }
+    
   
 });
 
@@ -77,22 +83,26 @@ userRouter.get('/property/:id', (req, res) =>{
   }
 
   else{
+    let found;
     properties.map((prop) => {
+      
       if(prop.id === parseInt(id, 10)) {
         let data = prop;
+        found = true;
         return res.json({
           status: 200,
           data,
         })
+        
       }
-      else{
-        return res.status(404).json({
-          status: 'error',
-          error: 'property does not exist'
-        });
-      }
-      
+            
     });
+    if(!found){
+return res.status(404).json({
+      status: 'error',
+      error: 'property does not exist'
+    });
+    }
   }
   
 });

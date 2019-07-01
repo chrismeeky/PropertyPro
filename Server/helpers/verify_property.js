@@ -57,7 +57,7 @@ const day = new Date();
         error += 'invalid type, ';
       }
       
-      if (!req.file) {
+      if (!validate.validateImageUrl(req)) {
         error += 'invalid image, ';
       }
      if (!validate.validateUniqueness(property.image_url)) {

@@ -88,8 +88,8 @@ const validateEmail = (email) => {
               return true;
           }
         }
-        const  validateImageUrl = (imgUrl) => {
-          if(typeof imgUrl !== 'string' || imgUrl.length < 5){
+        const  validateImageUrl = (req) => {
+          if(!req.file){
               return false;
           }
           else{

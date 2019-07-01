@@ -104,6 +104,28 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) =>{
   
 });
 
+agentRouter.delete('/property/:id', verifyToken, (req, res) =>{
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if(err) {
+      res.json({status: 'error',
+      error: 'failed to validate your token'});
+    }
+    else{
+      let {id} = req.params;
+  let propertyIndex;
+  properties.map((result, index)=>{
+   if(result.id === parseInt(id,10)){
+     propertyIndex = index;
+   }
+  });
+  properties.splice(propertyIndex, 1);
+  res.json({status: 'success',
+             message: `property with an id: ${id} has been deleted successfully`});
+    }
+  });
+  
+});
+
 
 
 

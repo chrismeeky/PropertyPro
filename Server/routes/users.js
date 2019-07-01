@@ -33,23 +33,32 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 
 // users can view all property adverts
 userRouter.get('/property/', (req, res) =>{
-  let data;
-  if(typeof req.query.type === 'string'){
-    let holder = [];
-    properties.map((prop) => {
-      if(prop.type === req.query.type) {
-        holder.push(prop)
-        data = holder;
-              }
-    });
+  if(properties.length === 0) {
+    return res.status(404).json({
+      status:'error',
+      error: 'There are currently no properties'
+    })
   }
   else{
-    data = properties;
+    let data;
+    if(typeof req.query.type === 'string'){
+      let holder = [];
+      properties.map((prop) => {
+        if(prop.type === req.query.type) {
+          holder.push(prop)
+          data = holder;
+                }
+      });
     }
-    return res.json({
-      status: 403,
-      data,
-    })
+    else{
+      data = properties;
+      }
+      return res.json({
+        status: 403,
+        data,
+      })
+  }
+  
 });
 
 userRouter.get('/property/:id', (req, res) =>{

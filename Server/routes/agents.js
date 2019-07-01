@@ -7,6 +7,7 @@ const agentRouter = express.Router();
 const jwt = require('jsonwebtoken');
 const verifyToken = require('../middlewares/verify_token');
 const verifyProperty = require('../helpers/verify_property');
+const verifySignin = require('../middlewares/verify_signin');
 const properties = require('../db/properties');
 const patchObject = require('../helpers/patchobject');
 require('dotenv').config();
@@ -15,10 +16,26 @@ const upload = require('../middlewares/multer');
 const cloudinary = require('cloudinary');
 
 
-agentRouter.post('/create_blog', upload.single('image'), async (req, res) => {
-  
-    const result = await cloudinary.v2.uploader.upload(req.file.path)
-    res.send(result.url )
+agentRouter.post('/auth/signin', verifySignin, (req, res) => {
+  jwt.sign(req.user, 'secretkey', (err, tokens) => {
+    if (err) {
+      res.json({status: 'error',
+                      error: err})
+    }
+    else {
+      
+res.json({
+  status: 'success',
+  data: {
+    token: tokens,
+    id: req.user.id,
+    first_name: req.user.first_name,
+    last_name: req.user.last_name,
+    email: req.user.email,
+  },
+});
+}
+});
 });
 
 

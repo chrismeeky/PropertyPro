@@ -37,7 +37,7 @@ userRouter.get('/property/', (req, res) =>{
     return res.status(404).json({
       status:'error',
       error: 'There are currently no properties'
-    })
+    });
   }
   else{
     let data;
@@ -47,7 +47,13 @@ userRouter.get('/property/', (req, res) =>{
         if(prop.type === req.query.type) {
           holder.push(prop)
           data = holder;
-                }
+        }
+        else {
+          return res.status(404).json({
+            status: 'error',
+            error: 'property does not exist'
+          });
+        }
       });
     }
     else{
@@ -63,15 +69,32 @@ userRouter.get('/property/', (req, res) =>{
 
 userRouter.get('/property/:id', (req, res) =>{
   const {id} = req.params;
-  properties.map((prop) => {
-    if(prop.id === parseInt(id, 10)) {
-      let data = prop;
-      return res.json({
-        status: 200,
-        data,
-      })
-    }
-  });
+  if(properties.length === 0) {
+    return res.status(404).json({
+      status: 'error',
+      error: 'property does not exist'
+    });
+  }
+
+  else{
+    properties.map((prop) => {
+      if(prop.id === parseInt(id, 10)) {
+        let data = prop;
+        return res.json({
+          status: 200,
+          data,
+        })
+      }
+      else{
+        return res.status(404).json({
+          status: 'error',
+          error: 'property does not exist'
+        });
+      }
+      
+    });
+  }
+  
 });
 
 module.exports = userRouter;

@@ -60,6 +60,50 @@ agentRouter.post('/property',upload.single('image_url'), verifyToken, verifyProp
 // console.log(req.body)
 });
 
+agentRouter.patch('/property/:id', verifyToken, (req, res) =>{
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if(err) {
+      res.json({status: 'error',
+      error: err});
+    }
+    else{
+      let {id} = req.params;
+      let property;
+      properties.map((result)=>{
+       if(result.id === parseInt(id,10)){
+         property = result;
+       }
+      });
+      patchObject(property, req.body);
+      res.json({property});
+    }
+  });
+  
+});
+
+agentRouter.patch('/property/:id/sold', verifyToken, (req, res) =>{
+  jwt.verify(req.token, 'secretkey', (err, authData) => {
+    if(err) {
+        res.json({status: 'error',
+        error: err});
+    }
+    else{
+      let {id} = req.params;
+  let property;
+  properties.map((result)=>{
+   if(result.id === parseInt(id,10)){
+     property = result;
+   }
+  });
+  patchObject(property, {status: 'sold'});
+  let data = property;
+  res.json({status: 'success',
+            data});
+    }
+  });
+  
+});
+
 
 
 

@@ -24,7 +24,6 @@ const day = new Date();
         created_on: day.toLocaleString(),
         image_url: req.body.image_url,
       };
-
     jwt.verify(req.token, 'secretkey', (err, authData) => {
         if(err) {
             res.sendStatus(403);
@@ -57,16 +56,15 @@ const day = new Date();
       if (!validate.validateType(req.body.type)) {
         error += 'invalid type, ';
       }
-
-      if (!validate.validateImageUrl(req.body.image_url)) {
-        error += 'invalid image URL, ';
+      
+      if (!req.file) {
+        error += 'invalid image, ';
       }
      if (!validate.validateUniqueness(property.image_url)) {
         error += 'property exists, ';
      }
    if (error === '') {       
            req.property = property;
-           properties.push(property);
         next();
     }
    else {

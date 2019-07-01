@@ -34,35 +34,77 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 // users can view all property adverts
 userRouter.get('/property/', (req, res) =>{
   let data;
+  let found = true;
   if(typeof req.query.type === 'string'){
     let holder = [];
     properties.map((prop) => {
       if(prop.type === req.query.type) {
         holder.push(prop)
         data = holder;
-              }
+        found = true
+      }
+      else{
+        found = false;
+      }
     });
   }
   else{
-    data = properties;
+    if(properties.length === 0){
+      found = false;
     }
-    return res.json({
-      status: 403,
-      data,
-    })
-});
-
-userRouter.get('/property/:id', (req, res) =>{
-  const {id} = req.params;
-  properties.map((prop) => {
-    if(prop.id === parseInt(id, 10)) {
-      let data = prop;
+    else{
+      data = properties;
+    }
+    
+    }
+    if(!found){
+      return res.status(404).json({
+        status: 'error',
+        error: 'property does not exist'
+      });  
+    }
+    else{
       return res.json({
         status: 200,
         data,
       })
     }
-  });
+    
+  
+});
+
+userRouter.get('/property/:id', (req, res) =>{
+  const {id} = req.params;
+  if(properties.length === 0) {
+    return res.status(404).json({
+      status: 'error',
+      error: 'property does not exist'
+    });
+  }
+
+  else{
+    let found;
+    properties.map((prop) => {
+      
+      if(prop.id === parseInt(id, 10)) {
+        let data = prop;
+        found = true;
+        return res.json({
+          status: 200,
+          data,
+        })
+        
+      }
+            
+    });
+    if(!found){
+return res.status(404).json({
+      status: 'error',
+      error: 'property does not exist'
+    });
+    }
+  }
+  
 });
 
 module.exports = userRouter;

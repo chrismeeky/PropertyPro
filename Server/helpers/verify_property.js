@@ -14,7 +14,7 @@ const verifyProperty = (req, res, next) => {
 		id: generateId(properties),
 		owner: ownerId,
 		status: req.body.status,
-		price: parseFloat(req.body.price),
+		price: req.body.price,
 		state: req.body.state,
 		city: req.body.city,
 		address: req.body.address,

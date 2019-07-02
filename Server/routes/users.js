@@ -8,6 +8,7 @@ const userRouter = express.Router();
 
 const jwt = require('jsonwebtoken');
 const verifySignup = require('../middlewares/verify_signup');
+const isPropertyFound = require('../helpers/isPropertyFound');
 
 const properties = require('../db/properties');
 
@@ -34,30 +35,18 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 });
 
 // users can view all property adverts
-userRouter.get('/property/', (req, res) => {
+userRouter.get('/property/', isPropertyFound, (req, res) => {
 	let data;
-	let found = true;
 	if (typeof req.query.type === 'string') {
 		const holder = [];
 		properties.map((prop) => {
 			if (prop.type === req.query.type) {
 				holder.push(prop);
 				data = holder;
-				found = true;
-			} else {
-				found = false;
 			}
 		});
-	} else if (properties.length === 0) {
-		found = false;
 	} else {
-		data = properties;
-	}
-	if (!found) {
-		return res.status(404).json({
-			status: 'error',
-			error: 'property does not exist',
-		});
+    		data = properties;
 	}
 
 	return res.json({
@@ -66,33 +55,17 @@ userRouter.get('/property/', (req, res) => {
 	});
 });
 
-userRouter.get('/property/:id', (req, res) => {
+userRouter.get('/property/:id', isPropertyFound, (req, res) => {
 	const { id } = req.params;
-	if (properties.length === 0) {
-		return res.status(404).json({
-			status: 'error',
-			error: 'property does not exist',
-		});
-	}
-
-
-	let found;
 	properties.map((prop) => {
 		if (prop.id === parseInt(id, 10)) {
 			const data = prop;
-			found = true;
 			return res.json({
 				status: 200,
 				data,
 			});
 		}
 	});
-	if (!found) {
-		return res.status(404).json({
-			status: 'error',
-			error: 'property does not exist',
-		});
-	}
 });
 
 module.exports = userRouter;

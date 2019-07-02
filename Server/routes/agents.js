@@ -77,7 +77,6 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
     })
   }
 
-  // console.log(req.body)
 });
 
 agentRouter.patch('/property/:id', verifyToken, (req, res) => {

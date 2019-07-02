@@ -10,6 +10,8 @@ const verifyProperty = require('../helpers/verify_property');
 const verifySignin = require('../middlewares/verify_signin');
 const properties = require('../db/properties');
 const patchObject = require('../helpers/patchobject');
+const deleteProperty = require('../helpers/deleteProperty');
+const isPropertyFound = require('../helpers/isPropertyFound');
 require('dotenv').config();
 require('../config/cloudinary');
 const upload = require('../middlewares/multer');
@@ -77,15 +79,10 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
     })
   }
 
-  // console.log(req.body)
 });
 
-agentRouter.patch('/property/:id', verifyToken, (req, res) => {
-  let found;
-  if (properties.length === 0) {
-    found = false;
-  }
-  else {
+agentRouter.patch('/property/:id', verifyToken, isPropertyFound, (req, res) => {
+  
     jwt.verify(req.token, 'secretkey', (err, authData) => {
       if (err) {
         res.json({
@@ -100,28 +97,16 @@ agentRouter.patch('/property/:id', verifyToken, (req, res) => {
         properties.map((result) => {
           if (result.id === parseInt(id, 10)) {
             property = result;
-            found = true;
             patchObject(property, req.body);
             res.status(200).json({ property });
           }
-
-
         });
 
       }
     });
-  }
+  });
 
-  if (!found) {
-    return res.status(404).json({
-      status: 'error',
-      error: 'property does not exist'
-    });
-  }
-});
-
-agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
-  let found;
+agentRouter.patch('/property/:id/sold', verifyToken, isPropertyFound, (req, res) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
       return res.json({
@@ -134,7 +119,6 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
       let property;
       properties.map((result) => {
         if (result.id === parseInt(id, 10)) {
-          found = true;
           property = result;
           patchObject(property, { status: 'sold' });
           let data = property;
@@ -146,39 +130,25 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
       });
     }
   });
-  if (!found) {
-    return res.status(404).json({
-      status: 'error',
-      error: 'property does not exist'
-    });
-  }
-
+  
 });
 
-agentRouter.delete('/property/:id', verifyToken, (req, res) => {
+agentRouter.delete('/property/:id', verifyToken, isPropertyFound, (req, res) => {
+  
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
-      res.json({
+      return res.json({
         status: 'error',
         error: 'failed to validate your token'
       });
     }
     else {
       let { id } = req.params;
-      let propertyIndex;
-      properties.map((result, index) => {
-        if (result.id === parseInt(id, 10)) {
-          propertyIndex = index;
-        }
-      });
-      properties.splice(propertyIndex, 1);
-      res.json({
-        status: 'success',
-        message: `property with an id: ${id} has been deleted successfully`
-      });
+      deleteProperty(properties, id, res);    
+     
     }
   });
-
+  
 });
 
 

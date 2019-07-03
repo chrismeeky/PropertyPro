@@ -4,7 +4,7 @@
   "description": "Property pro lite endpoints",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill *.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "nodemon --exec babel-node src/app.js",
     "build": "babel src --out-dir dist",

@@ -20,31 +20,31 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">37.04% </span>
+        <span class="strong">85.19% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>10/27</span>
+        <span class='fraction'>23/27</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/8</span>
+        <span class='fraction'>4/8</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/6</span>
+        <span class='fraction'>4/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">37.04% </span>
+        <span class="strong">85.19% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>10/27</span>
+        <span class='fraction'>23/27</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -158,30 +158,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -228,32 +228,32 @@ userRouter.post('/auth/signup', verifySignup, <span class="fstat-no" title="func
 });
 &nbsp;
 // users can view all property adverts
-userRouter.get('/property/', isPropertyFound, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+userRouter.get('/property/', isPropertyFound, (req, res) =&gt; {
 	let data;
-<span class="cstat-no" title="statement not covered" >	if (typeof req.query.type === 'string') {</span>
-		const holder = <span class="cstat-no" title="statement not covered" >[];</span>
-<span class="cstat-no" title="statement not covered" >		properties.</span>map(<span class="fstat-no" title="function not covered" >(p</span>rop) =&gt; {
-<span class="cstat-no" title="statement not covered" >			if (prop.type === req.query.type) {</span>
-<span class="cstat-no" title="statement not covered" >				holder.</span>push(prop);
-<span class="cstat-no" title="statement not covered" >				data </span>= holder;
+	if (typeof req.query.type === 'string') {
+		const holder = [];
+		properties.map((prop) =&gt; {
+			<span class="missing-if-branch" title="else path not taken" >E</span>if (prop.type === req.query.type) {
+				holder.push(prop);
+				data = holder;
 			}
 		});
 	} else {
-<span class="cstat-no" title="statement not covered" >    		data </span>= properties;
+    		data = properties;
 	}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >	return r</span>es.json({
+	return res.json({
 		status: 200,
 		data,
 	});
 });
 &nbsp;
-userRouter.get('/property/:id', isPropertyFound, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-	const { id } = <span class="cstat-no" title="statement not covered" >req.params;</span>
-<span class="cstat-no" title="statement not covered" >	properties.</span>map(<span class="fstat-no" title="function not covered" >(p</span>rop) =&gt; {
-<span class="cstat-no" title="statement not covered" >		if (prop.id === parseInt(id, 10)) {</span>
-			const data = <span class="cstat-no" title="statement not covered" >prop;</span>
-<span class="cstat-no" title="statement not covered" >			return r</span>es.json({
+userRouter.get('/property/:id', isPropertyFound, (req, res) =&gt; {
+	const { id } = req.params;
+	properties.map((prop) =&gt; {
+		<span class="missing-if-branch" title="else path not taken" >E</span>if (prop.id === parseInt(id, 10)) {
+			const data = prop;
+			return res.json({
 				status: 200,
 				data,
 			});
@@ -268,7 +268,7 @@ module.exports = userRouter;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jul 03 2019 08:58:50 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 04 2019 00:17:32 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

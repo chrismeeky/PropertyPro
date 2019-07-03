@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">35.09% </span>
+        <span class="strong">46.55% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>20/57</span>
+        <span class='fraction'>27/58</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">9.52% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/21</span>
+        <span class='fraction'>2/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">7.69% </span>
+        <span class="strong">38.46% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/13</span>
+        <span class='fraction'>5/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">35.71% </span>
+        <span class="strong">47.37% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>20/56</span>
+        <span class='fraction'>27/57</span>
       </div>
     </div>
     <p class="quiet">
@@ -204,7 +204,8 @@
 <a name='L156'></a><a href='#L156'>156</a>
 <a name='L157'></a><a href='#L157'>157</a>
 <a name='L158'></a><a href='#L158'>158</a>
-<a name='L159'></a><a href='#L159'>159</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -224,17 +225,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -299,9 +300,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -341,16 +343,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -382,9 +384,9 @@ const upload = require('../middlewares/multer');
 const cloudinary = require('cloudinary');
 &nbsp;
 &nbsp;
-agentRouter.post('/auth/signin', verifySignin, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >  jwt.</span>sign(req.user, 'secretkey', <span class="fstat-no" title="function not covered" >(e</span>rr, tokens) =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (err) {</span>
+agentRouter.post('/auth/signin', verifySignin, (req, res) =&gt; {
+  jwt.sign(req.user, 'secretkey', (err, tokens) =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
 <span class="cstat-no" title="statement not covered" >      res.</span>json({
         status: 'error',
         error: err
@@ -392,7 +394,7 @@ agentRouter.post('/auth/signin', verifySignin, <span class="fstat-no" title="fun
     }
     else {
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      res.</span>json({
+      res.json({
         status: 'success',
         data: {
           token: tokens,
@@ -418,7 +420,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
       else {
 <span class="cstat-no" title="statement not covered" >        property.</span>image_url = result.url;
 <span class="cstat-no" title="statement not covered" >        properties.</span>push(property);
-<span class="cstat-no" title="statement not covered" >        res.</span>json({
+<span class="cstat-no" title="statement not covered" >        res.</span>status(200).json({
           status: 'success',
           data: {
             id: property.id,
@@ -445,8 +447,8 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
 &nbsp;
 });
 &nbsp;
-agentRouter.patch('/property/:id', verifyToken, isPropertyFound, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
-  
+agentRouter.patch('/property/:id',  isPropertyFound, verifyToken, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    jwt.</span>verify(req.token, 'secretkey', <span class="fstat-no" title="function not covered" >(e</span>rr, authData) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (err) {</span>
 <span class="cstat-no" title="statement not covered" >        res.</span>json({
@@ -457,9 +459,10 @@ agentRouter.patch('/property/:id', verifyToken, isPropertyFound, <span class="fs
       else {
         let { id } = <span class="cstat-no" title="statement not covered" >req.params;</span>
         let property;
-&nbsp;
 <span class="cstat-no" title="statement not covered" >        properties.</span>map(<span class="fstat-no" title="function not covered" >(r</span>esult) =&gt; {
 <span class="cstat-no" title="statement not covered" >          if (result.id === parseInt(id, 10)) {</span>
+<span class="cstat-no" title="statement not covered" >          console.</span>log(result.id)
+&nbsp;
 <span class="cstat-no" title="statement not covered" >            property </span>= result;
 <span class="cstat-no" title="statement not covered" >            patchObject(</span>property, req.body);
 <span class="cstat-no" title="statement not covered" >            res.</span>status(200).json({ property });
@@ -497,18 +500,18 @@ agentRouter.patch('/property/:id/sold', verifyToken, isPropertyFound, <span clas
   
 });
 &nbsp;
-agentRouter.delete('/property/:id', verifyToken, isPropertyFound, <span class="fstat-no" title="function not covered" >(r</span>eq, res) =&gt; {
+agentRouter.delete('/property/:id', verifyToken, isPropertyFound, (req, res) =&gt; {
   
-<span class="cstat-no" title="statement not covered" >  jwt.</span>verify(req.token, 'secretkey', <span class="fstat-no" title="function not covered" >(e</span>rr, authData) =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (err) {</span>
+  jwt.verify(req.token, 'secretkey', (err, authData) =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
 <span class="cstat-no" title="statement not covered" >      return r</span>es.json({
         status: 'error',
         error: 'failed to validate your token'
       });
     }
     else {
-      let { id } = <span class="cstat-no" title="statement not covered" >req.params;</span>
-<span class="cstat-no" title="statement not covered" >      deleteProperty(</span>properties, id, res);    
+      let { id } = req.params;
+      deleteProperty(properties, id, res);    
      
     }
   });
@@ -526,7 +529,7 @@ module.exports = agentRouter;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jul 03 2019 08:58:50 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 04 2019 00:17:32 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

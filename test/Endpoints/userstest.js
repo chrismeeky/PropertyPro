@@ -5,7 +5,7 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 let userToken
 let type = '2 bedroom flat';
-let id = '1';
+let id = 1;
 const app = require('../../Server/index');
 
 let userInfo = {

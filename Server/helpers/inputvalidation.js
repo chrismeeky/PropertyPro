@@ -1,7 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-tabs */
 const users = require('../db/users');
-const properties = require('../db/properties');
 
 const validateEmail = (email) => {
 	for (let index = 0; index < users.length; index++) {
@@ -51,8 +50,11 @@ const validateSatus = (status) => {
 	if (typeof status !== 'string' || status === '') {
 		return 'available';
 	}
+	if (status === 'available' || status === 'sold') {
+		return status;
+	}
 
-	return status;
+	return false;
 };
 const validatePrice = (price) => {
 	if (isNaN(price)) {
@@ -63,7 +65,7 @@ const validatePrice = (price) => {
 };
 
 const validateState = (state) => {
-	if (typeof state !== 'string') {
+	if (typeof state !== 'string' || state.length < 4) {
 		return false;
 	}
 
@@ -77,7 +79,7 @@ const validateCity = (city) => {
 	return true;
 };
 const validateType = (type) => {
-	if (typeof type !== 'string') {
+	if (typeof type !== 'string' || type.length < 12) {
 		return false;
 	}
 
@@ -91,14 +93,6 @@ const validateImageUrl = (req) => {
 	return true;
 };
 
-const validateUniqueness = (imgUrl2) => {
-	for (let index = 0; index < properties.length; index++) {
-		if (imgUrl2 === properties[index].image_url) {
-			return false;
-		}
-	}
-	return true;
-};
 
 module.exports = {
 	validateEmail,
@@ -114,7 +108,6 @@ module.exports = {
 	validateCity,
 	validateType,
 	validateImageUrl,
-	validateUniqueness,
 
 
 };

@@ -33,7 +33,7 @@ const verifySignin = (req, res, next) => {
 		if (error === '') {
 			next();
 		} else {
-			return res.status(400).json({
+			return res.status(401).json({
 				status: 'error',
 				error,
 			});

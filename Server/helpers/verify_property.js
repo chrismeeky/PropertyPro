@@ -56,15 +56,12 @@ const verifyProperty = (req, res, next) => {
 	if (!validate.validateImageUrl(req)) {
 		error += 'invalid image, ';
 	}
-	if (!validate.validateUniqueness(property.image_url)) {
-		error += 'property exists, ';
-	}
 	if (error === '') {
 		req.property = property;
 		next();
 	} else {
 		console.log(error);
-		res.status(403).json({
+		res.status(422).json({
 			status: 'error',
 			error,
 		});

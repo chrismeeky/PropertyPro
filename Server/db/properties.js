@@ -13,7 +13,7 @@ const properties = [
         created_on: day.toLocaleString(),
         image_url: 'http://coudinary.com',
 
-    },
+    }
           
 ];
 module.exports = properties;

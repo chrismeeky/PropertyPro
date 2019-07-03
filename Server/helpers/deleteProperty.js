@@ -7,9 +7,11 @@ const deleteProperty = (properties, id, res) => {
 		if (result.id === parseInt(id, 10)) {
 			propertyIndex = index;
 			properties.splice(propertyIndex, 1);
-			return res.json({
+			return res.status(200).json({
 				status: 'success',
-				message: `property with an id: ${id} has been deleted successfully`,
+				data: {
+					message: `property with an id: ${id} has been deleted successfully`,
+				},
 			});
 		}
 	});

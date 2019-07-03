@@ -54,7 +54,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
       else {
         property.image_url = result.url;
         properties.push(property);
-        res.json({
+        res.status(200).json({
           status: 'success',
           data: {
             id: property.id,
@@ -81,8 +81,8 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
 
 });
 
-agentRouter.patch('/property/:id', verifyToken, isPropertyFound, (req, res) => {
-  
+agentRouter.patch('/property/:id',  isPropertyFound, verifyToken, (req, res) => {
+
     jwt.verify(req.token, 'secretkey', (err, authData) => {
       if (err) {
         res.json({
@@ -93,9 +93,10 @@ agentRouter.patch('/property/:id', verifyToken, isPropertyFound, (req, res) => {
       else {
         let { id } = req.params;
         let property;
-
         properties.map((result) => {
           if (result.id === parseInt(id, 10)) {
+          console.log(result.id)
+
             property = result;
             patchObject(property, req.body);
             res.status(200).json({ property });

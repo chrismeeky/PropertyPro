@@ -59,7 +59,7 @@ const userModel = (req, res, next) => {
 		});
 	} else {
 		console.log(error);
-		res.status(403).json({
+		res.status(401).json({
 			status: 'error',
 			error,
 		});

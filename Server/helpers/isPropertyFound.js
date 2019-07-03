@@ -5,40 +5,33 @@
 const properties = require('../db/properties');
 
 const isPropertyFound = (req, res, next) => {
-	if (req.url === '/property' || req.url === '/property/') {
-		if (properties.length > 0) {
+	let found = false;
+	if (properties.length > 0) {
+		if (req.url === '/property' || req.url === '/property/') {
 			return next();
 		} else {
-			return res.status(404).json({
-				status: 'error',
-				error: 'property not found',
-			});
-		}
-	} else {
-		const { id } = req.params;
-		let found;
-		if (properties.length > 0) {
+			const { id } = req.params;
 			properties.map((result) => {
 				if (result.id === parseInt(id, 10) || result.type === req.query.type) {
 					found = true;
+					return next();
 				}
-			});
-			if (found) {
 				return next();
-			} else {
+			});
+			if (!found) {
 				return res.status(404).json({
 					status: 'error',
 					error: 'property not found',
 				});
 			}
-		} else {
-			return res.status(404).json({
-				status: 'error',
-				error: 'property not found',
-			});
 		}
 	}
+	else {
+		return res.status(404).json({
+			status: 'error',
+			error: 'property not found',
+		});
+	}
 };
-
 
 module.exports = isPropertyFound;

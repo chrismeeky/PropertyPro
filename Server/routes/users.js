@@ -21,7 +21,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 				error: err,
 			});
 		} else {
-			res.json({
+			return res.status(200).json({
 				status: 'success',
 				data: {
 					token: tokens,
@@ -61,7 +61,7 @@ userRouter.get('/property/:id', isPropertyFound, (req, res) => {
 	properties.map((prop) => {
 		if (prop.id === parseInt(id, 10)) {
 			const data = prop;
-			return res.json({
+			return res.status(200).json({
 				status: 200,
 				data,
 			});

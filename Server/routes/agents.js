@@ -49,12 +49,12 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
   if (result.url.includes('cloudinary')) {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
       if (err) {
-        res.sendStatus(403);
+        return res.sendStatus(403);
       }
       else {
         property.image_url = result.url;
         properties.push(property);
-        res.status(200).json({
+        return res.status(200).json({
           status: 'success',
           data: {
             id: property.id,
@@ -99,7 +99,7 @@ agentRouter.patch('/property/:id',  isPropertyFound, verifyToken, (req, res) => 
 
             property = result;
             patchObject(property, req.body);
-            res.status(200).json({ property });
+           return  res.status(200).json({ property });
           }
         });
 

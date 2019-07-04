@@ -46,7 +46,7 @@ const userModel = (req, res, next) => {
 		bcrypt.hash(user.password, 10, (err, hash) => {
 			if (err) {
 				console.log('error');
-				res.json({
+				return res.json({
 					success: false,
 					err,
 				});
@@ -59,7 +59,7 @@ const userModel = (req, res, next) => {
 		});
 	} else {
 		console.log(error);
-		res.status(401).json({
+		return res.status(401).json({
 			status: 'error',
 			error,
 		});

@@ -8,7 +8,7 @@ const verifyToken = (req, res, next) => {
 		req.token = token;
 		next();
 	} else {
-		res.json({
+		return res.json({
 			status: 'error',
 			error: 'token could not be generated',
 		});

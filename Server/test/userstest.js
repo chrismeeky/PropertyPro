@@ -6,20 +6,36 @@ chai.use(chaiHttp);
 let userToken
 let type = '2 bedroom flat';
 let id = '1';
-const app = require('../../Server/index');
+const app = require('../index');
 
 let userInfo = {
     email: 'emaka@gmail.com',
     password: 'testpassword123',
 }
 describe('users property endpoints', () => {
-    before('Get request token', async () => {
+    before('Get request token',  (done) => {
         try {
             chai.request(app)
                 .post('/api/v1/auth/signin')
                 .send(userInfo)
                 .end((err, res) => {
                     userToken = res.body.data.token;
+                    expect(res.status).to.equal(200);
+                    expect(res.body).to.have.property('status');
+                    expect(res.body.status).to.be.a('string');
+                    expect(res.body).to.have.property('data');
+                    expect(res.body.data).to.be.an('object');
+                    expect(res.body.data).to.have.property('token');
+                    expect(res.body.data.token).to.be.a('string');
+                    expect(res.body.data).to.have.property('id');
+                    expect(res.body.data.id).to.be.a('number');
+                    expect(res.body.data).to.have.property('first_name');
+                    expect(res.body.data.first_name).to.be.a('string');
+                    expect(res.body.data).to.have.property('last_name');
+                    expect(res.body.data.last_name).to.be.a('string');
+                    expect(res.body.data).to.have.property('email');
+                    expect(res.body.data.email).to.be.a('string');
+                    done();
 
                 });
         } catch (error) {
@@ -58,7 +74,7 @@ describe('users property endpoints', () => {
         })
 
     })
-    describe('GET /property?type=' + type, () => {
+    describe(`GET /api/v1/property/${id}`, () => {
         it('should get specific property type', (done) => {
             chai.request(app)
                 .get(`/api/v1/property?type=${type}`)
@@ -90,11 +106,11 @@ describe('users property endpoints', () => {
         })
     });
 
-    describe('GET /property/' + id, () => {
+    describe(`GET /api/v1/property/:<id>`, () => {
         it('should get a specific property', (done) => {
             chai.request(app)
                 .get(`/api/v1/property/${id}`)
-                .end((err,res) => {
+                .end((err, res) => {
                     expect(res.status).to.equal(200);
                     expect(res.body.status).to.equal(200);
                     expect(res.body.data).to.be.an('object');
@@ -121,38 +137,18 @@ describe('users property endpoints', () => {
         });
     });
 
-        describe('DELETE /api/v1/property/id', () => {
-            it('should delete a specific property', (done) => {
-                chai.request(app)
-                    .delete(`/api/v1/property/${id}`)
-                    .set('authorization', 'bearer ' + userToken)
-                    .end((err, res) => {
-                        expect(res.status).to.equal(200);
-                        expect(res.body).to.have.property('status');
-                        expect(res.body.status).to.be.a('string');
-                        expect(res.body.status).to.equal('success');
-
-                        expect(res.body).to.have.property('data');
-                        expect(res.body.data).to.be.an('object');
-                        expect(res.body.data).to.have.a.property('message');
-                        expect(res.body.data.message).to.equal(`property with an id: ${id} has been deleted successfully`);
-                        done();
-                    })
-            });
-        });
-
-        let newInfo = {
-            status: 'sold',
-        }
-        describe('PATCH /api/v1/property/', () => {
-            it('should return 404 error if property is not found', (done) => {
-                chai.request(app)
-                    .patch(`/api/v1/property/1`)
-                    .set('authorization', 'bearer ' + userToken)
-                    .end((err, res) => {
-                        expect(res.status).to.equal(200);
-                    expect(res.body.status).to.equal(200);
-                    expect(res.body.data).to.be.an('object');
+    describe('PATCH /api/v1/property/id', () => {
+        it('should be able to update property fields', (done) => {
+            chai.request(app)
+                .patch('/api/v1/property/' + id)
+                .set('authorization', `Bearer ${userToken}`)
+                .send({
+                    status: 'available',
+                    state: 'Anambra'
+                })
+                .end((err, res) => {
+                    expect(res.status).to.equal(200)
+                    expect(res.body).to.be.an('object')
                     expect(res.body).to.have.a.property('data')
                     let result = res.body.data;
                     expect(result).to.have.a.property('id');
@@ -161,8 +157,10 @@ describe('users property endpoints', () => {
                     expect(result.price).to.be.a('number');
                     expect(result).to.have.a.property('status');
                     expect(result.status).to.be.a('string');
+                    expect(result.status).to.equal('available');
                     expect(result).to.have.a.property('state');
                     expect(result.state).to.be.a('string');
+                    expect(result.state).to.equal('Anambra');
                     expect(result).to.have.a.property('city');
                     expect(result.city).to.be.a('string');
                     expect(result).to.have.a.property('address');
@@ -171,106 +169,140 @@ describe('users property endpoints', () => {
                     expect(result.created_on).to.be.a('string');
                     expect(result).to.have.a.property('image_url');
                     expect(result.image_url).to.be.a('string');
-                        done();
+                    done();
+                })
 
-                    })
-            });
-        });
-
-        describe('PATCH /api/v1/property/1/sold', () => {
-            it('should return 404 error if property is not found', (done) => {
-                chai.request(app)
-                    .patch(`/api/v1/property/${id}`)
-                    .set('authorization', 'bearer ' + userToken)
-                    .end((err, res) => {
-                        expect(res.status).to.equal(200);
-                    expect(res.body.status).to.equal(200);
-                    expect(res.body.data).to.be.an('object');
-                    expect(res.body).to.have.a.property('data')
-                    let result = res.body.data;
-                    expect(result).to.have.a.property('id');
-                    expect(result.id).to.be.a('number');
-                    expect(result).to.have.a.property('price');
-                    expect(result.price).to.be.a('number');
-                    expect(result).to.have.a.property('status');
-                    expect(result.status).to.be.a('string');
-                    expect(result).to.have.a.property('state');
-                    expect(result.state).to.be.a('string');
-                    expect(result).to.have.a.property('city');
-                    expect(result.city).to.be.a('string');
-                    expect(result).to.have.a.property('address');
-                    expect(result.address).to.be.a('string');
-                    expect(result).to.have.a.property('created_on');
-                    expect(result.created_on).to.be.a('string');
-                    expect(result).to.have.a.property('image_url');
-                    expect(result.image_url).to.be.a('string');
-                        done();
-                    })
-            })
-        })
-
-
-
-        describe('POST /api/v1/property/', () => {
-            it('Should return 422 when property is invalid', (done) => {
-                chai.request(app)
-                    .post('/api/v1/property/')
-                    .set('authorization', 'bearer ' + userToken)
-                    .send({})
-
-                    .end((err, res) => {
-                        expect(res.status).to.equal(422);
-                        expect(res.body).to.have.property('status');
-                        expect(res.body.status).to.be.a('string');
-                        expect(res.body.status).to.equal('error');
-                        expect(res.body).to.have.property('error');
-                        expect(res.body.error).to.be.a('string');
-                        expect(res.body.error).to.equal('invalid price, invalid state, invalid city, invalid type, invalid image, ');
-                        done();
-
-                    });
-            })
-            const body = {
-                status: 'sold',
-                price: '12525',
-                type: '2 bedroom flat',
-                state: 'Enugu',
-                city: 'Nsukka',
-                address: 'No 1 prisons road'
-
-            }
-            it('Should create a new property advert', function (done) {
-                chai.request(app)
-                    .post('/api/v1/property/')
-                    .set('authorization', 'bearer ' + userToken)
-                    .attach('image_url', './test/balcony.png')
-                    .field(body)
-                    .end((err, res) => {
-                        console.log(res.body)
-                        expect(res.status).to.equal(200);
-                        expect(res.status).to.equal(200);
-                        expect(res.body.status).to.equal('success');
-                        expect(res.body.data).to.be.an('object');
-                        expect(res.body).to.have.a.property('data')
-                        let result = res.body.data;
-                        expect(result).to.have.a.property('id');
-                        expect(result.id).to.be.a('number');
-                        expect(result).to.have.a.property('price');
-                        expect(result).to.have.a.property('status');
-                        expect(result.status).to.be.a('string');
-                        expect(result).to.have.a.property('state');
-                        expect(result.state).to.be.a('string');
-                        expect(result).to.have.a.property('city');
-                        expect(result.city).to.be.a('string');
-                        expect(result).to.have.a.property('address');
-                        expect(result.address).to.be.a('string');
-                        expect(result).to.have.a.property('created_on');
-                        expect(result.created_on).to.be.a('string');
-                        expect(result).to.have.a.property('image_url');
-                        expect(result.image_url).to.be.a('string');
-                        done()
-                    })
-
-            })
         })
     })
+    describe('PATCH /api/v1/property/:<id>/sold', () => {
+        it('should mark a property as sold', (done) => {
+            chai.request(app)
+                .patch(`/api/v1/property/${id}/sold`)
+                .set('authorization', `Bearer ${userToken}`)
+                .end((err, res) => {
+                    expect(res.status).to.equal(200)
+                    expect(res.body).to.be.an('object')
+                    expect(res.body).to.have.a.property('data')
+                    let result = res.body.data;
+                    expect(result).to.have.a.property('id');
+                    expect(result.id).to.be.a('number');
+                    expect(result).to.have.a.property('price');
+                    expect(result.price).to.be.a('number');
+                    expect(result).to.have.a.property('status');
+                    expect(result.status).to.be.a('string');
+                    expect(result.status).to.equal('sold');
+                    expect(result).to.have.a.property('state');
+                    expect(result.state).to.be.a('string');
+                    expect(result).to.have.a.property('city');
+                    expect(result.city).to.be.a('string');
+                    expect(result).to.have.a.property('address');
+                    expect(result.address).to.be.a('string');
+                    expect(result).to.have.a.property('created_on');
+                    expect(result.created_on).to.be.a('string');
+                    expect(result).to.have.a.property('image_url');
+                    expect(result.image_url).to.be.a('string');
+                    done();
+                })
+        })
+    })
+
+    describe('DELETE /api/v1/property/:<id>', () => {
+        it('should delete a specific property ad', (done) => {
+            chai.request(app)
+                .delete(`/api/v1/property/${id}`)
+                .set('authorization', `Bearer ${userToken}`)
+                .end((err, res) => {
+                    console.log(res.body)
+                    expect(res.status).to.equal(200)
+                    expect(res.body).to.have.property('status');
+                    expect(res.body.status).to.equal('success');
+                    expect(res.body).to.have.property('data');
+                    expect(res.body.data).to.be.an('object');
+                    expect(res.body.data).to.have.property('message');
+                    expect(res.body.data.message).to.be.a('string');
+                    expect(res.body.data.message).to.equal(`property with an id: ${id} has been deleted successfully`)
+                    done()
+                })
+        })
+    })
+
+    describe('POST /api/v1/auth/signup', () => {
+        it('should be able to sign users up', (done) => {
+            chai.request(app)
+                .post(`/api/v1/auth/signup`)
+                .send({
+                    first_name: 'Christian',
+                    last_name: 'Nwodo',
+                    email: 'nwodochristian@gmail.com',
+                    password: 'thisisapass123',
+                    address: 'no 2 Mbadiwe street',
+                    phone_number: '08587458958',
+                    is_admin: false,
+                })
+                .end((err, res) => {
+                    console.log(res.body)
+                    expect(res.status).to.equal(200);
+                    expect(res.body).to.have.property('status');
+                    expect(res.body.status).to.be.a('string');
+                    expect(res.body).to.have.property('data');
+                    expect(res.body.data).to.be.an('object');
+                    expect(res.body.data).to.have.property('token');
+                    expect(res.body.data.token).to.be.a('string');
+                    expect(res.body.data).to.have.property('id');
+                    expect(res.body.data.id).to.be.a('number');
+                    expect(res.body.data).to.have.property('first_name');
+                    expect(res.body.data.first_name).to.be.a('string');
+                    expect(res.body.data).to.have.property('last_name');
+                    expect(res.body.data.last_name).to.be.a('string');
+                    expect(res.body.data).to.have.property('email');
+                    expect(res.body.data.email).to.be.a('string');
+                    done();
+                })
+        })
+    })
+
+    describe('POST /api/v1/property', () => {
+        const body = {
+            id: 1,
+            status: 'sold',
+            price: '12525',
+            type: '2 bedroom flat',
+            state: 'Enugu',
+            city: 'Nsukka',
+            address: 'No 1 prisons road'
+
+        }
+        it('should be able to create new property', (done) => {
+            chai.request(app)
+                .post(`/api/v1/property`)
+                .set('authorization', `Bearer ${userToken}`)
+                .attach('image_url', './Server/test/dl.png')
+                .field(body)
+                .end((err, res) => {
+                    console.log(res.body)
+                    expect(res.status).to.equal(200);
+                    expect(res.body.status).to.equal('success');
+                    expect(res.body.data).to.be.an('object');
+                    expect(res.body).to.have.a.property('data')
+                    let result = res.body.data;
+                    expect(result).to.have.a.property('id');
+                    expect(result.id).to.be.a('number');
+                    expect(result).to.have.a.property('price');
+                    expect(result).to.have.a.property('status');
+                    expect(result.status).to.be.a('string');
+                    expect(result).to.have.a.property('state');
+                    expect(result.state).to.be.a('string');
+                    expect(result).to.have.a.property('city');
+                    expect(result.city).to.be.a('string');
+                    expect(result).to.have.a.property('address');
+                    expect(result.address).to.be.a('string');
+                    expect(result).to.have.a.property('created_on');
+                    expect(result.created_on).to.be.a('string');
+                    expect(result).to.have.a.property('image_url');
+                    expect(result.image_url).to.be.a('string');
+                    done()
+                })
+        })
+    })
+
+})

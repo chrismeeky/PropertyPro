@@ -92,14 +92,14 @@ agentRouter.patch('/property/:id',  isPropertyFound, verifyToken, (req, res) => 
       }
       else {
         let { id } = req.params;
-        let property;
+        let data;
         properties.map((result) => {
           if (result.id === parseInt(id, 10)) {
           console.log(result.id)
 
-            property = result;
-            patchObject(property, req.body);
-           return  res.status(200).json({ property });
+            data = result;
+            patchObject(data, req.body);
+           return  res.status(200).json({ data });
           }
         });
 
@@ -123,7 +123,7 @@ agentRouter.patch('/property/:id/sold', verifyToken, isPropertyFound, (req, res)
           property = result;
           patchObject(property, { status: 'sold' });
           let data = property;
-          return res.json({
+          return res.status(200).json({
             status: 'success',
             data
           });

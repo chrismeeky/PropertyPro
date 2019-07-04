@@ -150,13 +150,27 @@ describe('users property endpoints', () => {
                     .patch(`/api/v1/property/1`)
                     .set('authorization', 'bearer ' + userToken)
                     .end((err, res) => {
-                        expect(res.status).to.equal(404);
-                        expect(res.body).to.have.property('status');
-                        expect(res.body.status).to.be.a('string');
-                        expect(res.body.status).to.equal('error');
-                        expect(res.body).to.have.property('error');
-                        expect(res.body.error).to.be.a('string');
-                        expect(res.body.error).to.equal('property not found');
+                        expect(res.status).to.equal(200);
+                    expect(res.body.status).to.equal(200);
+                    expect(res.body.data).to.be.an('object');
+                    expect(res.body).to.have.a.property('data')
+                    let result = res.body.data;
+                    expect(result).to.have.a.property('id');
+                    expect(result.id).to.be.a('number');
+                    expect(result).to.have.a.property('price');
+                    expect(result.price).to.be.a('number');
+                    expect(result).to.have.a.property('status');
+                    expect(result.status).to.be.a('string');
+                    expect(result).to.have.a.property('state');
+                    expect(result.state).to.be.a('string');
+                    expect(result).to.have.a.property('city');
+                    expect(result.city).to.be.a('string');
+                    expect(result).to.have.a.property('address');
+                    expect(result.address).to.be.a('string');
+                    expect(result).to.have.a.property('created_on');
+                    expect(result.created_on).to.be.a('string');
+                    expect(result).to.have.a.property('image_url');
+                    expect(result.image_url).to.be.a('string');
                         done();
 
                     })
@@ -169,13 +183,27 @@ describe('users property endpoints', () => {
                     .patch(`/api/v1/property/${id}`)
                     .set('authorization', 'bearer ' + userToken)
                     .end((err, res) => {
-                        expect(res.status).to.equal(404);
-                        expect(res.body).to.have.property('status');
-                        expect(res.body.status).to.be.a('string');
-                        expect(res.body.status).to.equal('error');
-                        expect(res.body).to.have.property('error');
-                        expect(res.body.error).to.be.a('string');
-                        expect(res.body.error).to.equal('property not found');
+                        expect(res.status).to.equal(200);
+                    expect(res.body.status).to.equal(200);
+                    expect(res.body.data).to.be.an('object');
+                    expect(res.body).to.have.a.property('data')
+                    let result = res.body.data;
+                    expect(result).to.have.a.property('id');
+                    expect(result.id).to.be.a('number');
+                    expect(result).to.have.a.property('price');
+                    expect(result.price).to.be.a('number');
+                    expect(result).to.have.a.property('status');
+                    expect(result.status).to.be.a('string');
+                    expect(result).to.have.a.property('state');
+                    expect(result.state).to.be.a('string');
+                    expect(result).to.have.a.property('city');
+                    expect(result.city).to.be.a('string');
+                    expect(result).to.have.a.property('address');
+                    expect(result.address).to.be.a('string');
+                    expect(result).to.have.a.property('created_on');
+                    expect(result.created_on).to.be.a('string');
+                    expect(result).to.have.a.property('image_url');
+                    expect(result.image_url).to.be.a('string');
                         done();
                     })
             })

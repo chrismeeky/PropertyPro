@@ -24,7 +24,7 @@ const verifyProperty = (req, res, next) => {
 	};
 	jwt.verify(req.token, 'secretkey', (err, authData) => {
 		if (err) {
-			res.sendStatus(403);
+			return res.sendStatus(403);
 		} else {
 			property.ownerId = authData.id;
 			property.ownerEmail = authData.email;
@@ -61,7 +61,7 @@ const verifyProperty = (req, res, next) => {
 		next();
 	} else {
 		console.log(error);
-		res.status(422).json({
+		return res.status(422).json({
 			status: 'error',
 			error,
 		});

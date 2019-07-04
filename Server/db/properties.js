@@ -4,16 +4,14 @@ const properties = [
     {
         id: 1,
         owner: 5,
-        status: 'available',
-        price: 25000,
+        status: 'sold',
         state: 'Enugu',
+        type: '2 bedroom flat',
         city: 'Nsukka',
         address: 'No 1 prisons road',
-        type: '2 bedroom flat',
+        price: 15000,
         created_on: day.toLocaleString(),
-        image_url: 'http://coudinary.com',
-
-    }
-          
+        image_url: 'http://cloudinary.com',
+    },
 ];
 module.exports = properties;

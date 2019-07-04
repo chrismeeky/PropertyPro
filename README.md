@@ -3,7 +3,7 @@
 # PropertyProLite
 
 To visit Property Pro Lite , Click this link>> https://chrismeeky.github.io/PropertyPro/UI
-[![Build Status](https://travis-ci.org/zanio/PropertyPro-lite.svg?branch=develop)](https://travis-ci.org/zanio/PropertyPro-lite) [![Coverage Status](https://coveralls.io/repos/github/zanio/PropertyPro-lite/badge.svg?branch=develop)](https://coveralls.io/github/zanio/PropertyPro-lite?branch=develop)
+
 
 # PropertyPro-lite
 
@@ -11,7 +11,7 @@ Property pro Lite is a website where users can upload users can advertise their 
 
 ## Project management information on pivatal tracker
 
-* See the project stories [here](https://www.pivotaltracker.com/n/projects/2354433).
+* See the project stories [here](https://www.pivotaltracker.com/n/projects/2354440).
 
 ## UI Design
 
@@ -24,11 +24,11 @@ Property pro Lite is a website where users can upload users can advertise their 
 
 ### GitHub Pages link for UI Frontend
 
-[PropertyPro-lite/UI link](https://zanio.github.io/PropertyPro-lite/)
+[PropertyPro-lite/UI link](https://github.com/chrismeeky/PropertyPro/tree/develop)
 
 ### REST API Docs
 
-[PropertyPro-lite documentation link](https://propertpro-lite.herokuapp.com/api-docs/)
+[PropertyPro-lite documentation link]()
 
 ### Required Features
 
@@ -81,7 +81,7 @@ npm run test
 
 ## Test the endpoints
 
-The application can be tested locally through localhost on port 5000 or through the live [url](https://propertpro-lite.herokuapp.com/api-docs/) using postman
+The application can be tested locally through localhost on port 5000 or through the live [url](https://propertpro-litheroku/) using postman
 
 1. Run the application while postman is open
 2. Go to postman and test against the endpoints below with the required property:-
@@ -100,14 +100,10 @@ GET  | api/v1/property/ | Get all property adverts |
 GET  | api/v1/property/search?type =​ propertyType  | Get all property advertisement offering a specific type of property (e,g flat, mini-flat,etc) |
 GET  | api/v1/property-advert/<:property-id>  | View a specific property advert |
 
-## Acknowledgements
 
-* [Andela](https://andela.com/)
-
-* [Google](https://google.com/)
 
 ## Author
 
-* [Aniefiok Akpan](https://github.com/zanio)
+* [Nwodo Christian](https://github.com/chrismeeky)
 
 

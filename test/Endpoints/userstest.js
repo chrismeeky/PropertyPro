@@ -211,7 +211,6 @@ describe('users property endpoints', () => {
                 address: 'No 1 prisons road'
 
             }
-            console.log(typeof body.price)
             it('Should create a new property advert', function (done) {
                 chai.request(app)
                     .post('/api/v1/property/')

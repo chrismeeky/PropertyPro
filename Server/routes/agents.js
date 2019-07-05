@@ -1,21 +1,20 @@
 /* eslint-disable linebreak-style */
-const express = require('express');
-
+import express from 'express';
 const agentRouter = express.Router();
 
 
-const jwt = require('jsonwebtoken');
-const verifyToken = require('../middlewares/verify_token');
-const verifyProperty = require('../helpers/verify_property');
-const verifySignin = require('../middlewares/verify_signin');
-const properties = require('../db/properties');
-const patchObject = require('../helpers/patchobject');
-const deleteProperty = require('../helpers/deleteProperty');
-const isPropertyFound = require('../helpers/isPropertyFound');
+import jwt from 'jsonwebtoken';
+import verifyToken from '../middlewares/verify_token';
+import verifyProperty from '../helpers/verify_property';
+import verifySignin from '../middlewares/verify_signin';
+import properties from '../db/properties';
+import patchObject from '../helpers/patchobject';
+import deleteProperty from '../helpers/deleteProperty';
+import isPropertyFound from '../helpers/isPropertyFound';
 require('dotenv').config();
 require('../config/cloudinary');
-const upload = require('../middlewares/multer');
-const cloudinary = require('cloudinary');
+import upload from '../middlewares/multer';
+import cloudinary from 'cloudinary';
 
 
 agentRouter.post('/auth/signin', verifySignin, (req, res) => {
@@ -156,4 +155,4 @@ agentRouter.delete('/property/:id', verifyToken, isPropertyFound, (req, res) => 
 
 
 
-module.exports = agentRouter;
+export default agentRouter;

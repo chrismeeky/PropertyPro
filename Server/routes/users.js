@@ -2,16 +2,14 @@
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 /* eslint-disable no-tabs */
-const express = require('express');
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import verifySignup from '../middlewares/verify_signup';
+import isPropertyFound from '../helpers/isPropertyFound';
+
+import properties from '../db/properties';
 
 const userRouter = express.Router();
-
-
-const jwt = require('jsonwebtoken');
-const verifySignup = require('../middlewares/verify_signup');
-const isPropertyFound = require('../helpers/isPropertyFound');
-
-const properties = require('../db/properties');
 
 userRouter.post('/auth/signup', verifySignup, (req, res) => {
 	jwt.sign(req.user, 'secretkey', (err, tokens) => {
@@ -69,4 +67,4 @@ userRouter.get('/property/:id', isPropertyFound, (req, res) => {
 	});
 });
 
-module.exports = userRouter;
+export default userRouter;

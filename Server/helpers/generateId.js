@@ -1,5 +1,5 @@
 /* eslint-disable no-tabs */
-const properties = require('../db/properties');
+import properties from '../db/properties';
 
 const generateId = () => {
 	let id;
@@ -10,4 +10,4 @@ const generateId = () => {
 	}
 	return id;
 };
-module.exports = generateId;
+export default generateId;

@@ -1,13 +1,13 @@
 /* eslint-disable no-tabs */
-const chai = require('chai');
-const { should } = require('chai');
-const { expect } = require('chai');
-const chaiHttp = require('chai-http');
+import app from '../index';
+import chai from 'chai'
+import { expect } from 'chai';
+import chaiHttp from 'chai-http';
+
 chai.use(chaiHttp);
 let userToken;
 const type = '2 bedroom flat';
 const id = '1';
-const app = require('../index');
 
 const userInfo = {
 	email: 'emaka@gmail.com',
@@ -137,11 +137,11 @@ describe('users property endpoints', () => {
 	describe('PATCH /api/v1/property/id', () => {
 		it('should be able to update property fields', (done) => {
 			chai.request(app)
-				.patch('/api/v1/property/' + id)
+				.patch(`/api/v1/property/${  id}`)
 				.set('authorization', `Bearer ${userToken}`)
 				.send({
 					status: 'available',
-					state: 'Anambra'
+					state: 'Anambra',
 				})
 				.end((err, res) => {
 					expect(res.status).to.equal(200);

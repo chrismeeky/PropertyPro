@@ -1,9 +1,9 @@
 /* eslint-disable no-tabs */
 /* eslint-disable linebreak-style */
-const jwt = require('jsonwebtoken');
-const properties = require('../db/properties');
-const validate = require('./inputvalidation');
-const generateId = require('./generateId');
+import jwt from 'jsonwebtoken';
+import properties from '../db/properties';
+import validate from './inputvalidation';
+import generateId from './generateId';
 
 let ownerId;
 
@@ -25,11 +25,10 @@ const verifyProperty = (req, res, next) => {
 	jwt.verify(req.token, 'secretkey', (err, authData) => {
 		if (err) {
 			return res.sendStatus(403);
-		} else {
-			property.ownerId = authData.id;
-			property.ownerEmail = authData.email;
-			property.ownerPhoneNumber = authData.phone_number;
 		}
+		property.ownerId = authData.id;
+		property.ownerEmail = authData.email;
+		property.ownerPhoneNumber = authData.phone_number;
 	});
 
 
@@ -68,4 +67,4 @@ const verifyProperty = (req, res, next) => {
 	}
 };
 
-module.exports = verifyProperty;
+export default verifyProperty;

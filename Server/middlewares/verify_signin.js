@@ -1,7 +1,7 @@
 /* eslint-disable no-tabs */
 /* eslint-disable linebreak-style */
-const bcrypt = require('bcrypt');
-const users = require('../db/users');
+import bcrypt from 'bcrypt';
+import users from '../db/users';
 
 let storedPassword;
 let user;
@@ -42,4 +42,4 @@ const verifySignin = (req, res, next) => {
 	});
 };
 
-module.exports = verifySignin;
+export default verifySignin;

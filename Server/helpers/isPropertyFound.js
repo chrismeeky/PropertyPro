@@ -2,7 +2,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 /* eslint-disable no-tabs */
-const properties = require('../db/properties');
+import properties from '../db/properties';
 
 const isPropertyFound = (req, res, next) => {
 	let found = false;
@@ -34,4 +34,4 @@ const isPropertyFound = (req, res, next) => {
 	}
 };
 
-module.exports = isPropertyFound;
+export default isPropertyFound;

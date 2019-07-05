@@ -1,8 +1,8 @@
 /* eslint-disable no-tabs */
 /* eslint-disable linebreak-style */
-const bcrypt = require('bcrypt');
-const users = require('../db/users');
-const validate = require('../helpers/inputvalidation');
+import bcrypt from 'bcrypt';
+import users from '../db/users';
+import validate from '../helpers/inputvalidation';
 
 const userModel = (req, res, next) => {
 	const user = {
@@ -66,4 +66,4 @@ const userModel = (req, res, next) => {
 	}
 };
 
-module.exports = userModel;
+export default userModel;

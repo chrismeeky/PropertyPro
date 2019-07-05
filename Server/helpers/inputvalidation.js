@@ -1,6 +1,6 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-tabs */
-const users = require('../db/users');
+import users from '../db/users';
 
 const validateEmail = (email) => {
 	for (let index = 0; index < users.length; index++) {
@@ -94,7 +94,7 @@ const validateImageUrl = (req) => {
 };
 
 
-module.exports = {
+export default {
 	validateEmail,
 	validatePassword,
 	validatePhone,

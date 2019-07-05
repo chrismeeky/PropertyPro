@@ -13,5 +13,5 @@ const patchObject = (object1, object2) => {
 		}
 	}
 };
-module.exports = patchObject;
+export default patchObject;
 

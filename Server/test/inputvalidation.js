@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-tabs */
-const { expect } = require('chai');
+import { expect } from 'chai';
 
-const inputValidation = require('../../Server/helpers/inputvalidation');
+import inputValidation from '../../Server/helpers/inputvalidation';
 
 describe('Email Validation', () => {
 	const validEmail = inputValidation.validateEmail('nwodochristian@gmail.com');

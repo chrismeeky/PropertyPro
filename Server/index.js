@@ -1,8 +1,8 @@
 /* eslint-disable no-tabs */
-const express = require('express');
-const bodyParser = require('body-parser');
-const userRoutes = require('./routes/users');
-const agentRoutes = require('./routes/agents');
+import express from 'express';
+import bodyParser from 'body-parser';
+import userRoutes from './routes/users';
+import agentRoutes from './routes/agents';
 
 
 const app = express();
@@ -19,4 +19,4 @@ app.use((req, res) => res.status(405).json({
 
 const port = 5000;
 app.listen(port, console.log(`server started on port ${port}`));
-module.exports = app;
+export default app;

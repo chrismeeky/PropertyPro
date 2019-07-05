@@ -1,8 +1,8 @@
 /* eslint-disable no-tabs */
-const multer = require('multer');
+import multer from 'multer';
 
 
-module.exports = multer({
+export default multer({
 	storage: multer.diskStorage({}),
 	fileFilter: (req, file, cb) => {
 		if (!file.mimetype.match(/jpg|jpeg|png|gif/)) {

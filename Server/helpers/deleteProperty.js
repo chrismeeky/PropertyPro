@@ -17,4 +17,4 @@ const deleteProperty = (properties, id, res) => {
 	});
 };
 
-module.exports = deleteProperty;
+export default deleteProperty;

@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">99.53% </span>
+        <span class="strong">89.2% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>212/213</span>
+        <span class='fraction'>190/213</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">96.3% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>27/27</span>
+        <span class='fraction'>26/27</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">99.53% </span>
+        <span class="strong">89.2% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>212/213</span>
+        <span class='fraction'>190/213</span>
       </div>
     </div>
     <p class="quiet">
@@ -626,28 +626,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -791,7 +791,7 @@ describe('users property endpoints', () =&gt; {
 	describe('PATCH /api/v1/property/id', () =&gt; {
 		it('should be able to update property fields', (done) =&gt; {
 			chai.request(app)
-				.patch(`/api/v1/property/${  id}`)
+				.patch(`/api/v1/property/${id}`)
 				.set('authorization', `Bearer ${userToken}`)
 				.send({
 					status: 'available',
@@ -928,29 +928,29 @@ describe('users property endpoints', () =&gt; {
 				.set('authorization', `Bearer ${userToken}`)
 				.attach('image_url', './Server/test/dl.png')
 				.field(body)
-				.end((err, res) =&gt; {
-					console.log(res.body);
-					expect(res.status).to.equal(200);
-					expect(res.body.status).to.equal('success');
-					expect(res.body.data).to.be.an('object');
-					expect(res.body).to.have.a.property('data');
-					const result = res.body.data;
-					expect(result).to.have.a.property('id');
-					expect(result.id).to.be.a('number');
-					expect(result).to.have.a.property('price');
-					expect(result).to.have.a.property('status');
-					expect(result.status).to.be.a('string');
-					expect(result).to.have.a.property('state');
-					expect(result.state).to.be.a('string');
-					expect(result).to.have.a.property('city');
-					expect(result.city).to.be.a('string');
-					expect(result).to.have.a.property('address');
-					expect(result.address).to.be.a('string');
-					expect(result).to.have.a.property('created_on');
-					expect(result.created_on).to.be.a('string');
-					expect(result).to.have.a.property('image_url');
-					expect(result.image_url).to.be.a('string');
-					done();
+				.end(<span class="fstat-no" title="function not covered" >(e</span>rr, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >					console.</span>log(res.body);
+<span class="cstat-no" title="statement not covered" >					expect(r</span>es.status).to.equal(200);
+<span class="cstat-no" title="statement not covered" >					expect(r</span>es.body.status).to.equal('success');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>es.body.data).to.be.an('object');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>es.body).to.have.a.property('data');
+					const result = <span class="cstat-no" title="statement not covered" >res.body.data;</span>
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult).to.have.a.property('id');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult.id).to.be.a('number');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult).to.have.a.property('price');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult).to.have.a.property('status');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult.status).to.be.a('string');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult).to.have.a.property('state');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult.state).to.be.a('string');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult).to.have.a.property('city');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult.city).to.be.a('string');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult).to.have.a.property('address');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult.address).to.be.a('string');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult).to.have.a.property('created_on');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult.created_on).to.be.a('string');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult).to.have.a.property('image_url');
+<span class="cstat-no" title="statement not covered" >					expect(r</span>esult.image_url).to.be.a('string');
+<span class="cstat-no" title="statement not covered" >					done();</span>
 				});
 		});
 	});
@@ -961,7 +961,7 @@ describe('users property endpoints', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 05 2019 08:55:31 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Jul 05 2019 19:59:16 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

@@ -137,7 +137,7 @@ describe('users property endpoints', () => {
 	describe('PATCH /api/v1/property/id', () => {
 		it('should be able to update property fields', (done) => {
 			chai.request(app)
-				.patch(`/api/v1/property/${  id}`)
+				.patch(`/api/v1/property/${id}`)
 				.set('authorization', `Bearer ${userToken}`)
 				.send({
 					status: 'available',

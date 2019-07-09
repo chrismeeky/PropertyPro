@@ -89,7 +89,6 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 userRouter.get('/property/', (req, res) => {
 	let data;
 	const type = req.query.type;
-	console.log(type);
 	pool.connect((err, client, done) => {
 		if (err) {
 			return res.json({
@@ -134,16 +133,29 @@ userRouter.get('/property/', (req, res) => {
 	
 });
 
-userRouter.get('/property/:id', isPropertyFound, (req, res) => {
+userRouter.get('/property/:id', (req, res) => {
 	const { id } = req.params;
-	properties.map((prop) => {
-		if (prop.id === parseInt(id, 10)) {
-			const data = prop;
+	pool.connect((err, client, done) => {
+		if (err) {
+			return res.json({
+				status: 'error',
+				error: err,
+			});
+		}
+		client.query('SELECT * FROM property where id = $1', [id], (error, result) => {
+			if (result.rows.length === 0) {
+				return res.status(404).json({
+					status: 'error',
+					error: 'Property does not exist',
+				});
+			}
+			const data = result.rows;
 			return res.status(200).json({
 				status: 200,
 				data,
 			});
-		}
+		});
+		done();
 	});
 });
 

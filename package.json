@@ -4,7 +4,7 @@
   "description": "Property pro lite endpoints",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=html --reporter=text mocha --timeout 10000 --require @babel/register --require @babel/polyfill Server/test/*.js --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --no-timeout --require @babel/register --require @babel/polyfill Server/test/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "nodemon --exec babel-node Server/index.js",
     "build": "babel src --out-dir dist",

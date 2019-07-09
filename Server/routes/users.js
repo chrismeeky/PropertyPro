@@ -89,6 +89,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 userRouter.get('/property/', (req, res) => {
 	let data;
 	const type = req.query.type;
+	console.log(type);
 	pool.connect((err, client, done) => {
 		if (err) {
 			return res.json({
@@ -96,7 +97,7 @@ userRouter.get('/property/', (req, res) => {
 				error: err,
 			})
 		}
-		if (type.length > 0) {
+		if (typeof type !== 'undefined') {
 			client.query('SELECT * FROM property where type = $1', [req.query.type], (error, result) => {
 				if (result.rows.length === 0) {
 					return res.status(404).json({

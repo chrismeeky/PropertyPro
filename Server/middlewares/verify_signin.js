@@ -1,45 +1,53 @@
 /* eslint-disable no-tabs */
 /* eslint-disable linebreak-style */
+import { Pool } from 'pg';
 import bcrypt from 'bcrypt';
-import users from '../db/users';
+
+const pool = new Pool({
+	user: 'postgres',
+	host: 'localhost',
+	database: 'propertyprolite',
+	password: 'mekusmekusdot666',
+	port: 5432,
+});
 
 let storedPassword;
 let user;
-const validateEmail = (email) => {
-	for (let index = 0; index < users.length; index += 1) {
-		if (users[index].email === email) {
-			storedPassword = users[index].password;
-			user = users[index];
-			return true;
-		}
-	}
-	return false;
-};
 
 const verifySignin = (req, res, next) => {
-	let error = '';
-
-	if (!validateEmail(req.body.email)) {
-		error += 'email is wrong ,';
-	}
-
-
-	bcrypt.compare(req.body.password, storedPassword, (err, rslt) => {
-		if (rslt) {
-			req.user = user;
-		} else {
-			error += 'password is wrong ,';
-		}
-		if (error === '') {
-			next();
-		} else {
-			return res.status(401).json({
+	pool.connect((err, client, done) => {
+		if (err) {
+			return res.status(403).json({
 				status: 'error',
-				error,
+				error: err,
 			});
 		}
-		return true;
-	});
+		client.query('SELECT * FROM users WHERE email = $1', [req.body.email], (error, result) => {
+			if (result.rows.length === 0) {
+				return res.status(404).json({
+					status: 'error',
+					error: 'User does not exist. Double check your email address and password',
+				});
+			}
+			user = result.rows[0];
+			// console.log(user);
+			bcrypt.compare(req.body.password, user.password, (Err, rslt) => {
+				if (Err) {
+					return res.status(401).json({
+						status: 'error',
+						error: Err,
+					});
+				}
+
+				req.user = user;
+				next();
+
+			});
+		});
+
+		done();
+	})
+
 };
 
 export default verifySignin;

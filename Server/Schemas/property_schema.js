@@ -8,7 +8,7 @@ const schema = Joi.object().keys({
     address: Joi.string().trim().min(10).max(50).required(),
     type: Joi.string().trim().max(15).min(8).required(),
     title: Joi.string().trim().min(10).max(50).required(),
-    description: Joi.string().trim().min(10).max(50).required(),
+    description: Joi.string().trim().min(10).max(1000).required(),
     created_on: Joi.string().required(),
     image_url: Joi.string().required(),
 });

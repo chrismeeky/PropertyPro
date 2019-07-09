@@ -79,20 +79,20 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           type: property.type,
           created_on: property.created_on,
           image_url: property.image_url,
-          }
-          const propertyFields = [
-            property.ownerId,
-            property.status,
-            property.title,
-            property.description,
-            property.price,
-            property.purpose,
-            property.state,
-            property.city,
-            property.address,
-            property.type,
-            property.created_on,
-            property.image_url]
+        }
+        const propertyFields = [
+          property.ownerId,
+          property.status,
+          property.title,
+          property.description,
+          property.price,
+          property.purpose,
+          property.state,
+          property.city,
+          property.address,
+          property.type,
+          property.created_on,
+          property.image_url]
         Joi.validate(formInputs, propertySchema, (error, result) => {
           if (error) {
             const errors = extractErrors(error);
@@ -108,31 +108,36 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
                 return res.json(err);
               }
               client.query('INSERT INTO property (owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)',
-              propertyFields, (ERR, result) => {
+                propertyFields, (ERR, result) => {
+                  if (ERR) {
+                    return res.status(409).json({
+                      status: 'error',
+                      error: ERR.detail,
+                    });
+                  }
+                  client.query('SELECT id from property where image_url  = $1 ', [property.image_url], (err, results) => {
+                    id = results.rows[0].id;
+                    return res.status(200).json({
+                      status: 'success',
+                      data: {
+                        id,
+                        owner: property.ownerId,
+                        status: property.status,
+                        title: property.title,
+                        description: property.description,
+                        price: property.price,
+                        purpose: property.purpose,
+                        state: property.state,
+                        city: property.city,
+                        address: property.address,
+                        type: property.type,
+                        created_on: property.created_on,
+                        image_url: property.image_url,
+                      }
+                    });
 
-                client.query('SELECT id from property where image_url  = $1 ', [property.image_url], (err, results) => {
-                  id = results.rows[0].id;
-                  return res.status(200).json({
-                    status: 'success',
-                    data: {
-                    id,
-                    owner: property.ownerId,
-                    status: property.status,
-                    title: property.title,
-                    description: property.description,
-                    price: property.price,
-                    purpose: property.purpose,
-                    state: property.state,
-                    city: property.city,
-                    address: property.address,
-                    type: property.type,
-                    created_on: property.created_on,
-                    image_url: property.image_url,
-                    }
-                  });
-
+                  })
                 })
-              })
               done();
             })
           }
@@ -177,7 +182,7 @@ agentRouter.patch('/property/:id', isPropertyFound, verifyToken, (req, res) => {
   });
 });
 
-agentRouter.patch('/property/:id/sold', verifyToken, isPropertyFound, (req, res) => {
+agentRouter.patch('/property/:id/sold',verifyToken, (req, res) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
       return res.json({
@@ -187,18 +192,40 @@ agentRouter.patch('/property/:id/sold', verifyToken, isPropertyFound, (req, res)
     }
     else {
       let { id } = req.params;
-      let property;
-      properties.map((result) => {
-        if (result.id === parseInt(id, 10)) {
-          property = result;
-          patchObject(property, { status: 'sold' });
-          let data = property;
-          return res.status(200).json({
-            status: 'success',
-            data
-          });
+      pool.connect((err, client, done) => {
+        if (err) {
+          return res.json(err);
         }
-      });
+        client.query('SELECT * FROM property WHERE id = $1', [id], (err, result) => {
+
+          if (result.rows.length === 0) {
+            return res.status(404).json({
+              status: 'error',
+              error: `property with id: ${id} couldn't be updated because it does not exist`,
+            })
+          }
+          const data = result.rows[0];
+          if (parseInt(authData.id, 10) !== parseInt(result.rows[0].owner, 10) && !authData.is_admin) {
+            return res.status(401).json({
+              status: 'error',
+              error: 'Only property owner or an Admin can update a property'
+            })
+          }
+          else {
+            client.query('UPDATE property SET status = $1 WHERE id = $2', ['sold',id], (err, result) => {
+              data.status = 'sold';
+              if (!err) {
+                return res.status(200).json({
+                  status: 'success',
+                  data,
+                })
+              }
+            })
+          }
+
+        });
+        done();
+      })
     }
   });
 
@@ -220,15 +247,15 @@ agentRouter.delete('/property/:id', verifyToken, (req, res) => {
           return res.json(err);
         }
         client.query('SELECT * FROM property WHERE id = $1', [id], (err, result) => {
-       
-          if(result.rows.length === 0) {
+
+          if (result.rows.length === 0) {
             return res.status(404).json({
               status: 'error',
               error: `property with id: ${id} couldn't be deleted because it does not exist`,
             })
           }
-          
-          if(parseInt(authData.id, 10) !== parseInt(result.rows[0].owner, 10) && !authData.is_admin) {
+
+          if (parseInt(authData.id, 10) !== parseInt(result.rows[0].owner, 10) && !authData.is_admin) {
             return res.status(401).json({
               status: 'error',
               error: 'Only property owner or an Admin can delete a property'
@@ -236,7 +263,7 @@ agentRouter.delete('/property/:id', verifyToken, (req, res) => {
           }
           else {
             client.query('DELETE FROM property WHERE id = $1', [id], (err, result) => {
-              if(!err) {
+              if (!err) {
                 return res.status(200).json({
                   status: 'success',
                   data: {
@@ -246,9 +273,9 @@ agentRouter.delete('/property/:id', verifyToken, (req, res) => {
               }
             })
           }
-          
-        });  
-        })
+
+        });
+      })
 
     }
   });

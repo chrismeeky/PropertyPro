@@ -90,15 +90,29 @@ userRouter.get('/property/', (req, res) => {
 	let data;
 	const type = req.query.type;
 	pool.connect((err, client, done) => {
-		//cool
 		if (err) {
 			return res.json({
 				status: 'error',
 				error: err,
 			})
 		}
-		
-		
+		if (type.length > 0) {
+			client.query('SELECT * FROM property where type = $1', [req.query.type], (error, result) => {
+				if (result.rows.length === 0) {
+					return res.status(404).json({
+						status: 'error',
+						error: 'Property does not exist',
+					});
+				}
+				data = result.rows;
+				return res.status(200).json({
+					status: 200,
+					data,
+				});
+			});
+
+		}
+		else {
 			client.query('SELECT * FROM property', (error, result) => {
 				if (result.rows.length === 0) {
 					return res.status(404).json({
@@ -112,7 +126,7 @@ userRouter.get('/property/', (req, res) => {
 					data,
 				});
 			});
-		
+		}
 		
 	});
 

@@ -67,11 +67,12 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
       }
       else {
         property.image_url = result.url;
-        const inputFields = {
+        const formInputs = {
           status: property.status,
           title: property.title,
           description: property.description,
           price: property.price,
+          purpose: property.purpose,
           state: property.state,
           city: property.city,
           address: property.address,
@@ -79,7 +80,20 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           created_on: property.created_on,
           image_url: property.image_url,
           }
-        Joi.validate(inputFields, propertySchema, (error, result) => {
+          const propertyFields = [
+            property.ownerId,
+            property.status,
+            property.title,
+            property.description,
+            property.price,
+            property.purpose,
+            property.state,
+            property.city,
+            property.address,
+            property.type,
+            property.created_on,
+            property.image_url]
+        Joi.validate(formInputs, propertySchema, (error, result) => {
           if (error) {
             const errors = extractErrors(error);
             console.log(errors);
@@ -93,9 +107,8 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
               if (err) {
                 return res.json(err);
               }
-              client.query('INSERT INTO property (owner,status, title,description, price, state, city, address, type, created_on, image_url) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)', [
-                2,property.status, property.title, property.description, property.price, property.state, property.city, property.address, property.type, property.created_on, property.image_url
-              ], (ERR, result) => {
+              client.query('INSERT INTO property (owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)',
+              propertyFields, (ERR, result) => {
 
                 client.query('SELECT id from property where image_url  = $1 ', [property.image_url], (err, results) => {
                   id = results.rows[0].id;
@@ -108,6 +121,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
                     title: property.title,
                     description: property.description,
                     price: property.price,
+                    purpose: property.purpose,
                     state: property.state,
                     city: property.city,
                     address: property.address,

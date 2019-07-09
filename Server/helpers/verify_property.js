@@ -14,6 +14,7 @@ const verifyProperty = (req, res, next) => {
 		owner: ownerId,
 		status: req.body.status,
 		price: req.body.price,
+		purpose: req.body.purpose,
 		state: req.body.state,
 		city: req.body.city,
 		address: req.body.address,

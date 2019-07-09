@@ -86,24 +86,37 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 });
 
 // users can view all property adverts
-userRouter.get('/property/', isPropertyFound, (req, res) => {
+userRouter.get('/property/', (req, res) => {
 	let data;
-	if (typeof req.query.type === 'string') {
-		const holder = [];
-		properties.map((prop) => {
-			if (prop.type === req.query.type) {
-				holder.push(prop);
-				data = holder;
-			}
-		});
-	} else {
-		data = properties;
-	}
-
-	return res.json({
-		status: 200,
-		data,
+	const type = req.query.type;
+	pool.connect((err, client, done) => {
+		//cool
+		if (err) {
+			return res.json({
+				status: 'error',
+				error: err,
+			})
+		}
+		
+		
+			client.query('SELECT * FROM property', (error, result) => {
+				if (result.rows.length === 0) {
+					return res.status(404).json({
+						status: 'error',
+						error: 'Property does not exist',
+					});
+				}
+				data = result.rows;
+				return res.status(200).json({
+					status: 200,
+					data,
+				});
+			});
+		
+		
 	});
+
+	
 });
 
 userRouter.get('/property/:id', isPropertyFound, (req, res) => {

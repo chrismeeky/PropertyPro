@@ -204,7 +204,7 @@ agentRouter.patch('/property/:id/sold', verifyToken, isPropertyFound, (req, res)
 
 });
 
-agentRouter.delete('/property/:id', verifyToken, isPropertyFound, (req, res) => {
+agentRouter.delete('/property/:id', verifyToken, (req, res) => {
 
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
@@ -215,7 +215,40 @@ agentRouter.delete('/property/:id', verifyToken, isPropertyFound, (req, res) => 
     }
     else {
       let { id } = req.params;
-      deleteProperty(properties, id, res);
+      pool.connect((err, client, done) => {
+        if (err) {
+          return res.json(err);
+        }
+        client.query('SELECT * FROM property WHERE id = $1', [id], (err, result) => {
+       
+          if(result.rows.length === 0) {
+            return res.status(404).json({
+              status: 'error',
+              error: `property with id: ${id} couldn't be deleted because it does not exist`,
+            })
+          }
+          
+          if(parseInt(authData.id, 10) !== parseInt(result.rows[0].owner, 10) && !authData.is_admin) {
+            return res.status(401).json({
+              status: 'error',
+              error: 'Only property owner or an Admin can delete a property'
+            })
+          }
+          else {
+            client.query('DELETE FROM property WHERE id = $1', [id], (err, result) => {
+              if(!err) {
+                return res.status(200).json({
+                  status: 'success',
+                  data: {
+                    message: `property with id: ${id} has been successfully deleted`
+                  }
+                })
+              }
+            })
+          }
+          
+        });  
+        })
 
     }
   });

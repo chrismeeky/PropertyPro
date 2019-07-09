@@ -1,69 +1,34 @@
 /* eslint-disable no-tabs */
 /* eslint-disable linebreak-style */
+import Joi from 'joi';
 import bcrypt from 'bcrypt';
-import users from '../db/users';
-import validate from '../helpers/inputvalidation';
+import userSchema from '../Schemas/users_schema';
+import extractErrors from '../helpers/extract_errors';
 
-const userModel = (req, res, next) => {
-	const user = {
-		id: users.length + 1,
-		email: req.body.email,
-		first_name: req.body.first_name,
-		last_name: req.body.last_name,
-		password: req.body.password,
-		phone_number: req.body.phone_number,
-		address: req.body.address,
-		is_admin: req.body.is_admin,
-	};
-	let error = '';
-	if (typeof user.id !== 'number') {
-		error += 'id is invalid, ';
-	}
-	if (!validate.validateEmail(user.email)) {
-		error += 'invalid email or email already exists ,';
-	}
-	if (!validate.validateFirstName(user.first_name)) {
-		error += 'invalid first name, ';
-	}
-	if (!validate.validateLastName(user.last_name)) {
-		error += 'invalid last name, ';
-	}
-	if (!validate.validatePassword(user.password)) {
-		error += 'password is invalid, ';
-	}
-
-	if (!validate.validatePhone(user.phone_number)) {
-		error += 'phone number is invalid ,';
-	}
-	if (!validate.validateAddress(user.address)) {
-		error += 'invalid address, ';
-	}
-	if (!validate.validateAdmin(user.is_admin)) {
-		error += 'user type not provided, ';
-	}
-
-	if (error === '') {
-		bcrypt.hash(user.password, 10, (err, hash) => {
-			if (err) {
-				console.log('error');
-				return res.json({
-					success: false,
-					err,
-				});
-			} else {
-				user.password = hash;
-				req.user = user;
-				users.push(user);
+const verifySignup = (req, res, next) => {
+	
+	Joi.validate(req.body, userSchema, (error, result) => {
+		if (!error) {
+			bcrypt.hash(req.body.password, 10, (err, hash) => {
+				if (err) {
+					console.log('error');
+					return res.status(409).json({
+						success: false,
+						err,
+					});
+				}
+				req.body.password = hash;
 				next();
-			}
-		});
-	} else {
-		console.log(error);
-		return res.status(401).json({
-			status: 'error',
-			error,
-		});
-	}
+			});
+	  } else {
+			const errors = extractErrors(error);
+			console.log(errors);
+			return res.status(401).json({
+				status: 'error',
+				errors,
+			});
+	  }
+	});
 };
 
-export default userModel;
+export default verifySignup;

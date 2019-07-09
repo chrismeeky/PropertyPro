@@ -2,7 +2,7 @@
 /* eslint-disable linebreak-style */
 import jwt from 'jsonwebtoken';
 import properties from '../db/properties';
-import validate from './inputvalidation';
+import validate from './inputValidation';
 import generateId from './generateId';
 
 let ownerId;
@@ -11,7 +11,6 @@ const day = new Date();
 
 const verifyProperty = (req, res, next) => {
 	const property = {
-		id: generateId(properties),
 		owner: ownerId,
 		status: req.body.status,
 		price: req.body.price,
@@ -19,6 +18,8 @@ const verifyProperty = (req, res, next) => {
 		city: req.body.city,
 		address: req.body.address,
 		type: req.body.type,
+		title: req.body.title,
+		description: req.body.description,
 		created_on: day.toLocaleString(),
 		image_url: req.body.image_url,
 	};
@@ -29,42 +30,9 @@ const verifyProperty = (req, res, next) => {
 		property.ownerId = authData.id;
 		property.ownerEmail = authData.email;
 		property.ownerPhoneNumber = authData.phone_number;
-	});
-
-
-	let error = '';
-
-	if (validate.validateSatus(req.body.status) !== 'available' && validate.validateSatus(req.body.status) !== 'sold') {
-		error += 'status should read sold or available ,';
-	} else {
-		property.status = validate.validateSatus(req.body.status);
-	}
-	if (!validate.validatePrice(req.body.price)) {
-		error += 'invalid price, ';
-	}
-	if (!validate.validateState(req.body.state)) {
-		error += 'invalid state, ';
-	}
-	if (!validate.validateCity(req.body.city)) {
-		error += 'invalid city, ';
-	}
-	if (!validate.validateType(req.body.type)) {
-		error += 'invalid type, ';
-	}
-
-	if (!validate.validateImageUrl(req)) {
-		error += 'invalid image, ';
-	}
-	if (error === '') {
 		req.property = property;
 		next();
-	} else {
-		console.log(error);
-		return res.status(422).json({
-			status: 'error',
-			error,
-		});
-	}
+	});
 };
 
 export default verifyProperty;

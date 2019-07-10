@@ -158,31 +158,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
 
 });
 
-// agentRouter.patch('/property/:id', isPropertyFound, verifyToken, (req, res) => {
 
-//   jwt.verify(req.token, 'secretkey', (err, authData) => {
-//     if (err) {
-//       res.json({
-//         status: 'error',
-//         error: err
-//       });
-//     }
-//     else {
-//       let { id } = req.params;
-//       let data;
-//       properties.map((result) => {
-//         if (result.id === parseInt(id, 10)) {
-//           console.log(result.id)
-
-//           data = result;
-//           patchObject(data, req.body);
-//           return res.status(200).json({ data });
-//         }
-//       });
-
-//     }
-//   });
-// });
 
 agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, async (req, res) => {
   const { id } = req.params;

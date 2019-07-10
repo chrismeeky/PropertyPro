@@ -3,12 +3,15 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-tabs */
 import express from 'express';
+import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import { Pool } from 'pg';
 import verifySignup from '../middlewares/verify_signup';
-import isPropertyFound from '../helpers/isPropertyFound';
+import extractErrors from '../helpers/extract_errors';
+import flagSchema from '../Schemas/flag_schema';
+require('../config/cloudinary');
+require('dotenv').config();
 
-import properties from '../db/properties';
 
 const userRouter = express.Router();
 const pool = new Pool({
@@ -85,6 +88,56 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 
 });
 
+userRouter.post('/property/:id', (req, res) => {
+	console.log(req.body)
+	const { id } = req.params;
+	pool.connect((err, client, done) => {
+		if (err) {
+			return res.json({
+				status: 'error',
+				error: err,
+			});
+		}
+		client.query('SELECT * FROM property WHERE id = $1', [id], (error, result) => {
+			if (result.rows.length === 0) {
+				return res.status(404).json({
+				  status: 'error',
+				  error: `property with id: ${id} couldn't be flagged because it does not exist`,
+				});
+			  }
+			const day = new Date();
+			const data = {
+				property_id: id,
+				created_on: day.toLocaleDateString(),
+				reason: req.body.reason,
+				description: req.body.description,
+			}
+			console.log(data.property_id)
+			Joi.validate(data, flagSchema, (err, result) => {
+				if (err) {
+					const errors = extractErrors(err);
+					return res.status(401).json({
+						status: 'error',
+						errors,
+					});
+				}
+				client.query('INSERT INTO flags (property_id, created_on, reason, description) VALUES($1,$2,$3,$4)',
+				[data.property_id, data.created_on, data.reason, data.description], (error, result) => {
+					if (error) {
+						return res.status(409).json({
+						  status: 'error',
+						  error: error.detail,
+						});
+					  }
+					  return res.status(200).json({
+						  status: 'success',
+						  message:'We appreciate your feedback as it helps us fight spam and fraud',
+					  })
+				})
+			})
+		})
+	});
+})
 // users can view all property adverts
 userRouter.get('/property/', (req, res) => {
 	let data;
@@ -127,10 +180,10 @@ userRouter.get('/property/', (req, res) => {
 				});
 			});
 		}
-		
+
 	});
 
-	
+
 });
 
 userRouter.get('/property/:id', (req, res) => {

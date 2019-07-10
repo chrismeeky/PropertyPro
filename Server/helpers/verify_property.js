@@ -8,11 +8,11 @@ let ownerId;
 const day = new Date();
 
 const verifyProperty = (req, res, next) => {
-	if(!req.file) {
+	if (!req.file) {
 		return res.status(415).json({
 		  status: 'error',
-		  error: 'You must attach a valid image'
-		})
+		  error: 'You must attach a valid image',
+		});
 	  }
 	const property = {
 		owner: ownerId,

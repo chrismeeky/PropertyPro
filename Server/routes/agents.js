@@ -59,6 +59,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
   let id;
   let property = req.property;
 
+
   const result = await cloudinary.v2.uploader.upload(req.file.path);
   if (result.url.includes('cloudinary')) {
     jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -93,6 +94,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           property.type,
           property.created_on,
           property.image_url]
+
         Joi.validate(formInputs, propertySchema, (error, result) => {
           if (error) {
             const errors = extractErrors(error);
@@ -156,33 +158,144 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
 
 });
 
-agentRouter.patch('/property/:id', isPropertyFound, verifyToken, (req, res) => {
+// agentRouter.patch('/property/:id', isPropertyFound, verifyToken, (req, res) => {
+
+//   jwt.verify(req.token, 'secretkey', (err, authData) => {
+//     if (err) {
+//       res.json({
+//         status: 'error',
+//         error: err
+//       });
+//     }
+//     else {
+//       let { id } = req.params;
+//       let data;
+//       properties.map((result) => {
+//         if (result.id === parseInt(id, 10)) {
+//           console.log(result.id)
+
+//           data = result;
+//           patchObject(data, req.body);
+//           return res.status(200).json({ data });
+//         }
+//       });
+
+//     }
+//   });
+// });
+
+agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, async (req, res) => {
+  const { id } = req.params;
+  let property = req.body;
+  let result;
+  console.log(req.file)
+  if (req.file) {
+    
+    result = await cloudinary.v2.uploader.upload(req.file.path);
+    property.image_url = result.url;
+    
+  }
+
 
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
-      res.json({
-        status: 'error',
-        error: err
-      });
+      return res.sendStatus(403);
     }
     else {
-      let { id } = req.params;
-      let data;
-      properties.map((result) => {
-        if (result.id === parseInt(id, 10)) {
-          console.log(result.id)
-
-          data = result;
-          patchObject(data, req.body);
-          return res.status(200).json({ data });
+      
+      pool.connect((err, client, done) => {
+        if (err) {
+          return res.json(err);
         }
-      });
+        client.query('SELECT * FROM property WHERE id = $1 ', [id], (err, results) => {
+          const formInputs = {
+            status: property.status || results.rows[0].status,
+            title: property.title || results.rows[0].title,
+            description: property.description || results.rows[0].description,
+            price: property.price || results.rows[0].price,
+            purpose: property.purpose || results.rows[0].purpose,
+            state: property.state || results.rows[0].state,
+            city: property.city || results.rows[0].city,
+            address: property.address || results.rows[0].address,
+            type: property.type || results.rows[0].type,
+            created_on: property.created_on || results.rows[0].created_on,
+            image_url: property.image_url || results.rows[0].image_url,
+          }
+          const propertyFields = [
+            formInputs.title,
+            formInputs.description,
+            formInputs.price,
+            formInputs.purpose,
+            formInputs.state,
+            formInputs.city,
+            formInputs.address,
+            formInputs.type,
+            formInputs.image_url,
+            id,
+          ]
+
+          Joi.validate(formInputs, propertySchema, (error, result) => {
+            if (error) {
+              const errors = extractErrors(error);
+              console.log(errors);
+              return res.status(401).json({
+                status: 'error',
+                errors,
+              });
+            }
+            else {
+                client.query('UPDATE property SET title = $1,description = $2,price = $3,purpose = $4,state = $5,city = $6, address = $7, type = $8, image_url = $9 WHERE id = $10',
+                  propertyFields, (ERR, result) => {
+                    if (ERR) {
+                      return res.status(409).json({
+                        status: 'error',
+                        error: ERR.detail,
+                      });
+                    }
+                    else {
+                      client.query('SELECT * FROM property WHERE id = $1', [id], (err, result) => {
+                        res.status(200).json({
+                          status: 'success',
+                          data: result.rows[0],
+                        })
+                      })
+                      
+                    }
+                    
+                  })
+                
+              
+            }
+          })
+        })
+      })
+
+
+
+
+
+
+
 
     }
   });
+
+
 });
 
-agentRouter.patch('/property/:id/sold',verifyToken, (req, res) => {
+
+
+
+
+
+
+
+
+
+
+
+
+agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
       return res.json({
@@ -212,7 +325,7 @@ agentRouter.patch('/property/:id/sold',verifyToken, (req, res) => {
             })
           }
           else {
-            client.query('UPDATE property SET status = $1 WHERE id = $2', ['sold',id], (err, result) => {
+            client.query('UPDATE property SET status = $1 WHERE id = $2', ['sold', id], (err, result) => {
               data.status = 'sold';
               if (!err) {
                 return res.status(200).json({

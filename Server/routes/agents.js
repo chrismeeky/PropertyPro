@@ -8,10 +8,6 @@ import jwt from 'jsonwebtoken';
 import verifyToken from '../middlewares/verify_token';
 import verifyProperty from '../helpers/verify_property';
 import verifySignin from '../middlewares/verify_signin';
-import properties from '../db/properties';
-import patchObject from '../helpers/patchobject';
-import deleteProperty from '../helpers/deleteProperty';
-import isPropertyFound from '../helpers/isPropertyFound';
 require('dotenv').config();
 require('../config/cloudinary');
 import upload from '../middlewares/multer';
@@ -184,6 +180,12 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
           return res.json(err);
         }
         client.query('SELECT * FROM property WHERE id = $1 ', [id], (err, results) => {
+          if (results.rows.length === 0) {
+            return res.status(404).json({
+              status: 'error',
+              error: `property with id: ${id} couldn't be updated because it does not exist`,
+            })
+          }
           const formInputs = {
             status: property.status || results.rows[0].status,
             title: property.title || results.rows[0].title,

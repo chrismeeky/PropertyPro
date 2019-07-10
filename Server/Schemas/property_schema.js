@@ -6,7 +6,7 @@ const schema = Joi.object().keys({
     purpose: Joi.string().trim().max(8).required(),
     city: Joi.string().trim().max(20).required(),
     address: Joi.string().trim().min(10).max(50).required(),
-    type: Joi.string().trim().max(15).min(8).required(),
+    type: Joi.string().trim().max(25).min(8).required(),
     title: Joi.string().trim().min(10).max(50).required(),
     description: Joi.string().trim().min(10).max(1000).required(),
     created_on: Joi.string().required(),

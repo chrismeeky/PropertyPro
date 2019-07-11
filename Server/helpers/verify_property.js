@@ -17,7 +17,7 @@ const verifyProperty = (req, res, next) => {
 	const property = {
 		owner: ownerId,
 		status: req.body.status,
-		price: req.body.price,
+		price: parseFloat(req.body.price),
 		purpose: req.body.purpose,
 		state: req.body.state,
 		city: req.body.city,
@@ -25,7 +25,7 @@ const verifyProperty = (req, res, next) => {
 		type: req.body.type,
 		title: req.body.title,
 		description: req.body.description,
-		created_on: day.toLocaleString(),
+		created_on: day.toLocaleDateString(),
 		image_url: req.body.image_url,
 	};
 	jwt.verify(req.token, 'secretkey', (err, authData) => {
@@ -34,7 +34,7 @@ const verifyProperty = (req, res, next) => {
 		}
 		property.ownerId = authData.id;
 		property.ownerEmail = authData.email;
-		property.ownerPhoneNumber = authData.phone_number;
+		property.ownerPhoneNumber = authData.phonenumber;
 		req.property = property;
 		next();
 	});

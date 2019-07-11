@@ -3,7 +3,6 @@ import express from 'express';
 import { Pool } from 'pg';
 const agentRouter = express.Router();
 
-
 import jwt from 'jsonwebtoken';
 import verifyToken from '../middlewares/verify_token';
 import verifyProperty from '../helpers/verify_property';
@@ -14,17 +13,9 @@ import upload from '../middlewares/multer';
 import cloudinary from 'cloudinary';
 import Joi from 'joi';
 import propertySchema from '../Schemas/property_schema'
-
 import extractErrors from '../helpers/extract_errors';
-
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'propertyprolite',
-  password: 'mekusmekusdot666',
-  port: 5432,
-})
-
+import pool from '../config/pool';
+import getId from '../helpers/generateId';
 
 agentRouter.post('/auth/signin', verifySignin, (req, res) => {
   jwt.sign(req.user, 'secretkey', (err, tokens) => {
@@ -51,18 +42,14 @@ agentRouter.post('/auth/signin', verifySignin, (req, res) => {
 });
 
 
-agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyProperty, async (req, res) => {
-  let id;
+agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyProperty,getId, async (req, res) => {
   let property = req.property;
 
 
   const result = await cloudinary.v2.uploader.upload(req.file.path);
   if (result.url.includes('cloudinary')) {
-    jwt.verify(req.token, 'secretkey', (err, authData) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
-      else {
+    
+      
         property.image_url = result.url;
         const formInputs = {
           status: property.status,
@@ -76,8 +63,11 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           type: property.type,
           created_on: property.created_on,
           image_url: property.image_url,
+          ownerEmail: property.ownerEmail,
+          ownerPhoneNumber: property.ownerPhoneNumber,
         }
         const propertyFields = [
+          req.id,
           property.ownerId,
           property.status,
           property.title,
@@ -89,7 +79,9 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           property.address,
           property.type,
           property.created_on,
-          property.image_url]
+          property.image_url,
+          property.ownerEmail,
+          property.ownerPhoneNumber]
 
         Joi.validate(formInputs, propertySchema, (error, result) => {
           if (error) {
@@ -105,7 +97,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
               if (err) {
                 return res.json(err);
               }
-              client.query('INSERT INTO property (owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)',
+              client.query('INSERT INTO property (id,owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url,"ownerEmail","ownerPhoneNumber") VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)',
                 propertyFields, (ERR, result) => {
                   if (ERR) {
                     return res.status(409).json({
@@ -113,13 +105,12 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
                       error: ERR.detail,
                     });
                   }
-                  client.query('SELECT id from property where image_url  = $1 ', [property.image_url], (err, results) => {
-                    id = results.rows[0].id;
+                    const owner =  parseInt(property.ownerId, 10);
                     return res.status(200).json({
                       status: 'success',
                       data: {
-                        id,
-                        owner: property.ownerId,
+                        id:req.id,
+                        owner,
                         status: property.status,
                         title: property.title,
                         description: property.description,
@@ -133,16 +124,16 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
                         image_url: property.image_url,
                       }
                     });
-
-                  })
+                      
+                  
                 })
               done();
             })
           }
         })
 
-      }
-    });
+      
+    
   }
 
   else {
@@ -183,7 +174,7 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
           if (results.rows.length === 0) {
             return res.status(404).json({
               status: 'error',
-              error: `property with id: ${id} couldn't be updated because it does not exist`,
+              error: `property with id: ${id} couldn't be deleted because it does not exist`,
             })
           }
           const formInputs = {
@@ -198,6 +189,8 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
             type: property.type || results.rows[0].type,
             created_on: property.created_on || results.rows[0].created_on,
             image_url: property.image_url || results.rows[0].image_url,
+            ownerEmail: property.ownerEmail,
+            ownerPhoneNumber: property.ownerPhoneNumber,
           }
           const propertyFields = [
             formInputs.title,
@@ -234,7 +227,20 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
                       client.query('SELECT * FROM property WHERE id = $1', [id], (err, result) => {
                         res.status(200).json({
                           status: 'success',
-                          data: result.rows[0],
+                          data: {
+                        id,
+                        status: result.rows[0].status,
+                        title: result.rows[0].title,
+                        description:  result.rows[0].description,
+                        price: result.rows[0].price,
+                        purpose: result.rows[0].purpose,
+                        state: result.rows[0].state,
+                        city: result.rows[0].city,
+                        address: result.rows[0].address,
+                        type: result.rows[0].type,
+                        created_on: result.rows[0].created_on,
+                        image_url: result.rows[0].image_url,
+                      }
                         })
                       })
                       

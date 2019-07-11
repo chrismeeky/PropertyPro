@@ -10,7 +10,7 @@ const type = '2 bedroom flat';
 const id = '1';
 
 const userInfo = {
-	email: 'emaka@gmail.com',
+	email: 'mekomgbo1@gmail.com',
 	password: 'testpassword123',
 };
 describe('users property endpoints', () => {
@@ -29,7 +29,7 @@ describe('users property endpoints', () => {
 					expect(res.body.data).to.have.property('token');
 					expect(res.body.data.token).to.be.a('string');
 					expect(res.body.data).to.have.property('id');
-					expect(res.body.data.id).to.be.a('number');
+					expect(res.body.data.id).to.be.a('string');
 					expect(res.body.data).to.have.property('first_name');
 					expect(res.body.data.first_name).to.be.a('string');
 					expect(res.body.data).to.have.property('last_name');

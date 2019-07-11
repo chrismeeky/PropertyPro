@@ -5,23 +5,13 @@
 import express from 'express';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
-import { Pool } from 'pg';
 import verifySignup from '../middlewares/verify_signup';
 import extractErrors from '../helpers/extract_errors';
 import flagSchema from '../Schemas/flag_schema';
-require('../config/cloudinary');
-require('dotenv').config();
+import pool from '../config/pool';
 
 
 const userRouter = express.Router();
-const pool = new Pool({
-	user: 'postgres',
-	host: 'localhost',
-	database: 'propertyprolite',
-	password: 'mekusmekusdot666',
-	port: 5432,
-});
-
 
 userRouter.post('/auth/signup', verifySignup, (req, res) => {
 	const userData = req.body;
@@ -101,10 +91,10 @@ userRouter.post('/property/:id', (req, res) => {
 		client.query('SELECT * FROM property WHERE id = $1', [id], (error, result) => {
 			if (result.rows.length === 0) {
 				return res.status(404).json({
-				  status: 'error',
-				  error: `property with id: ${id} couldn't be flagged because it does not exist`,
+					status: 'error',
+					error: `property with id: ${id} couldn't be flagged because it does not exist`,
 				});
-			  }
+			}
 			const day = new Date();
 			const data = {
 				property_id: id,
@@ -122,18 +112,18 @@ userRouter.post('/property/:id', (req, res) => {
 					});
 				}
 				client.query('INSERT INTO flags (property_id, created_on, reason, description) VALUES($1,$2,$3,$4)',
-				[data.property_id, data.created_on, data.reason, data.description], (error, result) => {
-					if (error) {
-						return res.status(409).json({
-						  status: 'error',
-						  error: error.detail,
-						});
-					  }
-					  return res.status(200).json({
-						  status: 'success',
-						  message:'We appreciate your feedback as it helps us fight spam and fraud',
-					  })
-				})
+					[data.property_id, data.created_on, data.reason, data.description], (error, result) => {
+						if (error) {
+							return res.status(409).json({
+								status: 'error',
+								error: error.detail,
+							});
+						}
+						return res.status(200).json({
+							status: 'success',
+							message: 'We appreciate your feedback as it helps us fight spam and fraud',
+						})
+					})
 			})
 		})
 	});
@@ -143,6 +133,8 @@ userRouter.get('/property/', (req, res) => {
 	let data;
 	const type = req.query.type;
 	pool.connect((err, client, done) => {
+		
+
 		if (err) {
 			return res.json({
 				status: 'error',
@@ -151,6 +143,7 @@ userRouter.get('/property/', (req, res) => {
 		}
 		if (typeof type !== 'undefined') {
 			client.query('SELECT * FROM property where type = $1', [req.query.type], (error, result) => {
+				
 				if (result.rows.length === 0) {
 					return res.status(404).json({
 						status: 'error',
@@ -158,6 +151,7 @@ userRouter.get('/property/', (req, res) => {
 					});
 				}
 				data = result.rows;
+				
 				return res.status(200).json({
 					status: 200,
 					data,

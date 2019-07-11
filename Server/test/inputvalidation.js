@@ -2,7 +2,7 @@
 /* eslint-disable no-tabs */
 import { expect } from 'chai';
 
-import inputValidation from '../../Server/helpers/inputvalidation';
+import inputValidation from '../../Server/helpers/inputValidation';
 
 describe('Email Validation', () => {
 	const validEmail = inputValidation.validateEmail('nwodochristian@gmail.com');

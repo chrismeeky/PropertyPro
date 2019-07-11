@@ -30,12 +30,11 @@ const verifySignin = (req, res, next) => {
 				});
 			}
 			user = result.rows[0];
-			// console.log(user);
 			bcrypt.compare(req.body.password, user.password, (Err, rslt) => {
-				if (Err) {
+				if (!rslt) {
 					return res.status(401).json({
 						status: 'error',
-						error: Err,
+						error: 'Email and password do not match',
 					});
 				}
 

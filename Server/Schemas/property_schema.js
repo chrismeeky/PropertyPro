@@ -3,7 +3,7 @@ const schema = Joi.object().keys({
 	status: Joi.string().trim().max(9).min(4),
 	price: Joi.number().required(),
     state: Joi.string().trim().max(20).required(),
-    purpose: Joi.string().trim().max(8),
+    purpose: Joi.string().trim().max(13),
     city: Joi.string().trim().max(20).min(2).required(),
     address: Joi.string().trim().min(10).max(50).required(),
     type: Joi.string().trim().max(25).min(8).required(),

@@ -65,6 +65,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           ownerEmail: property.ownerEmail,
           ownerPhoneNumber: property.ownerPhoneNumber,
         }
+        console.log(typeof property.price)
         const propertyFields = [
           req.id,
           property.ownerId,
@@ -88,7 +89,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
             console.log(errors);
             return res.status(406).json({
               status: 'error',
-              errors,
+              error,
             });
           }
           else {
@@ -233,11 +234,11 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
                         res.status(200).json({
                           status: 'success',
                           data: {
-                        id,
+                        id: parseInt(id, 10),
                         status: result.rows[0].status,
                         title: result.rows[0].title,
                         description:  result.rows[0].description,
-                        price: result.rows[0].price,
+                        price: parseFloat(result.rows[0].price),
                         purpose: result.rows[0].purpose,
                         state: result.rows[0].state,
                         city: result.rows[0].city,
@@ -310,6 +311,7 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
             })
           }
           const data = result.rows[0];
+          data.price = parseFloat(result.rows[0].price)
           if (parseInt(authData.id, 10) !== parseInt(result.rows[0].owner, 10) && !authData.is_admin) {
             return res.status(401).json({
               status: 'error',

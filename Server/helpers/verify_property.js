@@ -16,7 +16,7 @@ const verifyProperty = (req, res, next) => {
 	  }
 	const property = {
 		owner: ownerId,
-		status: req.body.status,
+		status: req.body.status || 'available',
 		price: parseFloat(req.body.price),
 		purpose: req.body.purpose,
 		state: req.body.state,

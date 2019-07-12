@@ -50,8 +50,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 							error: err
 						});
 					}
-					id = results.rows[0].id;
-					req.body.id = id;
+					id = parseInt(results.rows[0].id, 10);
 
 					jwt.sign(req.body, 'secretkey', (error, tokens) => {
 						if (err) {
@@ -124,6 +123,7 @@ userRouter.post('/property/:id', (req, res) => {
 							status: 'success',
 							data: {
 								message: 'We appreciate your feedback as it helps us fight spam and fraud',
+								details: data,
 							}
 							
 						})
@@ -199,9 +199,9 @@ userRouter.get('/property/:id', (req, res) => {
 					error: 'Property does not exist',
 				});
 			}
-			const data = result.rows;
+			const data = result.rows[0];
 			return res.status(200).json({
-				status: 200,
+				status: 'success',
 				data,
 			});
 		});

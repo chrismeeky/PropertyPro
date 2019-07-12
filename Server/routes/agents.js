@@ -26,12 +26,12 @@ agentRouter.post('/auth/signin', verifySignin, (req, res) => {
       })
     }
     else {
-
+      const id = parseInt(req.user.id, 10);
       res.status(200).json({
         status: 'success',
         data: {
           token: tokens,
-          id: req.user.id,
+          id,
           first_name: req.user.first_name,
           last_name: req.user.last_name,
           email: req.user.email,
@@ -48,8 +48,8 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
 
   const result = await cloudinary.v2.uploader.upload(req.file.path);
   if (result.url.includes('cloudinary')) {
-    
-      
+     
+    console.log(property.status)   
         property.image_url = result.url;
         const formInputs = {
           status: property.status,

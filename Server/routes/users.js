@@ -28,7 +28,10 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 	let id;
 	pool.connect((err, client, done) => {
 		if (err) {
-			return res.json(err);
+			return res.status(408).json({
+				status: 'error',
+				error: err,
+			});
 		}
 
 		client.query(
@@ -47,17 +50,16 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 							error: err
 						});
 					}
-					id = results.rows[0].id;
-					req.body.id = id;
+					id = parseInt(results.rows[0].id, 10);
 
 					jwt.sign(req.body, 'secretkey', (error, tokens) => {
 						if (err) {
-							return res.json({
+							return res.status(403).json({
 								status: 'error',
 								error,
 							});
 						} else {
-							return res.status(200).json({
+							return res.status(201).json({
 								status: 'success',
 								data: {
 									id,
@@ -79,11 +81,10 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 });
 
 userRouter.post('/property/:id', (req, res) => {
-	console.log(req.body)
 	const { id } = req.params;
 	pool.connect((err, client, done) => {
 		if (err) {
-			return res.json({
+			return res.status(408).json({
 				status: 'error',
 				error: err,
 			});
@@ -102,7 +103,6 @@ userRouter.post('/property/:id', (req, res) => {
 				reason: req.body.reason,
 				description: req.body.description,
 			}
-			console.log(data.property_id)
 			Joi.validate(data, flagSchema, (err, result) => {
 				if (err) {
 					const errors = extractErrors(err);
@@ -121,7 +121,11 @@ userRouter.post('/property/:id', (req, res) => {
 						}
 						return res.status(200).json({
 							status: 'success',
-							message: 'We appreciate your feedback as it helps us fight spam and fraud',
+							data: {
+								message: 'We appreciate your feedback as it helps us fight spam and fraud',
+								details: data,
+							}
+							
 						})
 					})
 			})
@@ -133,10 +137,9 @@ userRouter.get('/property/', (req, res) => {
 	let data;
 	const type = req.query.type;
 	pool.connect((err, client, done) => {
-		
 
 		if (err) {
-			return res.json({
+			return res.status(408).json({
 				status: 'error',
 				error: err,
 			})
@@ -184,7 +187,7 @@ userRouter.get('/property/:id', (req, res) => {
 	const { id } = req.params;
 	pool.connect((err, client, done) => {
 		if (err) {
-			return res.json({
+			return res.status(408).json({
 				status: 'error',
 				error: err,
 			});
@@ -196,9 +199,9 @@ userRouter.get('/property/:id', (req, res) => {
 					error: 'Property does not exist',
 				});
 			}
-			const data = result.rows;
+			const data = result.rows[0];
 			return res.status(200).json({
-				status: 200,
+				status: 'success',
 				data,
 			});
 		});

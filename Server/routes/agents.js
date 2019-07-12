@@ -20,18 +20,18 @@ import getId from '../helpers/generateId';
 agentRouter.post('/auth/signin', verifySignin, (req, res) => {
   jwt.sign(req.user, 'secretkey', (err, tokens) => {
     if (err) {
-      res.json({
+      res.status(417).json({
         status: 'error',
         error: err
       })
     }
     else {
-
-      res.json({
+      const id = parseInt(req.user.id, 10);
+      res.status(200).json({
         status: 'success',
         data: {
           token: tokens,
-          id: req.user.id,
+          id,
           first_name: req.user.first_name,
           last_name: req.user.last_name,
           email: req.user.email,
@@ -48,8 +48,8 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
 
   const result = await cloudinary.v2.uploader.upload(req.file.path);
   if (result.url.includes('cloudinary')) {
-    
-      
+     
+    console.log(property.status)   
         property.image_url = result.url;
         const formInputs = {
           status: property.status,
@@ -87,7 +87,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           if (error) {
             const errors = extractErrors(error);
             console.log(errors);
-            return res.status(401).json({
+            return res.status(406).json({
               status: 'error',
               errors,
             });
@@ -95,7 +95,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           else {
             pool.connect((err, client, done) => {
               if (err) {
-                return res.json(err);
+                return res.status(417).json(err);
               }
               client.query('INSERT INTO property (id,owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url,"ownerEmail","ownerPhoneNumber") VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)',
                 propertyFields, (ERR, result) => {
@@ -106,7 +106,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
                     });
                   }
                     const owner =  parseInt(property.ownerId, 10);
-                    return res.status(200).json({
+                    return res.status(201).json({
                       status: 'success',
                       data: {
                         id:req.id,
@@ -137,7 +137,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
   }
 
   else {
-    return res.json({
+    return res.status(406).json({
       status: "error",
       error: 'image URL does not exist'
     })
@@ -162,13 +162,19 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
 
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
-      return res.sendStatus(403);
+      return res.sendStatus(401).json({
+        status: 'error',
+        error:'token verification failed'
+      });
     }
     else {
       
       pool.connect((err, client, done) => {
         if (err) {
-          return res.json(err);
+          return res.status(408).json({
+            status: 'error',
+            error: err,
+          });
         }
         client.query('SELECT * FROM property WHERE id = $1 ', [id], (err, results) => {
           if (results.rows.length === 0) {
@@ -209,7 +215,7 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
             if (error) {
               const errors = extractErrors(error);
               console.log(errors);
-              return res.status(401).json({
+              return res.status(406).json({
                 status: 'error',
                 errors,
               });
@@ -282,7 +288,7 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
 agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
-      return res.json({
+      return res.status(401).json({
         status: 'error',
         error: err
       });
@@ -291,7 +297,10 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
       let { id } = req.params;
       pool.connect((err, client, done) => {
         if (err) {
-          return res.json(err);
+          return res.status(408).json({
+            status: 'error',
+            error: err,
+          });
         }
         client.query('SELECT * FROM property WHERE id = $1', [id], (err, result) => {
 
@@ -332,7 +341,7 @@ agentRouter.delete('/property/:id', verifyToken, (req, res) => {
 
   jwt.verify(req.token, 'secretkey', (err, authData) => {
     if (err) {
-      return res.json({
+      return res.status(401).json({
         status: 'error',
         error: 'failed to validate your token'
       });
@@ -341,7 +350,7 @@ agentRouter.delete('/property/:id', verifyToken, (req, res) => {
       let { id } = req.params;
       pool.connect((err, client, done) => {
         if (err) {
-          return res.json(err);
+          return res.status(408).json(err);
         }
         client.query('SELECT * FROM property WHERE id = $1', [id], (err, result) => {
 

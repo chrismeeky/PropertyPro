@@ -6,13 +6,12 @@ import userSchema from '../Schemas/users_schema';
 import extractErrors from '../helpers/extract_errors';
 
 const verifySignup = (req, res, next) => {
-	
+
 	Joi.validate(req.body, userSchema, (error, result) => {
 		if (!error) {
 			bcrypt.hash(req.body.password, 10, (err, hash) => {
 				if (err) {
-					console.log('error');
-					return res.status(409).json({
+					return res.status(406).json({
 						success: false,
 						err,
 					});
@@ -20,14 +19,13 @@ const verifySignup = (req, res, next) => {
 				req.body.password = hash;
 				next();
 			});
-	  } else {
+		} else {
 			const errors = extractErrors(error);
-			console.log(errors);
-			return res.status(401).json({
+			return res.status(406).json({
 				status: 'error',
 				errors,
 			});
-	  }
+		}
 	});
 };
 

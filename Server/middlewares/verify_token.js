@@ -8,9 +8,9 @@ const verifyToken = (req, res, next) => {
 		req.token = token;
 		next();
 	} else {
-		return res.json({
+		return res.status(401).json({
 			status: 'error',
-			error: 'token could not be generated',
+			error: 'A valid token is needed for authorization',
 		});
 	}
 };

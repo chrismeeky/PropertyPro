@@ -11,7 +11,6 @@ const pool = new Pool({
 	port: 5432,
 });
 
-let storedPassword;
 let user;
 
 const verifySignin = (req, res, next) => {

@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import userRoutes from './routes/users';
 import agentRoutes from './routes/agents'
 
+const PORT = process.env.PORT || 5000;
+
 
 const app = express();
 
@@ -17,6 +19,5 @@ app.use((req, res) => res.status(405).json({
 	error: 'route not found or wrong request method',
 }));
 
-const port = 5000;
-app.listen(port, console.log(`server started on port ${port}`));
+app.listen(PORT, console.log(`server started on port ${PORT}`));
 export default app;

@@ -12,12 +12,11 @@ const generateId = (req, res, next) => {
 			});
 		}
 		client.query('SELECT MAX(id) FROM property', (err, result) => {
-			const maxId = result.rows[0].max;
-			if (maxId === null) {
+			if (result === undefined) {
 				id = 1;
 			}
 			else {
-				id = maxId + 1;
+				id = result.rows[0].max  + 1;
 			}
 			req.id = id;
 			next();

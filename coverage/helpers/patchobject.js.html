@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for db/users.js</title>
+    <title>Code coverage report for helpers/patchobject.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\prettify.css" />
     <link rel="stylesheet" href="..\base.css" />
@@ -16,35 +16,35 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\index.html">All files</a> / <a href="index.html">db</a> users.js
+      <a href="..\index.html">All files</a> / <a href="index.html">helpers</a> patchobject.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">20% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>2/10</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>0/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>0/1</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">22.22% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>2/9</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -65,38 +65,38 @@
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable no-tabs */
-/* eslint-disable linebreak-style */
-const users = [
-	{
-		id: 1,
-		email: 'emaka@gmail.com',
-		first_name: 'Christian',
-		last_name: 'Nwodo',
-		password: '$2b$10$mkYLLCMvERw9OUspq33HWuLGdcZP2rpemLmQiyyOGvAaXugQrCCIi',
-		phoneNumber: '08066569377',
-		address: 'No 1 prisons road',
-		is_admin: true,
 &nbsp;
-	},
-];
+/* this function will patch the first parameter using the second */
 &nbsp;
-module.exports = users;
+const <span class="fstat-no" title="function not covered" >patchObject </span>= (object1, object2) =&gt; {
+	const target = <span class="cstat-no" title="statement not covered" >object1;</span>
+	const source = <span class="cstat-no" title="statement not covered" >object2;</span>
+	const targetKeys = <span class="cstat-no" title="statement not covered" >Object.</span>keys(target);
+	const sourceKeys = <span class="cstat-no" title="statement not covered" >Object.</span>keys(source);
+<span class="cstat-no" title="statement not covered" >	for (let index = <span class="cstat-no" title="statement not covered" >0; i</span>ndex &lt; sourceKeys.length; index += 1) {</span>
+<span class="cstat-no" title="statement not covered" >		if (targetKeys.indexOf(sourceKeys[index]) &gt; -1) {</span>
+<span class="cstat-no" title="statement not covered" >			target[</span>sourceKeys[index]] = source[sourceKeys[index]];
+		}
+	}
+};
+export default patchObject;
+&nbsp;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->

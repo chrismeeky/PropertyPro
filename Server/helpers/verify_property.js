@@ -18,13 +18,13 @@ const verifyProperty = (req, res, next) => {
 		owner: ownerId,
 		status: req.body.status || 'available',
 		price: parseFloat(req.body.price),
-		purpose: req.body.purpose,
+		purpose: req.body.purpose || 'not provided',
 		state: req.body.state,
 		city: req.body.city,
 		address: req.body.address,
 		type: req.body.type,
-		title: req.body.title,
-		description: req.body.description,
+		title: req.body.title || 'not provided',
+		description: req.body.description || 'not provided',
 		created_on: day.toLocaleDateString(),
 		image_url: req.body.image_url,
 	};
@@ -34,7 +34,7 @@ const verifyProperty = (req, res, next) => {
 		}
 		property.ownerId = authData.id;
 		property.ownerEmail = authData.email;
-		property.ownerPhoneNumber = authData.phonenumber;
+		property.ownerPhoneNumber = authData.phoneNumber;
 		req.property = property;
 		next();
 	});

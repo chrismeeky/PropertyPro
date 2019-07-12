@@ -9,6 +9,7 @@ import verifySignup from '../middlewares/verify_signup';
 import extractErrors from '../helpers/extract_errors';
 import flagSchema from '../Schemas/flag_schema';
 import pool from '../config/pool';
+import refineData from '../helpers/refine_data';
 
 
 const userRouter = express.Router();
@@ -35,7 +36,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 		}
 
 		client.query(
-			'INSERT INTO USERS (email,first_name,last_name,password,phoneNumber,state, city, address, is_admin) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',
+			'INSERT INTO USERS (email,first_name,last_name,password,"phoneNumber",state, city, address, is_admin) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',
 			userFields, (error, result) => {
 				if (error) {
 					return res.status(409).json({
@@ -51,7 +52,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 						});
 					}
 					id = parseInt(results.rows[0].id, 10);
-
+					req.body.id = id;
 					jwt.sign(req.body, 'secretkey', (error, tokens) => {
 						if (err) {
 							return res.status(403).json({
@@ -98,7 +99,7 @@ userRouter.post('/property/:id', (req, res) => {
 			}
 			const day = new Date();
 			const data = {
-				property_id: id,
+				property_id: parseInt(id, 10),
 				created_on: day.toLocaleDateString(),
 				reason: req.body.reason,
 				description: req.body.description,
@@ -119,7 +120,7 @@ userRouter.post('/property/:id', (req, res) => {
 								error: error.detail,
 							});
 						}
-						return res.status(200).json({
+						return res.status(201).json({
 							status: 'success',
 							data: {
 								message: 'We appreciate your feedback as it helps us fight spam and fraud',
@@ -153,10 +154,11 @@ userRouter.get('/property/', (req, res) => {
 						error: 'Property does not exist',
 					});
 				}
-				data = result.rows;
+				data = refineData(result.rows);
+				
 				
 				return res.status(200).json({
-					status: 200,
+					status: 'success',
 					data,
 				});
 			});
@@ -170,7 +172,7 @@ userRouter.get('/property/', (req, res) => {
 						error: 'Property does not exist',
 					});
 				}
-				data = result.rows;
+				data = refineData(result.rows);
 				return res.status(200).json({
 					status: 200,
 					data,
@@ -200,6 +202,7 @@ userRouter.get('/property/:id', (req, res) => {
 				});
 			}
 			const data = result.rows[0];
+			data.price = parseFloat(data.price);
 			return res.status(200).json({
 				status: 'success',
 				data,

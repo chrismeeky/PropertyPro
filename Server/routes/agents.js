@@ -49,7 +49,6 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
   const result = await cloudinary.v2.uploader.upload(req.file.path);
   if (result.url.includes('cloudinary')) {
      
-    console.log(property.status)   
         property.image_url = result.url;
         const formInputs = {
           status: property.status,

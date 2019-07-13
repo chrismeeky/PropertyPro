@@ -7,11 +7,7 @@
     "test": "nyc --reporter=html --reporter=text mocha --no-timeout --require @babel/register --require @babel/polyfill Server/test/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "nodemon --exec babel-node Server/index.js",
-<<<<<<< HEAD
-    "build": "babel Server --out-dir dist ./build --copy-files",
-=======
     "build": "babel Server --out-dir ./build --copy-files",
->>>>>>> develop
     "deploy": "gh-pages -d UI"
   },
   "babel": {
@@ -30,13 +26,6 @@
   },
   "homepage": "https://github.com/zanio/PropertyPro-lite#readme",
   "dependencies": {
-<<<<<<< HEAD
-    "@babel/core": "^7.5.4",
-    "@babel/polyfill": "^7.4.4",
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-=======
->>>>>>> develop
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "chai-http": "^4.3.0",
@@ -52,19 +41,11 @@
     "pg": "^7.11.0"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@babel/cli": "^7.0.0-rc.1",
-    "@babel/core": "^7.0.0-rc.1",
-    "@babel/node": "^7.0.0-rc.1",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.0.0-rc.1",
-=======
     "@babel/cli": "^7.5.0",
     "@babel/core": "^7.5.4",
     "@babel/node": "^7.5.0",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.5.4",
->>>>>>> develop
     "@babel/register": "^7.4.4",
     "babel-register": "^6.26.0",
     "chai": "^4.2.0",

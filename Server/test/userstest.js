@@ -1,8 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable no-tabs */
 import app from '../index';
-import chai from 'chai'
 import { expect } from 'chai';
+import chai from 'chai';
+
 import chaiHttp from 'chai-http';
 import generateRandomEmail from '../helpers/generate_email';
 import pool from '../config/pool';
@@ -10,7 +11,6 @@ import pool from '../config/pool';
 chai.use(chaiHttp);
 let userToken;
 const type = '4 bedroom flat';
-let id;
 
 const email = generateRandomEmail();
 const userInfo = {
@@ -64,7 +64,7 @@ describe('users property endpoints', () => {
 	});
 	before('fjhkjhjheke', () => {
 
-	})
+	});
 	describe('POST /api/v1/auth/signin', () => {
 		it('should be able to sign users in', (done) => {
 			chai.request(app)
@@ -102,7 +102,6 @@ describe('users property endpoints', () => {
 				.attach('image_url', './Server/test/dl.png')
 				.field(body)
 				.end((err, res) => {
-					id = res.body.data.id;
 					expect(res.status).to.equal(201);
 					expect(res.body.status).to.equal('success');
 					expect(res.body.data).to.be.an('object');
@@ -135,9 +134,8 @@ describe('users property endpoints', () => {
 				.post('/api/v1/property')
 				.set('authorization', `Bearer ${userToken}`)
 				.attach('image_url', './Server/test/dl.png')
-				.field({address: 'lets add just this address'})
+				.field({ address: 'lets add just this address' })
 				.end((err, res) => {
-					console.log(res.body)
 					expect(res.status).equal(406);
 					done();
 				});
@@ -153,7 +151,7 @@ describe('users property endpoints', () => {
 					const result = res.body.data;
 
 					expect(res.status).to.equal(200);
-					expect(res.body.status).to.be.a('number');
+					expect(res.body.status).to.be.a('string');
 					expect(result).to.be.an('array');
 					expect(result[0]).to.have.a.property('id');
 					expect(result[0].id).to.be.a('number');
@@ -208,7 +206,8 @@ describe('users property endpoints', () => {
 
 	pool.connect((err, client, done) => {
 		client.query('SELECT MAX(id) from property', (err, result) => {
-			id = result.rows[0].max
+			const id = result.rows[0].max + 1;
+			console.log(typeof id)
 			describe('GET /api/v1/property/:<id>', () => {
 				it('should get a specific property', (done) => {
 					chai.request(app)
@@ -239,7 +238,6 @@ describe('users property endpoints', () => {
 						});
 				});
 			});
-			console.log(id)
 			describe(`PATCH /api/v1/property/${id}`, () => {
 				it('should be able to update property fields', (done) => {
 					chai.request(app)
@@ -277,6 +275,39 @@ describe('users property endpoints', () => {
 				});
 			});
 
+			describe(`PATCH /api/v1/property/${id}/sold`, () => {
+				it('should mark a property as sold', () => {
+					chai.request(app)
+						.patch(`/api/v1/property/${id}/sold/`)
+						.set('authorization', `Bearer ${userToken}`)
+						.end((error, res) => {
+							expect(res.status).to.equal(200);
+							expect(res.body).to.be.an('object');
+							expect(res.body).to.have.a.property('data');
+							const result = res.body.data;
+							expect(result).to.have.a.property('id');
+							expect(result.id).to.be.a('number');
+							expect(result).to.have.a.property('price');
+							expect(result.price).to.be.a('number');
+							expect(result).to.have.a.property('status');
+							expect(result.status).to.be.a('string');
+							expect(result.status).to.equal('sold');
+							expect(result).to.have.a.property('state');
+							expect(result.state).to.be.a('string');
+							expect(result).to.have.a.property('city');
+							expect(result.city).to.be.a('string');
+							expect(result).to.have.a.property('address');
+							expect(result.address).to.be.a('string');
+							expect(result).to.have.a.property('created_on');
+							expect(result.created_on).to.be.a('string');
+							expect(result).to.have.a.property('image_url');
+							expect(result.image_url).to.be.a('string');
+							done();
+
+						})
+				})
+			})
+
 			describe('POST /api/v1/property/:<id>', () => {
 				it('should flag a property as fraudulent', () => {
 					chai.request(app)
@@ -302,51 +333,17 @@ describe('users property endpoints', () => {
 							expect(details.property_id).to.be.a('number');
 							expect(details).to.have.property('created_on');
 							expect(details.created_on).to.be.a('string');
-						})
-				})
-			})
-
-
-			describe(`PATCH /api/v1/property/${id}/sold`, () => {
-				it('should mark a property as sold', (done) => {
-					chai.request(app)
-						.patch(`/api/v1/property/${id}/sold`)
-						.set('authorization', `Bearer ${userToken}`)
-						.end((err, res) => {
-							expect(res.status).to.equal(200);
-							expect(res.body).to.be.an('object');
-							expect(res.body).to.have.a.property('data');
-							const result = res.body.data;
-							expect(result).to.have.a.property('id');
-							expect(result.id).to.be.a('number');
-							expect(result).to.have.a.property('price');
-							expect(result.price).to.be.a('number');
-							expect(result).to.have.a.property('status');
-							expect(result.status).to.be.a('string');
-							expect(result.status).to.equal('sold');
-							expect(result).to.have.a.property('state');
-							expect(result.state).to.be.a('string');
-							expect(result).to.have.a.property('city');
-							expect(result.city).to.be.a('string');
-							expect(result).to.have.a.property('address');
-							expect(result.address).to.be.a('string');
-							expect(result).to.have.a.property('created_on');
-							expect(result.created_on).to.be.a('string');
-							expect(result).to.have.a.property('image_url');
-							expect(result.image_url).to.be.a('string');
-							done();
 						});
 				});
 			});
 
-
-
-			describe('DELETE /api/v1/property/:<id>', () => {
-				it('should delete a specific property ad', (done) => {
+			describe(`DELETE /api/v1/property/${id}/`, () => [
+				it('should be able to delete a property advert', () => {
 					chai.request(app)
-						.delete(`/api/v1/property/${id}`)
+						.delete(`/api/v1/property/${id}/`)
 						.set('authorization', `Bearer ${userToken}`)
-						.end((err, res) => {
+						.end((error, res) => {
+							console.log(res.body)
 							expect(res.status).to.equal(200);
 							expect(res.body).to.have.property('status');
 							expect(res.body.status).to.equal('success');
@@ -356,13 +353,11 @@ describe('users property endpoints', () => {
 							expect(res.body.data.message).to.be.a('string');
 							expect(res.body.data.message).to.equal(`property with id: ${id} has been successfully deleted`);
 							done();
-						});
-				});
-			});
+						})
+				})
+			])
 
-		})
-
+			
+		});
 	});
-
-
 });

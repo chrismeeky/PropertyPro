@@ -3,7 +3,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import userRoutes from './routes/users';
 import agentRoutes from './routes/agents'
+import { createProperty, createUsers, createFlags } from './db/databases';
 
+createProperty();
+createUsers();
+createFlags();
 const PORT = process.env.PORT || 5000;
 
 

@@ -1,10 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-tabs */
-<<<<<<< HEAD
 import pool from '../config/pool';
-=======
-const pool = require('../config/pool');
->>>>>>> develop
 
 const createProperty = () => {
 	const queryText =

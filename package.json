@@ -9,7 +9,9 @@
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --no-timeout --require @babel/register --require @babel/polyfill Server/test/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "start": "nodemon --exec babel-node Server/index.js"
+    "start": "nodemon --exec babel-node Server/index.js",
+    "build": "babel src --out-dir dist",
+    "deploy": "gh-pages -d UI"
     
   },
   "babel": {

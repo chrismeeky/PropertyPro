@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">81.56% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>183/244</span>
+        <span class='fraction'>199/244</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">97.22% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>35/36</span>
+        <span class='fraction'>36/36</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">81.56% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>183/244</span>
+        <span class='fraction'>199/244</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -702,22 +702,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1069,23 +1069,23 @@ describe('users property endpoints', () =&gt; {
 							reason: 'this is the reason the app is being flagged',
 							description: 'this is the description',
 						})
-						.end(<span class="fstat-no" title="function not covered" >(e</span>rr, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.status).to.equal(201);
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body).to.be.an('object');
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body).to.have.property('status');
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body.status).to.be.a('string');
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body.status).to.equal('success');
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body).to.have.property('data');
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body.data).to.be.an('object');
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body.data).to.have.property('message');
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body.data.message).to.be.a('string');
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body.data).to.have.property('details');
-<span class="cstat-no" title="statement not covered" >							expect(r</span>es.body.data.details).to.be.an('object');
-							const { details } = <span class="cstat-no" title="statement not covered" >res.body.data;</span>
-<span class="cstat-no" title="statement not covered" >							expect(d</span>etails).to.have.property('property_id');
-<span class="cstat-no" title="statement not covered" >							expect(d</span>etails.property_id).to.be.a('number');
-<span class="cstat-no" title="statement not covered" >							expect(d</span>etails).to.have.property('created_on');
-<span class="cstat-no" title="statement not covered" >							expect(d</span>etails.created_on).to.be.a('string');
+						.end((err, res) =&gt; {
+							expect(res.status).to.equal(201);
+							expect(res.body).to.be.an('object');
+							expect(res.body).to.have.property('status');
+							expect(res.body.status).to.be.a('string');
+							expect(res.body.status).to.equal('success');
+							expect(res.body).to.have.property('data');
+							expect(res.body.data).to.be.an('object');
+							expect(res.body.data).to.have.property('message');
+							expect(res.body.data.message).to.be.a('string');
+							expect(res.body.data).to.have.property('details');
+							expect(res.body.data.details).to.be.an('object');
+							const { details } = res.body.data;
+							expect(details).to.have.property('property_id');
+							expect(details.property_id).to.be.a('number');
+							expect(details).to.have.property('created_on');
+							expect(details.created_on).to.be.a('string');
 						})
 				})
 			})
@@ -1156,7 +1156,7 @@ describe('users property endpoints', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 10:10:16 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 10:31:54 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

@@ -1,12 +1,12 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "PropertyPro-lite enpoint to be consumed by my frontend",
-  "main": "src/app.js",
+  "description": "List your property for sale on property pro lite",
+  "main": "Server/index.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --no-timeout --require @babel/register --require @babel/polyfill Server/test/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "start": "nodemon --exec babel-node Server/index.js",
+    "start": "node ./build/index.js",
     "build": "babel Server --out-dir ./build --copy-files",
     "deploy": "gh-pages -d UI"
   },
@@ -17,14 +17,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zanio/PropertyPro-lite.git"
+    "url": ""
   },
-  "author": "Aniefiok Akpan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/zanio/PropertyPro-lite/issues"
-  },
-  "homepage": "https://github.com/zanio/PropertyPro-lite#readme",
+  "author": "Nwodo Christian Chukwuemeka",
   "dependencies": {
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",

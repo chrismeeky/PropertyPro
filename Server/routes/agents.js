@@ -17,6 +17,7 @@ import extractErrors from '../helpers/extract_errors';
 import pool from '../config/pool';
 import getId from '../helpers/generateId';
 
+
 agentRouter.post('/auth/signin', verifySignin, (req, res) => {
   jwt.sign(req.user, 'secretkey', (err, tokens) => {
     if (err) {

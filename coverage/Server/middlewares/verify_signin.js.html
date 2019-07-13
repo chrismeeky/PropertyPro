@@ -20,43 +20,31 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-<<<<<<< HEAD
-        <span class="strong">61.11% </span>
-        <span class="quiet">Statements</span>
-        <span class='fraction'>11/18</span>
-=======
         <span class="strong">82.35% </span>
         <span class="quiet">Statements</span>
         <span class='fraction'>14/17</span>
->>>>>>> develop
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">33.33% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>2/6</span>
+        <span class='fraction'>3/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">75% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>3/4</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-<<<<<<< HEAD
-        <span class="strong">61.11% </span>
-        <span class="quiet">Lines</span>
-        <span class='fraction'>11/18</span>
-=======
         <span class="strong">82.35% </span>
         <span class="quiet">Lines</span>
         <span class='fraction'>14/17</span>
->>>>>>> develop
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -118,22 +106,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,23 +148,23 @@ const verifySignin = (req, res, next) =&gt; {
 			});
 		}
 		client.query('SELECT * FROM users WHERE email = $1', [req.body.email], (error, result) =&gt; {
-			<span class="missing-if-branch" title="else path not taken" >E</span>if (result.rows.length === 0) {
-				return res.status(404).json({
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (result.rows.length === 0) {
+<span class="cstat-no" title="statement not covered" >				return r</span>es.status(404).json({
 					status: 'error',
 					error: 'User does not exist. Double check your email address and password',
 				});
 			}
-<span class="cstat-no" title="statement not covered" >			user </span>= result.rows[0];
-<span class="cstat-no" title="statement not covered" >			bcrypt.c</span>ompare(req.body.password, user.password, <span class="fstat-no" title="function not covered" >(E</span>rr, rslt) =&gt; {
-<span class="cstat-no" title="statement not covered" >				if (!rslt) {</span>
+			user = result.rows[0];
+			bcrypt.compare(req.body.password, user.password, (Err, rslt) =&gt; {
+				<span class="missing-if-branch" title="if path not taken" >I</span>if (!rslt) {
 <span class="cstat-no" title="statement not covered" >					return r</span>es.status(401).json({
 						status: 'error',
 						error: 'Email and password do not match',
 					});
 				}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >				req.</span>user = user;
-<span class="cstat-no" title="statement not covered" >				next();</span>
+				req.user = user;
+				next();
 &nbsp;
 			});
 		});
@@ -193,11 +181,7 @@ export default verifySignin;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-<<<<<<< HEAD
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 10:47:40 GMT+0100 (West Africa Standard Time)
-=======
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 16:09:55 GMT+0100 (West Africa Standard Time)
->>>>>>> develop
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Sat Jul 13 2019 23:40:16 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

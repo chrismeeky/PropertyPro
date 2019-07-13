@@ -1,6 +1,5 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
-import { Pool } from 'pg';
 const agentRouter = express.Router();
 
 import jwt from 'jsonwebtoken';
@@ -296,6 +295,7 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
     }
     else {
       let { id } = req.params;
+      console.log(id)
       pool.connect((err, client, done) => {
         if (err) {
           return res.status(408).json({
@@ -314,6 +314,8 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
           const data = result.rows[0];
           data.price = parseFloat(result.rows[0].price)
           if (parseInt(authData.id, 10) !== parseInt(result.rows[0].owner, 10) && !authData.is_admin) {
+            console.log(authData.id)
+            console.log(result.rows[0].owner)
             return res.status(401).json({
               status: 'error',
               error: 'Only property owner or an Admin can update a property'

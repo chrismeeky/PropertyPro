@@ -1,15 +1,7 @@
 /* eslint-disable no-tabs */
 /* eslint-disable linebreak-style */
-import { Pool } from 'pg';
 import bcrypt from 'bcrypt';
-
-const pool = new Pool({
-	user: 'postgres',
-	host: 'localhost',
-	database: 'propertyprolite',
-	password: 'mekusmekusdot666',
-	port: 5432,
-});
+import pool from '../config/pool';
 
 let user;
 

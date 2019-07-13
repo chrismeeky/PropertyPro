@@ -36,7 +36,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 		}
 
 		client.query(
-			'INSERT INTO USERS (email,first_name,last_name,password,"phoneNumber",state, city, address, is_admin) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',
+			'INSERT INTO users (email,first_name,last_name,password,"phoneNumber",state, city, address, is_admin) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',
 			userFields, (error, result) => {
 				if (error) {
 					return res.status(409).json({
@@ -174,7 +174,7 @@ userRouter.get('/property/', (req, res) => {
 				}
 				data = refineData(result.rows);
 				return res.status(200).json({
-					status: 200,
+					status: 'success',
 					data,
 				});
 			});

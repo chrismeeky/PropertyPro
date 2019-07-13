@@ -1,6 +1,10 @@
 /* eslint-disable no-console */
 /* eslint-disable no-tabs */
+<<<<<<< HEAD
 import pool from '../config/pool';
+=======
+const pool = require('../config/pool');
+>>>>>>> develop
 
 const createProperty = () => {
 	const queryText =
@@ -66,8 +70,55 @@ const createFlags = () => {
 			console.log(err);
 		});
 };
+<<<<<<< HEAD
 module.exports = {
 	createFlags,
 	createProperty,
 	createUsers,
 };
+=======
+
+const dropProperty = () => {
+	const queryText =
+        `DROP TABLE IF EXISTS property`
+
+	pool.query(queryText)
+		.then((res) => {
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+const dropFlags = () => {
+	const queryText =
+        `DROP TABLE IF EXISTS flags`
+
+	pool.query(queryText)
+		.then((res) => {
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+const dropUsers = () => {
+	const queryText =
+        `DROP TABLE IF EXISTS users`
+
+	pool.query(queryText)
+		.then((res) => {
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+
+module.exports = {
+	createFlags,
+	createProperty,
+    createUsers,
+    dropFlags,
+    dropProperty,
+    dropUsers
+};
+require('make-runnable');
+>>>>>>> develop

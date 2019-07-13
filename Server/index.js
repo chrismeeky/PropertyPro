@@ -3,7 +3,11 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import userRoutes from './routes/users';
 import agentRoutes from './routes/agents'
+<<<<<<< HEAD
 import { createProperty, createUsers, createFlags } from './db/databases';
+=======
+import {createProperty, createUsers, createFlags, dropFlags, dropProperty, dropUsers} from './db/databases';
+>>>>>>> develop
 
 createProperty();
 createUsers();

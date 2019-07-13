@@ -1,6 +1,9 @@
 {
   "name": "server",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.16.0"
+  },
   "description": "Property pro lite endpoints",
   "main": "index.js",
   "scripts": {

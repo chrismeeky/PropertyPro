@@ -6,8 +6,7 @@ import bodyParser from 'body-parser';
 import userRoutes from './routes/users';
 import agentRoutes from './routes/agents'
 import { createProperty, createUsers, createFlags } from './db/databases';
-require("babel-core/register");
-require("babel-polyfill");
+
 createProperty();
 createUsers();
 createFlags();

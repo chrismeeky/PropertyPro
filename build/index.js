@@ -22,10 +22,6 @@ require("babel-core/register");
 
 require("babel-polyfill");
 
-require("babel-core/register");
-
-require("babel-polyfill");
-
 (0, _databases.createProperty)();
 (0, _databases.createUsers)();
 (0, _databases.createFlags)();

@@ -2,7 +2,7 @@
   "name": "api",
   "version": "1.0.0",
   "description": "List your property for sale on property pro lite",
-  "main": "build/index.js",
+  "main": "./build/index.js",
   "scripts": {
     "test": "nyc --reporter=html --reporter=text mocha --no-timeout --require @babel/register --require @babel/polyfill Server/test/*.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",

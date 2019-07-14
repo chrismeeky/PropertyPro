@@ -8,8 +8,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "node ./build/index.js",
     "build": "babel Server --out-dir ./build --copy-files",
-    "deploy": "gh-pages -d UI",
-    "dev": "nodemon --exec babel-node Server/index.js"
+    "deploy": "gh-pages -d UI"
   },
   "repository": {
     "type": "git",

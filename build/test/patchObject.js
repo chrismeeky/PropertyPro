@@ -1,10 +1,10 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 var _chai = require("chai");
 
 var _patchobject = _interopRequireDefault(require("../helpers/patchobject"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable no-tabs */
 describe('A function that is used for patching an object using another object', function () {

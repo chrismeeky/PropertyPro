@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -15,9 +17,15 @@ var _agents = _interopRequireDefault(require("./routes/agents"));
 
 var _databases = require("./db/databases");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
 /* eslint-disable no-tabs */
+require("babel-core/register");
+
+require("babel-polyfill");
+
+require("babel-core/register");
+
+require("babel-polyfill");
+
 (0, _databases.createProperty)();
 (0, _databases.createUsers)();
 (0, _databases.createFlags)();

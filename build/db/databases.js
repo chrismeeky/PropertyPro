@@ -1,8 +1,8 @@
 "use strict";
 
-var _pool = _interopRequireDefault(require("../config/pool"));
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var _pool = _interopRequireDefault(require("../config/pool"));
 
 /* eslint-disable no-console */
 

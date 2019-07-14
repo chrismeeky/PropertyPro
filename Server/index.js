@@ -1,10 +1,13 @@
 /* eslint-disable no-tabs */
+require("babel-core/register");
+require("babel-polyfill");
 import express from 'express';
 import bodyParser from 'body-parser';
 import userRoutes from './routes/users';
 import agentRoutes from './routes/agents'
 import { createProperty, createUsers, createFlags } from './db/databases';
-
+require("babel-core/register");
+require("babel-polyfill");
 createProperty();
 createUsers();
 createFlags();

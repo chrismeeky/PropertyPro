@@ -1,5 +1,11 @@
 "use strict";
 
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
+
 var _index = _interopRequireDefault(require("../index"));
 
 var _chai = _interopRequireWildcard(require("chai"));
@@ -10,12 +16,9 @@ var _generate_email = _interopRequireDefault(require("../helpers/generate_email"
 
 var _pool = _interopRequireDefault(require("../config/pool"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+/* eslint-disable no-console */
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
+/* eslint-disable no-tabs */
 _chai["default"].use(_chaiHttp["default"]);
 
 var userToken;
@@ -188,7 +191,7 @@ describe('users property endpoints', function () {
   _pool["default"].connect(function (err, client, done) {
     client.query('SELECT MAX(id) from property', function (err, result) {
       var id = result.rows[0].max + 1;
-      console.log(_typeof(id));
+      console.log((0, _typeof2["default"])(id));
       describe('GET /api/v1/property/:<id>', function () {
         it('should get a specific property', function (done) {
           _chai["default"].request(_index["default"]).get("/api/v1/property/".concat(id)).end(function (err, res) {

@@ -1,10 +1,10 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 var _chai = require("chai");
 
 var _inputvalidation = _interopRequireDefault(require("../../Server/helpers/inputvalidation"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable no-unused-expressions */
 

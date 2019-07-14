@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -20,8 +22,6 @@ var _flag_schema = _interopRequireDefault(require("../Schemas/flag_schema"));
 var _pool = _interopRequireDefault(require("../config/pool"));
 
 var _refine_data = _interopRequireDefault(require("../helpers/refine_data"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable no-mixed-spaces-and-tabs */
 

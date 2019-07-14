@@ -1,5 +1,7 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -12,8 +14,6 @@ var _bcrypt = _interopRequireDefault(require("bcrypt"));
 var _users_schema = _interopRequireDefault(require("../Schemas/users_schema"));
 
 var _extract_errors = _interopRequireDefault(require("../helpers/extract_errors"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 /* eslint-disable no-tabs */
 

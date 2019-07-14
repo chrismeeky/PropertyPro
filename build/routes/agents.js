@@ -1,9 +1,17 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 var _express = _interopRequireDefault(require("express"));
 
@@ -29,14 +37,7 @@ var _pool = _interopRequireDefault(require("../config/pool"));
 
 var _generateId = _interopRequireDefault(require("../helpers/generateId"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* eslint-disable linebreak-style */
 var agentRouter = _express["default"].Router();
 
 require('dotenv').config();
@@ -68,11 +69,11 @@ agentRouter.post('/auth/signin', _verify_signin["default"], function (req, res) 
 agentRouter.post('/property', _multer["default"].single('image_url'), _verify_token["default"], _verify_property["default"], _generateId["default"],
 /*#__PURE__*/
 function () {
-  var _ref = _asyncToGenerator(
+  var _ref = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee(req, res) {
+  _regenerator["default"].mark(function _callee(req, res) {
     var property, result, formInputs, propertyFields;
-    return regeneratorRuntime.wrap(function _callee$(_context) {
+    return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
@@ -104,7 +105,7 @@ function () {
               ownerEmail: property.ownerEmail,
               ownerPhoneNumber: property.ownerPhoneNumber
             };
-            console.log(_typeof(property.price));
+            console.log((0, _typeof2["default"])(property.price));
             propertyFields = [req.id, property.ownerId, property.status, property.title, property.description, property.price, property.purpose, property.state, property.city, property.address, property.type, property.created_on, property.image_url, property.ownerEmail, property.ownerPhoneNumber];
 
             _joi["default"].validate(formInputs, _property_schema["default"], function (error, result) {
@@ -178,11 +179,11 @@ function () {
 agentRouter.patch('/property/:id', _multer["default"].single('image_url'), _verify_token["default"],
 /*#__PURE__*/
 function () {
-  var _ref2 = _asyncToGenerator(
+  var _ref2 = (0, _asyncToGenerator2["default"])(
   /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee2(req, res) {
+  _regenerator["default"].mark(function _callee2(req, res) {
     var id, property, result;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    return _regenerator["default"].wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:

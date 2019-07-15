@@ -24,11 +24,11 @@ Property pro Lite is a website where users can upload users can advertise their 
 
 ### GitHub Pages link for UI Frontend
 
-[PropertyPro-lite/UI link](https://github.com/chrismeeky/PropertyPro/tree/develop)
+[PropertyPro-lite/UI link](https://chrismeeky.github.io/PropertyPro/UI/)
 
 ### REST API Docs
 
-[PropertyPro-lite documentation link]()
+[PropertyPro-lite documentation link](https://propertyproliteapp.herokuapp.com)
 
 ### Required Features
 
@@ -42,13 +42,9 @@ User (agent) can delete a property advert.
 User can view all properties adverts.
 User can view all properties of a specific type - 2 bedroom, 3 bedroom, mini flat etc.
 User can view a specific property advert.
+User can flag a property as fraud
 ```
 
-### Programming paradigm
-
-```
-The style of programming as seen in this project is functional. Functional programming is a programming paradigm—a style of building the structure and elements of computer programs—that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data. It is a declarative programming paradigm in that programming is done with expressions or declarations instead of statements. Functional code is idempotent: a function's return value depends only on its arguments, so calling a function with the same value for an argument always produces the same result.
-```
 
 ## Installation and Running the Application
 
@@ -57,7 +53,7 @@ Ensure that you have nodejs and npm installed in your computer
 a. Clone this repository into your named folder
 
 ```bash
-git clone -b develop https://github.com/zanio/PropertyPro-lite.git .
+git clone -b develop git@github.com:chrismeeky/PropertyPro.git .
 git status
 ```
 
@@ -70,7 +66,7 @@ npm install
 c. start the application
 
 ```bash
-npm run dev
+npm start
 ```
 
 ## Test the application
@@ -81,7 +77,7 @@ npm run test
 
 ## Test the endpoints
 
-The application can be tested locally through localhost on port 5000 or through the live [url](https://propertpro-litheroku/) using postman
+The application can be tested locally through localhost on port 5000 or through the live [url](https://propertyproliteapp.herokuapp.com) using postman
 
 1. Run the application while postman is open
 2. Go to postman and test against the endpoints below with the required property:-
@@ -93,6 +89,7 @@ Method        | Endpoint      | Enable a user to: |
 POST  | api/v1/auth/signup  | Create user account  |
 POST  | api/v1/auth/signin  | Login a user |
 POST  | api/v1/property  | Create a property advert |
+POST  | api/v1/property/<:property-id>  | Flag property as fraud |
 PATCH  | api/v1/property/<:property-id>  | Update property data |
 PATCH  | api/v1/property/<:property-id>/sold  | Mark a property as sold so users know it’s no longer available |
 DELETE  | api/v1/property/<:property-id>  | Delete a property advert |

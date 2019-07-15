@@ -1,7 +1,7 @@
 /* eslint-disable linebreak-style */
 import express from 'express';
 const agentRouter = express.Router();
-
+import multer from'multer';
 import jwt from 'jsonwebtoken';
 import verifyToken from '../middlewares/verify_token';
 import verifyProperty from '../helpers/verify_property';
@@ -16,18 +16,17 @@ import extractErrors from '../helpers/extract_errors';
 import pool from '../config/pool';
 import getId from '../helpers/generateId';
 
-
-agentRouter.post('/auth/signin', verifySignin, (req, res) => {
+agentRouter.post('/auth/signin',upload.array(), verifySignin, (req, res) => {
   jwt.sign(req.user, 'secretkey', (err, tokens) => {
     if (err) {
-      res.status(417).json({
+      return res.status(417).json({
         status: 'error',
         error: err
       })
     }
     else {
       const id = parseInt(req.user.id, 10);
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         data: {
           token: tokens,
@@ -35,6 +34,7 @@ agentRouter.post('/auth/signin', verifySignin, (req, res) => {
           first_name: req.user.first_name,
           last_name: req.user.last_name,
           email: req.user.email,
+        
         },
       });
     }
@@ -150,7 +150,6 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
   const { id } = req.params;
   let property = req.body;
   let result;
-  console.log(req.file)
   if (req.file) {
     
     result = await cloudinary.v2.uploader.upload(req.file.path);
@@ -239,7 +238,7 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
                     }
                     else {
                       client.query('SELECT * FROM property WHERE id = $1', [id], (err, result) => {
-                        res.status(200).json({
+                        return res.status(200).json({
                           status: 'success',
                           data: {
                         id: parseInt(id, 10),
@@ -288,7 +287,6 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
     }
     else {
       let { id } = req.params;
-      console.log(id)
       pool.connect((err, client, done) => {
         if (err) {
           return res.status(408).json({

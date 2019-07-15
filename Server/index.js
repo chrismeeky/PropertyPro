@@ -2,12 +2,14 @@
 
 import express from 'express';
 import bodyParser from 'body-parser';
+import multer from 'multer';
 import YAML from 'yamljs';
 import swaggerUI from 'swagger-ui-express';
 import userRoutes from './routes/users';
 import agentRoutes from './routes/agents'
 import { createProperty, createUsers, createFlags} from './db/databases';
 const swaggerDocument = YAML.load(`${__dirname}/../swagger.yaml`);
+const upload = multer();
 
 createProperty();
 createUsers();

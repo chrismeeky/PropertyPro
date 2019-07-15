@@ -11,6 +11,8 @@ var _express = _interopRequireDefault(require("express"));
 
 var _bodyParser = _interopRequireDefault(require("body-parser"));
 
+var _multer = _interopRequireDefault(require("multer"));
+
 var _yamljs = _interopRequireDefault(require("yamljs"));
 
 var _swaggerUiExpress = _interopRequireDefault(require("swagger-ui-express"));
@@ -24,6 +26,7 @@ var _databases = require("./db/databases");
 /* eslint-disable no-tabs */
 var swaggerDocument = _yamljs["default"].load("".concat(__dirname, "/../swagger.yaml"));
 
+var upload = (0, _multer["default"])();
 (0, _databases.createProperty)();
 (0, _databases.createUsers)();
 (0, _databases.createFlags)(); // createAdmin()

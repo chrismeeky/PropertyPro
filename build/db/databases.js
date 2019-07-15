@@ -29,47 +29,60 @@ var createFlags = function createFlags() {
   _pool["default"].query(queryText).then(function (res) {})["catch"](function (err) {
     console.log(err);
   });
-};
+}; // const dropFlags = () => {
+// 	const queryText =
+//         `DROP TABLE IF EXISTS flags`;
+// 	pool.query(queryText)
+// 		.then((res) => {
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
+// const dropProperty = () => {
+// 	const queryText =
+//         `DROP TABLE IF EXISTS property`;
+// 	pool.query(queryText)
+// 		.then((res) => {
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
+// const dropUsers = () => {
+// 	const queryText =
+//         `DROP TABLE IF EXISTS users`;
+// 	pool.query(queryText)
+// 		.then((res) => {
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
+// const createAdmin = () => {
+// 	const userFields = [
+// 		'admin@email.com',
+// 		'admin_first_name',
+// 		'admin_last_name',
+// 		'admin_password',
+// 		'09056557300',
+// 		'Enugu',
+// 		'Enugu',
+// 		'No 2 Odogwu street mbadiwe lane',
+// 		true];
+// 	const queryText =
+//         "DELETE FROM users where email = 'admin@email.com'";
+// 	pool.query(queryText)
+// 		.then((res) => {
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
 
-var dropFlags = function dropFlags() {
-  var queryText = "DROP TABLE IF EXISTS flags";
-
-  _pool["default"].query(queryText).then(function (res) {})["catch"](function (err) {
-    console.log(err);
-  });
-};
-
-var dropProperty = function dropProperty() {
-  var queryText = "DROP TABLE IF EXISTS property";
-
-  _pool["default"].query(queryText).then(function (res) {})["catch"](function (err) {
-    console.log(err);
-  });
-};
-
-var dropUsers = function dropUsers() {
-  var queryText = "DROP TABLE IF EXISTS users";
-
-  _pool["default"].query(queryText).then(function (res) {})["catch"](function (err) {
-    console.log(err);
-  });
-};
-
-var createAdmin = function createAdmin() {
-  var userFields = ['admin@email.com', 'admin_first_name', 'admin_last_name', 'admin_password', '09056557300', 'Enugu', 'Enugu', 'No 2 Odogwu street mbadiwe lane', true];
-  var queryText = "DELETE FROM users where email = 'admin@email.com'";
-
-  _pool["default"].query(queryText).then(function (res) {})["catch"](function (err) {
-    console.log(err);
-  });
-};
 
 module.exports = {
   createFlags: createFlags,
   createProperty: createProperty,
-  createUsers: createUsers,
-  dropFlags: dropFlags,
-  dropProperty: dropProperty,
-  dropUsers: dropUsers,
-  createAdmin: createAdmin
+  createUsers: createUsers
 };

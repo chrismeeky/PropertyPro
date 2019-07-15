@@ -28,7 +28,7 @@ userRouter.post('/auth/signup',upload.array(), verifySignup, (req, res) => {
 		userData.state,
 		userData.city,
 		userData.address,
-		true];
+		false];
 	let id;
 	pool.connect((err, client, done) => {
 		if (err) {

@@ -6,7 +6,7 @@ info:
   contact: 
     email: "nwodochristian@gmail.com"
 # during dev, should point to your local machine
-host: https://propertyproliteapp.herokuapp.com
+host: propertyproliteapp.herokuapp.com
 # basePath prefixes all resource paths 
 basePath: /api/v1
 # 
@@ -36,7 +36,7 @@ paths:
         - Users
       operationId: AuthSignupPost
       description: Registers a new User
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/auth/signup
+      summary: propertyproliteapp.herokuapp.com/api/v1/auth/signup
       deprecated: false
       produces:
       - application/json
@@ -113,7 +113,7 @@ paths:
     x-swagger-router-controller: UserPropertyController
     post:
       description: user can login with proper params
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/auth/signin
+      summary: propertyproliteapp.herokuapp.com/api/v1/auth/signin
       tags:
         - Users
       operationId: AuthSignInPost
@@ -162,7 +162,7 @@ paths:
     x-swagger-router-controller: AgentPropertyController
     post:
       description: Agent Can Post an advert when logged in
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property/
+      summary: propertyproliteapp.herokuapp.com/api/v1/property/
       tags:
         - Property
       operationId: AgentPropertyPost
@@ -253,7 +253,7 @@ paths:
             $ref: "#/definitions/ErrorResponse"
     get: 
       description: Agent Can get all his/her adverts when logged in
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property
+      summary: propertyproliteapp.herokuapp.com/api/v1/property
       tags:
         - Property
       operationId: AgentPropertyGet
@@ -286,7 +286,7 @@ paths:
     # our controller name
     x-swagger-router-controller: AgentPropertyCOntroller
     get:
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property/{id}
+      summary: propertyproliteapp.herokuapp.com/api/v1/property/{id}
       tags:
         - Property
       operationId: AgentPropertyGetOne
@@ -318,7 +318,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
     patch:
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property/{id}
+      summary: propertyproliteapp.herokuapp.com/api/v1/property/{id}
       tags:
         - Property
       operationId: AgentPropertyUpdate
@@ -422,7 +422,7 @@ paths:
               $ref: "#/definitions/ErrorResponse"
           
     /property/{id}:
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property/{id}
+      summary: propertyproliteapp.herokuapp.com/api/v1/property/{id}
       tags:
         - Property
       operationId: AgentPropertyDelete
@@ -457,7 +457,7 @@ paths:
     # our controller name
     x-swagger-router-controller: AgentPropertyCOntroller
     patch:
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property/{id}/sold
+      summary: propertyproliteapp.herokuapp.com/api/v1/property/{id}/sold
       tags:
         - Property
       operationId: AgentPropertyMarkSold
@@ -506,7 +506,7 @@ paths:
     # our controller name
     x-swagger-router-controller: UserPropertyController
     get:
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property
+      summary: propertyproliteapp.herokuapp.com/api/v1/property
       tags:
         - Property
       operationId: PropertyGetAll
@@ -542,7 +542,7 @@ paths:
     # our controller name
     x-swagger-router-controller: UserPropertyController
     get:
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property/{id}
+      summary: propertyproliteapp.herokuapp.com/api/v1/property/{id}
       tags:
         - Property
       operationId: PropertyGetOne
@@ -580,7 +580,7 @@ paths:
     # our controller name
     x-swagger-router-controller: UserPropertyController
     post:
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property/{id}
+      summary: propertyproliteapp.herokuapp.com/api/v1/property/{id}
       tags:
         - Property
       operationId: UserPropertyMarkFraud
@@ -636,11 +636,11 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
-  /property/{id}/delete:
+  /property/{id}/:
     # our controller name
     x-swagger-router-controller: UserPropertyController
     delete:
-      summary: https://propertyproliteapp.herokuapp.com/api/v1/property/{id}
+      summary: propertyproliteapp.herokuapp.com/api/v1/property/{id}
       tags:
         - Property
       operationId: UserPropertyDeleteAdvert

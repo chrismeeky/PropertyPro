@@ -6,6 +6,7 @@ import express from 'express';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
 import verifySignup from '../middlewares/verify_signup';
+import verifyToken from '../middlewares/verify_token'
 import extractErrors from '../helpers/extract_errors';
 import flagSchema from '../Schemas/flag_schema';
 import pool from '../config/pool';
@@ -21,7 +22,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 		userData.first_name,
 		userData.last_name,
 		userData.password,
-		userData.phoneNumber,
+		userData.phone_number,
 		userData.state,
 		userData.city,
 		userData.address,
@@ -36,7 +37,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 		}
 
 		client.query(
-			'INSERT INTO users (email,first_name,last_name,password,"phoneNumber",state, city, address, is_admin) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',
+			'INSERT INTO users (email,first_name,last_name,password,phone_number,state, city, address, is_admin) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)',
 			userFields, (error, result) => {
 				if (error) {
 					return res.status(409).json({
@@ -81,7 +82,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 
 });
 
-userRouter.post('/property/:id', (req, res) => {
+userRouter.post('/property/fraud/:id', (req, res) => {
 	const { id } = req.params;
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -126,7 +127,7 @@ userRouter.post('/property/:id', (req, res) => {
 								message: 'We appreciate your feedback as it helps us fight spam and fraud',
 								details: data,
 							}
-							
+
 						})
 					})
 			})
@@ -134,82 +135,102 @@ userRouter.post('/property/:id', (req, res) => {
 	});
 })
 // users can view all property adverts
-userRouter.get('/property/', (req, res) => {
+userRouter.get('/property/', verifyToken, (req, res) => {
 	let data;
 	const type = req.query.type;
-	pool.connect((err, client, done) => {
-
+	jwt.verify(req.token, 'secretkey', (err, authData) => {
 		if (err) {
-			return res.status(408).json({
+			res.status(417).json({
 				status: 'error',
-				error: err,
+				error: 'invalid authorization token'
 			})
 		}
-		if (typeof type !== 'undefined') {
-			client.query('SELECT * FROM property where type = $1', [req.query.type], (error, result) => {
-				
-				if (result.rows.length === 0) {
-					return res.status(404).json({
-						status: 'error',
-						error: 'Property does not exist',
-					});
-				}
-				data = refineData(result.rows);
-				
-				
-				return res.status(200).json({
-					status: 'success',
-					data,
-				});
-			});
-
-		}
 		else {
-			client.query('SELECT * FROM property', (error, result) => {
-				if (result.rows.length === 0) {
-					return res.status(404).json({
+			pool.connect((err, client, done) => {
+
+				if (err) {
+					return res.status(408).json({
 						status: 'error',
-						error: 'Property does not exist',
+						error: err,
+					})
+				}
+				if (typeof type !== 'undefined') {
+					client.query('SELECT * FROM property where type = $1', [req.query.type], (error, result) => {
+
+						if (result.rows.length === 0) {
+							return res.status(404).json({
+								status: 'error',
+								error: 'Property does not exist',
+							});
+						}
+						data = refineData(result.rows);
+
+
+						return res.status(200).json({
+							status: 'success',
+							data,
+						});
+					});
+
+				}
+				else {
+					client.query('SELECT * FROM property', (error, result) => {
+						if (result.rows.length === 0) {
+							return res.status(404).json({
+								status: 'error',
+								error: 'Property does not exist',
+							});
+						}
+						data = refineData(result.rows);
+						return res.status(200).json({
+							status: 'success',
+							data,
+						});
 					});
 				}
-				data = refineData(result.rows);
-				return res.status(200).json({
-					status: 'success',
-					data,
-				});
+
 			});
 		}
-
 	});
+
 
 
 });
 
-userRouter.get('/property/:id', (req, res) => {
+userRouter.get('/property/:id', verifyToken, (req, res) => {
 	const { id } = req.params;
-	pool.connect((err, client, done) => {
+	jwt.verify(req.token, 'secretkey', (err, authData) => {
 		if (err) {
-			return res.status(408).json({
+			return res.status(417).json({
 				status: 'error',
-				error: err,
-			});
+				error: 'invalid authorization token'
+			})
 		}
-		client.query('SELECT * FROM property where id = $1', [id], (error, result) => {
-			if (result.rows.length === 0) {
-				return res.status(404).json({
+		pool.connect((err, client, done) => {
+			if (err) {
+				return res.status(408).json({
 					status: 'error',
-					error: 'Property does not exist',
+					error: err,
 				});
 			}
-			const data = result.rows[0];
-			data.price = parseFloat(data.price);
-			return res.status(200).json({
-				status: 'success',
-				data,
+			client.query('SELECT * FROM property where id = $1', [id], (error, result) => {
+				if (result.rows.length === 0) {
+					return res.status(404).json({
+						status: 'error',
+						error: 'Property does not exist',
+					});
+				}
+				const data = result.rows[0];
+				data.price = parseFloat(data.price);
+				return res.status(200).json({
+					status: 'success',
+					data,
+				});
 			});
+			done();
 		});
-		done();
 	});
+
 });
 
 export default userRouter;

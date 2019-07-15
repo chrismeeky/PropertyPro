@@ -8,7 +8,7 @@ let user;
 const verifySignin = (req, res, next) => {
 	pool.connect((err, client, done) => {
 		if (err) {
-			return res.status(403).json({
+			return res.status(417).json({
 				status: 'error',
 				error: err,
 			});

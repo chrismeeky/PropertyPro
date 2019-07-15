@@ -30,7 +30,7 @@ var userInfo = {
   email: email,
   password: 'testpassword123',
   address: 'No 2 busy street Mocha Avenue',
-  phoneNumber: '0806587548',
+  phone_number: '0806587548',
   state: 'Enugu',
   city: 'Enugu'
 };
@@ -97,6 +97,7 @@ describe('users property endpoints', function () {
   describe('POST /api/v1/property', function () {
     it('should be able to create new property', function (done) {
       _chai["default"].request(_index["default"]).post('/api/v1/property').set('authorization', "Bearer ".concat(userToken)).attach('image_url', './Server/test/dl.png').field(body).end(function (err, res) {
+        console.log(res.body);
         (0, _chai.expect)(res.status).to.equal(201);
         (0, _chai.expect)(res.body.status).to.equal('success');
         (0, _chai.expect)(res.body.data).to.be.an('object');
@@ -134,7 +135,7 @@ describe('users property endpoints', function () {
   });
   describe('GET /property', function () {
     it('should get all property adverts', function (done) {
-      _chai["default"].request(_index["default"]).get('/api/v1/property').end(function (err, res) {
+      _chai["default"].request(_index["default"]).get('/api/v1/property').set('authorization', "Bearer ".concat(userToken)).end(function (err, res) {
         var result = res.body.data;
         (0, _chai.expect)(res.status).to.equal(200);
         (0, _chai.expect)(res.body.status).to.be.a('string');
@@ -155,13 +156,17 @@ describe('users property endpoints', function () {
         (0, _chai.expect)(result[0].created_on).to.be.a('string');
         (0, _chai.expect)(result[0]).to.have.a.property('image_url');
         (0, _chai.expect)(result[0].image_url).to.be.a('string');
+        (0, _chai.expect)(result[0]).to.have.property('owner_email');
+        (0, _chai.expect)(result[0].owner_email).to.be.a('string');
+        (0, _chai.expect)(result[0]).to.have.property('owner_phone_number');
+        (0, _chai.expect)(result[0].owner_phone_number).to.be.a('string');
         done();
       });
     });
   });
   describe("GET /api/v1/property/?type=".concat(type), function () {
     it('should get specific property type', function (done) {
-      _chai["default"].request(_index["default"]).get("/api/v1/property?type=".concat(type)).end(function (err, res) {
+      _chai["default"].request(_index["default"]).get("/api/v1/property?type=".concat(type)).set('authorization', "Bearer ".concat(userToken)).end(function (err, res) {
         (0, _chai.expect)(res.status).to.equal(200);
         (0, _chai.expect)(res.body.status).to.equal('success');
         (0, _chai.expect)(res.body.data).to.be.an('array');
@@ -183,6 +188,10 @@ describe('users property endpoints', function () {
         (0, _chai.expect)(result.created_on).to.be.a('string');
         (0, _chai.expect)(result).to.have.a.property('image_url');
         (0, _chai.expect)(result.image_url).to.be.a('string');
+        (0, _chai.expect)(result).to.have.property('owner_email');
+        (0, _chai.expect)(result.owner_email).to.be.a('string');
+        (0, _chai.expect)(result).to.have.property('owner_phone_number');
+        (0, _chai.expect)(result.owner_phone_number).to.be.a('string');
         done();
       });
     });
@@ -194,7 +203,7 @@ describe('users property endpoints', function () {
       console.log((0, _typeof2["default"])(id));
       describe('GET /api/v1/property/:<id>', function () {
         it('should get a specific property', function (done) {
-          _chai["default"].request(_index["default"]).get("/api/v1/property/".concat(id)).end(function (err, res) {
+          _chai["default"].request(_index["default"]).get("/api/v1/property/".concat(id)).set('authorization', "Bearer ".concat(userToken)).end(function (err, res) {
             (0, _chai.expect)(res.status).to.equal(200);
             (0, _chai.expect)(res.body.status).to.equal('success');
             (0, _chai.expect)(res.body.data).to.be.an('object');
@@ -216,6 +225,10 @@ describe('users property endpoints', function () {
             (0, _chai.expect)(result.created_on).to.be.a('string');
             (0, _chai.expect)(result).to.have.a.property('image_url');
             (0, _chai.expect)(result.image_url).to.be.a('string');
+            (0, _chai.expect)(result).to.have.property('owner_email');
+            (0, _chai.expect)(result.owner_email).to.be.a('string');
+            (0, _chai.expect)(result).to.have.property('owner_phone_number');
+            (0, _chai.expect)(result.owner_phone_number).to.be.a('string');
             done();
           });
         });
@@ -280,9 +293,9 @@ describe('users property endpoints', function () {
           });
         });
       });
-      describe('POST /api/v1/property/:<id>', function () {
+      describe('POST /api/v1/property/fraud/:<id>', function () {
         it('should flag a property as fraudulent', function () {
-          _chai["default"].request(_index["default"]).post("/api/v1/property/".concat(id)).send({
+          _chai["default"].request(_index["default"]).post("/api/v1/property/fraud/".concat(id)).send({
             reason: 'this is the reason the app is being flagged',
             description: 'this is the description'
           }).end(function (err, res) {

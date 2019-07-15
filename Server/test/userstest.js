@@ -19,7 +19,7 @@ const userInfo = {
 	email,
 	password: 'testpassword123',
 	address: 'No 2 busy street Mocha Avenue',
-	phoneNumber: '0806587548',
+	phone_number: '0806587548',
 	state: 'Enugu',
 	city: 'Enugu',
 };
@@ -102,6 +102,7 @@ describe('users property endpoints', () => {
 				.attach('image_url', './Server/test/dl.png')
 				.field(body)
 				.end((err, res) => {
+					console.log(res.body)
 					expect(res.status).to.equal(201);
 					expect(res.body.status).to.equal('success');
 					expect(res.body.data).to.be.an('object');
@@ -147,6 +148,7 @@ describe('users property endpoints', () => {
 		it('should get all property adverts', (done) => {
 			chai.request(app)
 				.get('/api/v1/property')
+				.set('authorization', `Bearer ${userToken}`)
 				.end((err, res) => {
 					const result = res.body.data;
 
@@ -169,6 +171,10 @@ describe('users property endpoints', () => {
 					expect(result[0].created_on).to.be.a('string');
 					expect(result[0]).to.have.a.property('image_url');
 					expect(result[0].image_url).to.be.a('string');
+					expect(result[0]).to.have.property('owner_email');
+					expect(result[0].owner_email).to.be.a('string')
+					expect(result[0]).to.have.property('owner_phone_number');
+					expect(result[0].owner_phone_number).to.be.a('string')
 					done();
 				});
 		});
@@ -177,6 +183,7 @@ describe('users property endpoints', () => {
 		it('should get specific property type', (done) => {
 			chai.request(app)
 				.get(`/api/v1/property?type=${type}`)
+				.set('authorization', `Bearer ${userToken}`)
 				.end((err, res) => {
 					expect(res.status).to.equal(200);
 					expect(res.body.status).to.equal('success');
@@ -199,6 +206,10 @@ describe('users property endpoints', () => {
 					expect(result.created_on).to.be.a('string');
 					expect(result).to.have.a.property('image_url');
 					expect(result.image_url).to.be.a('string');
+					expect(result).to.have.property('owner_email');
+					expect(result.owner_email).to.be.a('string')
+					expect(result).to.have.property('owner_phone_number');
+					expect(result.owner_phone_number).to.be.a('string')
 					done();
 				});
 		});
@@ -212,6 +223,7 @@ describe('users property endpoints', () => {
 				it('should get a specific property', (done) => {
 					chai.request(app)
 						.get(`/api/v1/property/${id}`)
+						.set('authorization', `Bearer ${userToken}`)
 						.end((err, res) => {
 							expect(res.status).to.equal(200);
 							expect(res.body.status).to.equal('success');
@@ -234,6 +246,10 @@ describe('users property endpoints', () => {
 							expect(result.created_on).to.be.a('string');
 							expect(result).to.have.a.property('image_url');
 							expect(result.image_url).to.be.a('string');
+							expect(result).to.have.property('owner_email');
+							expect(result.owner_email).to.be.a('string')
+							expect(result).to.have.property('owner_phone_number');
+							expect(result.owner_phone_number).to.be.a('string')
 							done();
 						});
 				});
@@ -308,10 +324,10 @@ describe('users property endpoints', () => {
 				})
 			})
 
-			describe('POST /api/v1/property/:<id>', () => {
+			describe('POST /api/v1/property/fraud/:<id>', () => {
 				it('should flag a property as fraudulent', () => {
 					chai.request(app)
-						.post(`/api/v1/property/${id}`)
+						.post(`/api/v1/property/fraud/${id}`)
 						.send({
 							reason: 'this is the reason the app is being flagged',
 							description: 'this is the description',
@@ -357,7 +373,7 @@ describe('users property endpoints', () => {
 				})
 			])
 
-			
+
 		});
 	});
 });

@@ -34,7 +34,7 @@ var userRouter = _express["default"].Router();
 
 userRouter.post('/auth/signup', _verify_signup["default"], function (req, res) {
   var userData = req.body;
-  var userFields = [userData.email, userData.first_name, userData.last_name, userData.password, userData.phoneNumber, userData.state, userData.city, userData.address, false];
+  var userFields = [userData.email, userData.first_name, userData.last_name, userData.password, userData.phone_number, userData.state, userData.city, userData.address, false];
   var id;
 
   _pool["default"].connect(function (err, client, done) {
@@ -45,7 +45,7 @@ userRouter.post('/auth/signup', _verify_signup["default"], function (req, res) {
       });
     }
 
-    client.query('INSERT INTO users (email,first_name,last_name,password,"phoneNumber",state, city, address, is_admin) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)', userFields, function (error, result) {
+    client.query('INSERT INTO users (email,first_name,last_name,password,"phone_number",state, city, address, is_admin) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)', userFields, function (error, result) {
       if (error) {
         return res.status(409).json({
           status: 'error',

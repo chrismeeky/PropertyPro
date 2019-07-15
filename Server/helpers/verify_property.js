@@ -32,9 +32,9 @@ const verifyProperty = (req, res, next) => {
 		if (err) {
 			return res.sendStatus(403);
 		}
-		property.ownerId = authData.id;
-		property.ownerEmail = authData.email;
-		property.ownerPhoneNumber = authData.phoneNumber;
+		property.owner_id = authData.id;
+		property.owner_email = authData.email;
+		property.owner_phone_number = authData.phone_number;
 		req.property = property;
 		next();
 	});

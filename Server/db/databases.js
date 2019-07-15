@@ -18,8 +18,8 @@ const createProperty = () => {
             type text not null,
             created_on text not null,
             image_url text not null,
-            "ownerEmail" text not null,
-            "ownerPhoneNumber" text not null)`;
+            "owner_email" text not null,
+            "owner_phone_number" text not null)`;
 
 	pool.query(queryText)
 		.then((res) => {
@@ -36,7 +36,7 @@ const createUsers = () => {
 			first_name text not null,
 			last_name text not null,
 			password text not null,
-			"phoneNumber" text not null,
+			"phone_number" text not null,
 			state text not null,
 			city text not null,
 			address text not null,
@@ -66,8 +66,69 @@ const createFlags = () => {
 			console.log(err);
 		});
 };
+
+const dropFlags = () => {
+	const queryText =
+        `DROP TABLE IF EXISTS flags`;
+
+	pool.query(queryText)
+		.then((res) => {
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+
+const dropProperty = () => {
+	const queryText =
+        `DROP TABLE IF EXISTS property`;
+
+	pool.query(queryText)
+		.then((res) => {
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+
+const dropUsers = () => {
+	const queryText =
+        `DROP TABLE IF EXISTS users`;
+
+	pool.query(queryText)
+		.then((res) => {
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+const createAdmin = () => {
+	const userFields = [
+		'admin@email.com',
+		'admin_first_name',
+		'admin_last_name',
+		'admin_password',
+		'09056557300',
+		'Enugu',
+		'Enugu',
+		'No 2 Odogwu street mbadiwe lane',
+		true];
+	const queryText =
+        "DELETE FROM users where email = 'admin@email.com'";
+
+	pool.query(queryText)
+		.then((res) => {
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
 module.exports = {
 	createFlags,
 	createProperty,
 	createUsers,
+	dropFlags,
+	dropProperty,
+	dropUsers,
+	createAdmin
 };

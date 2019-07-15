@@ -15,8 +15,8 @@ var schema = _joi["default"].object().keys({
   last_name: _joi["default"].string().trim().max(20).required(),
   password: _joi["default"].string().trim().required(),
   phone_number: _joi["default"].string().trim().required(),
-  state: _joi["default"].string().trim().required(),
-  city: _joi["default"].string().trim().required(),
+  state: _joi["default"].string().trim(),
+  city: _joi["default"].string().trim(),
   address: _joi["default"].string().trim().required()
 });
 

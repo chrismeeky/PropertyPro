@@ -26,10 +26,11 @@ var _databases = require("./db/databases");
 /* eslint-disable no-tabs */
 var swaggerDocument = _yamljs["default"].load("".concat(__dirname, "/../swagger.yaml"));
 
-var upload = (0, _multer["default"])();
-(0, _databases.createProperty)();
-(0, _databases.createUsers)();
-(0, _databases.createFlags)(); // createAdmin()
+var upload = (0, _multer["default"])(); // createProperty();
+// createUsers();
+// createFlags();
+// dropUsers()
+// createAdmin()
 
 var PORT = process.env.PORT || 5000;
 var app = (0, _express["default"])();

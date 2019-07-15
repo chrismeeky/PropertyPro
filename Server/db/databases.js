@@ -67,68 +67,65 @@ const createFlags = () => {
 		});
 };
 
-const dropFlags = () => {
-	const queryText =
-        `DROP TABLE IF EXISTS flags`;
+// const dropFlags = () => {
+// 	const queryText =
+//         `DROP TABLE IF EXISTS flags`;
 
-	pool.query(queryText)
-		.then((res) => {
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-};
+// 	pool.query(queryText)
+// 		.then((res) => {
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
 
-const dropProperty = () => {
-	const queryText =
-        `DROP TABLE IF EXISTS property`;
+// const dropProperty = () => {
+// 	const queryText =
+//         `DROP TABLE IF EXISTS property`;
 
-	pool.query(queryText)
-		.then((res) => {
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-};
+// 	pool.query(queryText)
+// 		.then((res) => {
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
 
-const dropUsers = () => {
-	const queryText =
-        `DROP TABLE IF EXISTS users`;
+// const dropUsers = () => {
+// 	const queryText =
+//         `DROP TABLE IF EXISTS users`;
 
-	pool.query(queryText)
-		.then((res) => {
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-};
-const createAdmin = () => {
-	const userFields = [
-		'admin@email.com',
-		'admin_first_name',
-		'admin_last_name',
-		'admin_password',
-		'09056557300',
-		'Enugu',
-		'Enugu',
-		'No 2 Odogwu street mbadiwe lane',
-		true];
-	const queryText =
-        "DELETE FROM users where email = 'admin@email.com'";
+// 	pool.query(queryText)
+// 		.then((res) => {
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
+// const createAdmin = () => {
+// 	const userFields = [
+// 		'admin@email.com',
+// 		'admin_first_name',
+// 		'admin_last_name',
+// 		'admin_password',
+// 		'09056557300',
+// 		'Enugu',
+// 		'Enugu',
+// 		'No 2 Odogwu street mbadiwe lane',
+// 		true];
+// 	const queryText =
+//         "DELETE FROM users where email = 'admin@email.com'";
 
-	pool.query(queryText)
-		.then((res) => {
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-};
+// 	pool.query(queryText)
+// 		.then((res) => {
+// 		})
+// 		.catch((err) => {
+// 			console.log(err);
+// 		});
+// };
 module.exports = {
 	createFlags,
 	createProperty,
 	createUsers,
-	dropFlags,
-	dropProperty,
-	dropUsers,
-	createAdmin
+	
 };

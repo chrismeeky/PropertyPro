@@ -11,9 +11,9 @@ import { createProperty, createUsers, createFlags, dropUsers} from './db/databas
 const swaggerDocument = YAML.load(`${__dirname}/../swagger.yaml`);
 const upload = multer();
 
-// createProperty();
-// createUsers();
-// createFlags();
+createProperty();
+createUsers();
+createFlags();
 // dropUsers()
 // createAdmin()
 

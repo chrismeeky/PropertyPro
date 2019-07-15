@@ -214,6 +214,7 @@ describe('users property endpoints', () => {
 						.get(`/api/v1/property/${id}`)
 						.set('authorization', `Bearer ${userToken}`)
 						.end((err, res) => {
+							console.log(res.body)
 							expect(res.status).to.equal(200);
 							expect(res.body.status).to.equal('success');
 							expect(res.body.data).to.be.an('object');

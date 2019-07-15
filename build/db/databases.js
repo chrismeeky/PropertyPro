@@ -1,67 +1,34 @@
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _pool = _interopRequireDefault(require("../config/pool"));
+
 // /* eslint-disable no-console */
 // /* eslint-disable no-tabs */
-// import pool from '../config/pool';
-// const createProperty = () => {
-// 	const queryText =
-//         `CREATE TABLE IF NOT EXISTS property (
-//             id integer not null,
-//             owner int not null,
-//             status text not null,
-//             title text,
-//             description text,
-//             price numeric not null,
-//             purpose text,
-//             state text not null,
-//             city text not null,
-//             address text not null,
-//             type text not null,
-//             created_on text not null,
-//             image_url text not null,
-//             "owner_email" text not null,
-//             "owner_phone_number" text not null)`;
-// 	pool.query(queryText)
-// 		.then((res) => {
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// };
-// const createUsers = () => {
-// 	const queryText =
-//         `CREATE TABLE IF NOT EXISTS users (
-// 			id bigserial not null,
-// 			email text not null primary key,
-// 			first_name text not null,
-// 			last_name text not null,
-// 			password text not null,
-// 			"phone_number" text not null,
-// 			state text,
-// 			city text,
-// 			address text not null,
-// 			is_admin boolean not null)`;
-// 	pool.query(queryText)
-// 		.then((res) => {
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// };
-// const createFlags = () => {
-// 	const queryText =
-//         `CREATE TABLE IF NOT EXISTS flags (
-//             id bigserial not null,
-//             property_id int not null,
-//             created_on date not null,
-//             reason text not null,
-//             description text not null)`;
-// 	pool.query(queryText)
-// 		.then((res) => {
-// 		})
-// 		.catch((err) => {
-// 			console.log(err);
-// 		});
-// };
-// // const dropFlags = () => {
+var createProperty = function createProperty() {
+  var queryText = "CREATE TABLE IF NOT EXISTS property (\n            id integer not null,\n            owner int not null,\n            status text not null,\n            title text,\n            description text,\n            price numeric not null,\n            purpose text,\n            state text not null,\n            city text not null,\n            address text not null,\n            type text not null,\n            created_on text not null,\n            image_url text not null,\n            \"owner_email\" text not null,\n            \"owner_phone_number\" text not null)";
+
+  _pool["default"].query(queryText).then(function (res) {})["catch"](function (err) {
+    console.log(err);
+  });
+};
+
+var createUsers = function createUsers() {
+  var queryText = "CREATE TABLE IF NOT EXISTS users (\n\t\t\tid bigserial not null,\n\t\t\temail text not null primary key,\n\t\t\tfirst_name text not null,\n\t\t\tlast_name text not null,\n\t\t\tpassword text not null,\n\t\t\t\"phone_number\" text not null,\n\t\t\tstate text,\n\t\t\tcity text,\n\t\t\taddress text not null,\n\t\t\tis_admin boolean not null)";
+
+  _pool["default"].query(queryText).then(function (res) {})["catch"](function (err) {
+    console.log(err);
+  });
+};
+
+var createFlags = function createFlags() {
+  var queryText = "CREATE TABLE IF NOT EXISTS flags (\n            id bigserial not null,\n            property_id int not null,\n            created_on date not null,\n            reason text not null,\n            description text not null)";
+
+  _pool["default"].query(queryText).then(function (res) {})["catch"](function (err) {
+    console.log(err);
+  });
+}; // // const dropFlags = () => {
 // // 	const queryText =
 // //         `DROP TABLE IF EXISTS flags`;
 // // 	pool.query(queryText)
@@ -111,10 +78,10 @@
 // // 			console.log(err);
 // // 		});
 // // };
-// module.exports = {
-// 	createFlags,
-// 	createProperty,
-// 	createUsers,
-// 	dropUsers
-// };
-"use strict";
+
+
+module.exports = {
+  createFlags: createFlags,
+  createProperty: createProperty,
+  createUsers: createUsers
+};

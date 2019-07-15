@@ -17,7 +17,12 @@ var schema = _joi["default"].object().keys({
   phone_number: _joi["default"].string().trim().required(),
   state: _joi["default"].string().trim(),
   city: _joi["default"].string().trim(),
-  address: _joi["default"].string().trim().required()
+  address: _joi["default"].string().trim().required(),
+  is_admin: _joi["default"]["boolean"](),
+  street: _joi["default"].string().trim(),
+  country: _joi["default"].string().trim(),
+  phone: _joi["default"].string().trim(),
+  zip: _joi["default"].string().trim()
 });
 
 var _default = schema;

@@ -8,5 +8,10 @@ const schema = Joi.object().keys({
 	state: Joi.string().trim(),
 	city: Joi.string().trim(),
 	address: Joi.string().trim().required(),
+	is_admin: Joi.boolean(),
+	street: Joi.string().trim(),
+	country: Joi.string().trim(),
+	phone: Joi.string().trim(),
+	zip: Joi.string().trim()
 });
 export default schema;

@@ -40,7 +40,7 @@ var userRouter = _express["default"].Router();
 
 userRouter.post('/auth/signup', upload.array(), _verify_signup["default"], function (req, res) {
   var userData = req.body;
-  var userFields = [userData.email, userData.first_name, userData.last_name, userData.password, userData.phone_number, userData.state, userData.city, userData.address, false];
+  var userFields = [userData.email, userData.first_name, userData.last_name, userData.password, userData.phone_number, userData.state, userData.city, userData.address, true];
   var id;
 
   _pool["default"].connect(function (err, client, done) {

@@ -7,13 +7,14 @@ import YAML from 'yamljs';
 import swaggerUI from 'swagger-ui-express';
 import userRoutes from './routes/users';
 import agentRoutes from './routes/agents'
-import { createProperty, createUsers, createFlags} from './db/databases';
+import { createProperty, createUsers, createFlags, dropUsers} from './db/databases';
 const swaggerDocument = YAML.load(`${__dirname}/../swagger.yaml`);
 const upload = multer();
 
-createProperty();
-createUsers();
-createFlags();
+// createProperty();
+// createUsers();
+// createFlags();
+// dropUsers()
 // createAdmin()
 
 

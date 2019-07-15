@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">79.59% </span>
+        <span class="strong">80.08% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>195/245</span>
+        <span class='fraction'>193/241</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,16 +35,16 @@
         <span class='fraction'>33/36</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">79.51% </span>
+        <span class="strong">80% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>194/244</span>
+        <span class='fraction'>192/240</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -409,11 +409,7 @@
 <a name='L361'></a><a href='#L361'>361</a>
 <a name='L362'></a><a href='#L362'>362</a>
 <a name='L363'></a><a href='#L363'>363</a>
-<a name='L364'></a><a href='#L364'>364</a>
-<a name='L365'></a><a href='#L365'>365</a>
-<a name='L366'></a><a href='#L366'>366</a>
-<a name='L367'></a><a href='#L367'>367</a>
-<a name='L368'></a><a href='#L368'>368</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L364'></a><a href='#L364'>364</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -455,7 +451,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -627,7 +622,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -751,7 +745,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -762,7 +755,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -822,7 +814,6 @@ describe('users property endpoints', () =&gt; {
 				.post('/api/v1/auth/signup')
 				.send(userInfo)
 				.end((err, res) =&gt; {
-					console.log(res.body)
 					userToken = res.body.data.token;
 					expect(res.status).to.equal(201);
 					expect(res.body).to.have.property('status');
@@ -991,7 +982,6 @@ describe('users property endpoints', () =&gt; {
 	pool.connect((err, client, done) =&gt; {
 		client.query('SELECT MAX(id) from property', (err, result) =&gt; {
 			const id = result.rows[0].max + 1;
-			console.log(typeof id)
 			describe('GET /api/v1/property/:&lt;id&gt;', () =&gt; {
 				it('should get a specific property', (done) =&gt; {
 					chai.request(app)
@@ -1102,7 +1092,6 @@ describe('users property endpoints', () =&gt; {
 							description: 'this is the description',
 						})
 						.end(<span class="fstat-no" title="function not covered" >(e</span>rr, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >							console.</span>log(res.body)
 <span class="cstat-no" title="statement not covered" >							expect(r</span>es.status).to.equal(201);
 <span class="cstat-no" title="statement not covered" >							expect(r</span>es.body).to.be.an('object');
 <span class="cstat-no" title="statement not covered" >							expect(r</span>es.body).to.have.property('status');
@@ -1129,7 +1118,6 @@ describe('users property endpoints', () =&gt; {
 						.delete(`/api/v1/property/${id}/`)
 						.set('authorization', `Bearer ${userToken}`)
 						.end(<span class="fstat-no" title="function not covered" >(e</span>rror, res) =&gt; {
-<span class="cstat-no" title="statement not covered" >							console.</span>log(res.body)
 <span class="cstat-no" title="statement not covered" >							expect(r</span>es.status).to.equal(200);
 <span class="cstat-no" title="statement not covered" >							expect(r</span>es.body).to.have.property('status');
 <span class="cstat-no" title="statement not covered" >							expect(r</span>es.body.status).to.equal('success');
@@ -1153,7 +1141,7 @@ describe('users property endpoints', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 15 2019 10:07:41 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 15 2019 11:20:44 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

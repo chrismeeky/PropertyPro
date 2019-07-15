@@ -102,7 +102,6 @@ describe('users property endpoints', () => {
 				.attach('image_url', './Server/test/dl.png')
 				.field(body)
 				.end((err, res) => {
-					console.log(res.body)
 					expect(res.status).to.equal(201);
 					expect(res.body.status).to.equal('success');
 					expect(res.body.data).to.be.an('object');
@@ -151,7 +150,6 @@ describe('users property endpoints', () => {
 				.set('authorization', `Bearer ${userToken}`)
 				.end((err, res) => {
 					const result = res.body.data;
-
 					expect(res.status).to.equal(200);
 					expect(res.body.status).to.be.a('string');
 					expect(result).to.be.an('array');
@@ -171,10 +169,6 @@ describe('users property endpoints', () => {
 					expect(result[0].created_on).to.be.a('string');
 					expect(result[0]).to.have.a.property('image_url');
 					expect(result[0].image_url).to.be.a('string');
-					expect(result[0]).to.have.property('owner_email');
-					expect(result[0].owner_email).to.be.a('string')
-					expect(result[0]).to.have.property('owner_phone_number');
-					expect(result[0].owner_phone_number).to.be.a('string')
 					done();
 				});
 		});
@@ -206,10 +200,6 @@ describe('users property endpoints', () => {
 					expect(result.created_on).to.be.a('string');
 					expect(result).to.have.a.property('image_url');
 					expect(result.image_url).to.be.a('string');
-					expect(result).to.have.property('owner_email');
-					expect(result.owner_email).to.be.a('string')
-					expect(result).to.have.property('owner_phone_number');
-					expect(result.owner_phone_number).to.be.a('string')
 					done();
 				});
 		});
@@ -218,7 +208,6 @@ describe('users property endpoints', () => {
 	pool.connect((err, client, done) => {
 		client.query('SELECT MAX(id) from property', (err, result) => {
 			const id = result.rows[0].max + 1;
-			console.log(typeof id)
 			describe('GET /api/v1/property/:<id>', () => {
 				it('should get a specific property', (done) => {
 					chai.request(app)
@@ -246,10 +235,6 @@ describe('users property endpoints', () => {
 							expect(result.created_on).to.be.a('string');
 							expect(result).to.have.a.property('image_url');
 							expect(result.image_url).to.be.a('string');
-							expect(result).to.have.property('owner_email');
-							expect(result.owner_email).to.be.a('string')
-							expect(result).to.have.property('owner_phone_number');
-							expect(result.owner_phone_number).to.be.a('string')
 							done();
 						});
 				});
@@ -324,8 +309,8 @@ describe('users property endpoints', () => {
 				})
 			})
 
-			describe('POST /api/v1/property/fraud/:<id>', () => {
-				it('should flag a property as fraudulent', () => {
+			describe('POST /api/v1/property/:<id>', () => {
+				it('should flag a property as fraudlent', () => {
 					chai.request(app)
 						.post(`/api/v1/property/fraud/${id}`)
 						.send({
@@ -359,7 +344,6 @@ describe('users property endpoints', () => {
 						.delete(`/api/v1/property/${id}/`)
 						.set('authorization', `Bearer ${userToken}`)
 						.end((error, res) => {
-							console.log(res.body)
 							expect(res.status).to.equal(200);
 							expect(res.body).to.have.property('status');
 							expect(res.body.status).to.equal('success');
@@ -373,7 +357,7 @@ describe('users property endpoints', () => {
 				})
 			])
 
-
+			
 		});
 	});
 });

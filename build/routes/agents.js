@@ -13,6 +13,8 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _express = _interopRequireDefault(require("express"));
 
+var _multer = _interopRequireDefault(require("multer"));
+
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _verify_token = _interopRequireDefault(require("../middlewares/verify_token"));
@@ -21,7 +23,7 @@ var _verify_property = _interopRequireDefault(require("../helpers/verify_propert
 
 var _verify_signin = _interopRequireDefault(require("../middlewares/verify_signin"));
 
-var _multer = _interopRequireDefault(require("../middlewares/multer"));
+var _multer2 = _interopRequireDefault(require("../middlewares/multer"));
 
 var _cloudinary = _interopRequireDefault(require("cloudinary"));
 
@@ -42,16 +44,16 @@ require('dotenv').config();
 
 require('../config/cloudinary');
 
-agentRouter.post('/auth/signin', _verify_signin["default"], function (req, res) {
+agentRouter.post('/auth/signin', _multer2["default"].array(), _verify_signin["default"], function (req, res) {
   _jsonwebtoken["default"].sign(req.user, 'secretkey', function (err, tokens) {
     if (err) {
-      res.status(417).json({
+      return res.status(417).json({
         status: 'error',
         error: err
       });
     } else {
       var id = parseInt(req.user.id, 10);
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         data: {
           token: tokens,
@@ -64,7 +66,7 @@ agentRouter.post('/auth/signin', _verify_signin["default"], function (req, res) 
     }
   });
 });
-agentRouter.post('/property', _multer["default"].single('image_url'), _verify_token["default"], _verify_property["default"], _generateId["default"],
+agentRouter.post('/property', _multer2["default"].single('image_url'), _verify_token["default"], _verify_property["default"], _generateId["default"],
 /*#__PURE__*/
 function () {
   var _ref = (0, _asyncToGenerator2["default"])(
@@ -173,7 +175,7 @@ function () {
     return _ref.apply(this, arguments);
   };
 }());
-agentRouter.patch('/property/:id', _multer["default"].single('image_url'), _verify_token["default"],
+agentRouter.patch('/property/:id', _multer2["default"].single('image_url'), _verify_token["default"],
 /*#__PURE__*/
 function () {
   var _ref2 = (0, _asyncToGenerator2["default"])(
@@ -186,21 +188,20 @@ function () {
           case 0:
             id = req.params.id;
             property = req.body;
-            console.log(req.file);
 
             if (!req.file) {
-              _context2.next = 8;
+              _context2.next = 7;
               break;
             }
 
-            _context2.next = 6;
+            _context2.next = 5;
             return _cloudinary["default"].v2.uploader.upload(req.file.path);
 
-          case 6:
+          case 5:
             result = _context2.sent;
             property.image_url = result.url;
 
-          case 8:
+          case 7:
             _jsonwebtoken["default"].verify(req.token, 'secretkey', function (err, authData) {
               console.log(authData);
 
@@ -267,7 +268,7 @@ function () {
                             });
                           } else {
                             client.query('SELECT * FROM property WHERE id = $1', [id], function (err, result) {
-                              res.status(200).json({
+                              return res.status(200).json({
                                 status: 'success',
                                 data: {
                                   id: parseInt(id, 10),
@@ -294,7 +295,7 @@ function () {
               }
             });
 
-          case 9:
+          case 8:
           case "end":
             return _context2.stop();
         }
@@ -315,7 +316,6 @@ agentRouter.patch('/property/:id/sold', _verify_token["default"], function (req,
       });
     } else {
       var id = req.params.id;
-      console.log(id);
 
       _pool["default"].connect(function (err, client, done) {
         if (err) {

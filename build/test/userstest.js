@@ -4,8 +4,6 @@ var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWild
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
-
 var _index = _interopRequireDefault(require("../index"));
 
 var _chai = _interopRequireWildcard(require("chai"));
@@ -97,7 +95,6 @@ describe('users property endpoints', function () {
   describe('POST /api/v1/property', function () {
     it('should be able to create new property', function (done) {
       _chai["default"].request(_index["default"]).post('/api/v1/property').set('authorization', "Bearer ".concat(userToken)).attach('image_url', './Server/test/dl.png').field(body).end(function (err, res) {
-        console.log(res.body);
         (0, _chai.expect)(res.status).to.equal(201);
         (0, _chai.expect)(res.body.status).to.equal('success');
         (0, _chai.expect)(res.body.data).to.be.an('object');
@@ -156,10 +153,6 @@ describe('users property endpoints', function () {
         (0, _chai.expect)(result[0].created_on).to.be.a('string');
         (0, _chai.expect)(result[0]).to.have.a.property('image_url');
         (0, _chai.expect)(result[0].image_url).to.be.a('string');
-        (0, _chai.expect)(result[0]).to.have.property('owner_email');
-        (0, _chai.expect)(result[0].owner_email).to.be.a('string');
-        (0, _chai.expect)(result[0]).to.have.property('owner_phone_number');
-        (0, _chai.expect)(result[0].owner_phone_number).to.be.a('string');
         done();
       });
     });
@@ -188,10 +181,6 @@ describe('users property endpoints', function () {
         (0, _chai.expect)(result.created_on).to.be.a('string');
         (0, _chai.expect)(result).to.have.a.property('image_url');
         (0, _chai.expect)(result.image_url).to.be.a('string');
-        (0, _chai.expect)(result).to.have.property('owner_email');
-        (0, _chai.expect)(result.owner_email).to.be.a('string');
-        (0, _chai.expect)(result).to.have.property('owner_phone_number');
-        (0, _chai.expect)(result.owner_phone_number).to.be.a('string');
         done();
       });
     });
@@ -200,7 +189,6 @@ describe('users property endpoints', function () {
   _pool["default"].connect(function (err, client, done) {
     client.query('SELECT MAX(id) from property', function (err, result) {
       var id = result.rows[0].max + 1;
-      console.log((0, _typeof2["default"])(id));
       describe('GET /api/v1/property/:<id>', function () {
         it('should get a specific property', function (done) {
           _chai["default"].request(_index["default"]).get("/api/v1/property/".concat(id)).set('authorization', "Bearer ".concat(userToken)).end(function (err, res) {
@@ -225,10 +213,6 @@ describe('users property endpoints', function () {
             (0, _chai.expect)(result.created_on).to.be.a('string');
             (0, _chai.expect)(result).to.have.a.property('image_url');
             (0, _chai.expect)(result.image_url).to.be.a('string');
-            (0, _chai.expect)(result).to.have.property('owner_email');
-            (0, _chai.expect)(result.owner_email).to.be.a('string');
-            (0, _chai.expect)(result).to.have.property('owner_phone_number');
-            (0, _chai.expect)(result.owner_phone_number).to.be.a('string');
             done();
           });
         });
@@ -293,8 +277,8 @@ describe('users property endpoints', function () {
           });
         });
       });
-      describe('POST /api/v1/property/fraud/:<id>', function () {
-        it('should flag a property as fraudulent', function () {
+      describe('POST /api/v1/property/:<id>', function () {
+        it('should flag a property as fraudlent', function () {
           _chai["default"].request(_index["default"]).post("/api/v1/property/fraud/".concat(id)).send({
             reason: 'this is the reason the app is being flagged',
             description: 'this is the description'
@@ -321,7 +305,6 @@ describe('users property endpoints', function () {
       describe("DELETE /api/v1/property/".concat(id, "/"), function () {
         return [it('should be able to delete a property advert', function () {
           _chai["default"].request(_index["default"])["delete"]("/api/v1/property/".concat(id, "/")).set('authorization', "Bearer ".concat(userToken)).end(function (error, res) {
-            console.log(res.body);
             (0, _chai.expect)(res.status).to.equal(200);
             (0, _chai.expect)(res.body).to.have.property('status');
             (0, _chai.expect)(res.body.status).to.equal('success');

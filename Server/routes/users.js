@@ -11,11 +11,13 @@ import extractErrors from '../helpers/extract_errors';
 import flagSchema from '../Schemas/flag_schema';
 import pool from '../config/pool';
 import refineData from '../helpers/refine_data';
+import multer from'multer';
+const upload = multer();
 
 
 const userRouter = express.Router();
 
-userRouter.post('/auth/signup', verifySignup, (req, res) => {
+userRouter.post('/auth/signup',upload.array(), verifySignup, (req, res) => {
 	const userData = req.body;
 	const userFields = [
 		userData.email,
@@ -82,7 +84,7 @@ userRouter.post('/auth/signup', verifySignup, (req, res) => {
 
 });
 
-userRouter.post('/property/fraud/:id', (req, res) => {
+userRouter.post('/property/fraud/:id',upload.array(), (req, res) => {
 	const { id } = req.params;
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -135,7 +137,7 @@ userRouter.post('/property/fraud/:id', (req, res) => {
 	});
 })
 // users can view all property adverts
-userRouter.get('/property/', verifyToken, (req, res) => {
+userRouter.get('/property/',upload.array(), verifyToken, (req, res) => {
 	let data;
 	const type = req.query.type;
 	jwt.verify(req.token, 'secretkey', (err, authData) => {

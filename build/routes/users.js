@@ -25,6 +25,8 @@ var _pool = _interopRequireDefault(require("../config/pool"));
 
 var _refine_data = _interopRequireDefault(require("../helpers/refine_data"));
 
+var _multer = _interopRequireDefault(require("multer"));
+
 /* eslint-disable no-mixed-spaces-and-tabs */
 
 /* eslint-disable consistent-return */
@@ -32,9 +34,11 @@ var _refine_data = _interopRequireDefault(require("../helpers/refine_data"));
 /* eslint-disable array-callback-return */
 
 /* eslint-disable no-tabs */
+var upload = (0, _multer["default"])();
+
 var userRouter = _express["default"].Router();
 
-userRouter.post('/auth/signup', _verify_signup["default"], function (req, res) {
+userRouter.post('/auth/signup', upload.array(), _verify_signup["default"], function (req, res) {
   var userData = req.body;
   var userFields = [userData.email, userData.first_name, userData.last_name, userData.password, userData.phone_number, userData.state, userData.city, userData.address, false];
   var id;
@@ -90,7 +94,7 @@ userRouter.post('/auth/signup', _verify_signup["default"], function (req, res) {
     done();
   });
 });
-userRouter.post('/property/fraud/:id', function (req, res) {
+userRouter.post('/property/fraud/:id', upload.array(), function (req, res) {
   var id = req.params.id;
 
   _pool["default"].connect(function (err, client, done) {
@@ -147,7 +151,7 @@ userRouter.post('/property/fraud/:id', function (req, res) {
   });
 }); // users can view all property adverts
 
-userRouter.get('/property/', _verify_token["default"], function (req, res) {
+userRouter.get('/property/', upload.array(), _verify_token["default"], function (req, res) {
   var data;
   var type = req.query.type;
 

@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">64.86% </span>
+        <span class="strong">64.55% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>72/111</span>
+        <span class='fraction'>71/110</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">53.66% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>19/25</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">64.22% </span>
+        <span class="strong">63.89% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>70/109</span>
+        <span class='fraction'>69/108</span>
       </div>
     </div>
     <p class="quiet">
@@ -434,12 +434,7 @@
 <a name='L386'></a><a href='#L386'>386</a>
 <a name='L387'></a><a href='#L387'>387</a>
 <a name='L388'></a><a href='#L388'>388</a>
-<a name='L389'></a><a href='#L389'>389</a>
-<a name='L390'></a><a href='#L390'>390</a>
-<a name='L391'></a><a href='#L391'>391</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L389'></a><a href='#L389'>389</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -453,7 +448,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -466,6 +463,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -588,7 +586,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -725,7 +722,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -829,7 +825,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable linebreak-style */
 import express from 'express';
 const agentRouter = express.Router();
-&nbsp;
+import multer from'multer';
 import jwt from 'jsonwebtoken';
 import verifyToken from '../middlewares/verify_token';
 import verifyProperty from '../helpers/verify_property';
@@ -844,18 +840,17 @@ import extractErrors from '../helpers/extract_errors';
 import pool from '../config/pool';
 import getId from '../helpers/generateId';
 &nbsp;
-&nbsp;
-agentRouter.post('/auth/signin', verifySignin, (req, res) =&gt; {
+agentRouter.post('/auth/signin',upload.array(), verifySignin, (req, res) =&gt; {
   jwt.sign(req.user, 'secretkey', (err, tokens) =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
-<span class="cstat-no" title="statement not covered" >      res.</span>status(417).json({
+<span class="cstat-no" title="statement not covered" >      return r</span>es.status(417).json({
         status: 'error',
         error: err
       })
     }
     else {
       const id = parseInt(req.user.id, 10);
-      res.status(200).json({
+      return res.status(200).json({
         status: 'success',
         data: {
           token: tokens,
@@ -863,6 +858,7 @@ agentRouter.post('/auth/signin', verifySignin, (req, res) =&gt; {
           first_name: req.user.first_name,
           last_name: req.user.last_name,
           email: req.user.email,
+        
         },
       });
     }
@@ -978,7 +974,6 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, <spa
   const { id } = req.params;
   let property = req.body;
   let result;
-  console.log(req.file)
   if (req.file) {
     
 <span class="cstat-no" title="statement not covered" >    result = await cloudinary.v2.uploader.upload(req.file.path);</span>
@@ -1067,7 +1062,7 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, <spa
                     }
                     else {
                       client.query('SELECT * FROM property WHERE id = $1', [id], (err, result) =&gt; {
-                        res.status(200).json({
+                        return res.status(200).json({
                           status: 'success',
                           data: {
                         id: parseInt(id, 10),
@@ -1116,7 +1111,6 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) =&gt; {
     }
     else {
       let { id } = req.params;
-      console.log(id)
       pool.connect(<span class="fstat-no" title="function not covered" >(e</span>rr, client, done) =&gt; {
 <span class="cstat-no" title="statement not covered" >        if (err) {</span>
 <span class="cstat-no" title="statement not covered" >          return r</span>es.status(408).json({
@@ -1222,7 +1216,7 @@ export default agentRouter;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 15 2019 01:43:35 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 15 2019 10:07:41 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

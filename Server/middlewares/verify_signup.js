@@ -12,8 +12,8 @@ const verifySignup = (req, res, next) => {
 			bcrypt.hash(req.body.password, 10, (err, hash) => {
 				if (err) {
 					return res.status(406).json({
-						success: false,
-						err,
+						status: 'error',
+						error: err,
 					});
 				}
 				req.body.password = hash;

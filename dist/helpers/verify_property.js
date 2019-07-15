@@ -45,7 +45,7 @@ var verifyProperty = function verifyProperty(req, res, next) {
 
     property.ownerId = authData.id;
     property.ownerEmail = authData.email;
-    property.ownerPhoneNumber = authData.phoneNumber;
+    property.ownerphone_number = authData.phone_number;
     req.property = property;
     next();
   });

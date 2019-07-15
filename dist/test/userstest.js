@@ -27,7 +27,7 @@ var userInfo = {
   email: email,
   password: 'testpassword123',
   address: 'No 2 busy street Mocha Avenue',
-  phoneNumber: '0806587548',
+  phone_number: '0806587548',
   state: 'Enugu',
   city: 'Enugu'
 };

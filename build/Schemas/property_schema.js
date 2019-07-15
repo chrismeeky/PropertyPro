@@ -21,8 +21,8 @@ var schema = _joi["default"].object().keys({
   description: _joi["default"].string().trim(),
   created_on: _joi["default"].date().required(),
   image_url: _joi["default"].string().required(),
-  ownerEmail: _joi["default"].string(),
-  ownerPhoneNumber: _joi["default"].string()
+  owner_email: _joi["default"].string(),
+  owner_phone_number: _joi["default"].string()
 });
 
 var _default = schema;

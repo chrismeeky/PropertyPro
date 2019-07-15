@@ -62,13 +62,12 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           type: property.type,
           created_on: property.created_on,
           image_url: property.image_url,
-          ownerEmail: property.ownerEmail,
-          ownerPhoneNumber: property.ownerPhoneNumber,
+          owner_email: property.ownerEmail,
+          owner_phone_number: property.ownerphone_number,
         }
-        console.log(typeof property.price)
         const propertyFields = [
           req.id,
-          property.ownerId,
+          property.owner_id,
           property.status,
           property.title,
           property.description,
@@ -80,8 +79,8 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           property.type,
           property.created_on,
           property.image_url,
-          property.ownerEmail,
-          property.ownerPhoneNumber]
+          property.owner_email,
+          property.owner_phone_number]
 
         Joi.validate(formInputs, propertySchema, (error, result) => {
           if (error) {
@@ -97,7 +96,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
               if (err) {
                 return res.status(417).json(err);
               }
-              client.query('INSERT INTO property (id,owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url,"ownerEmail","ownerPhoneNumber") VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)',
+              client.query('INSERT INTO property (id,owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url,owner_email,owner_phone_number) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)',
                 propertyFields, (ERR, result) => {
                   if (ERR) {
                     return res.status(409).json({
@@ -161,6 +160,7 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
 
 
   jwt.verify(req.token, 'secretkey', (err, authData) => {
+    console.log(authData)
     if (err) {
       return res.sendStatus(401).json({
         status: 'error',
@@ -180,7 +180,13 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
           if (results.rows.length === 0) {
             return res.status(404).json({
               status: 'error',
-              error: `property with id: ${id} couldn't be deleted because it does not exist`,
+              error: `property with id: ${id} couldn't be updated because it does not exist`,
+            })
+          }
+          if (parseInt(authData.id, 10) !== parseInt(results.rows[0].owner, 10) && !authData.is_admin) {
+            return res.status(401).json({
+              status: 'error',
+              error: 'Only property owner or an Admin can update a property'
             })
           }
           const formInputs = {
@@ -195,8 +201,8 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
             type: property.type || results.rows[0].type,
             created_on: property.created_on || results.rows[0].created_on,
             image_url: property.image_url || results.rows[0].image_url,
-            ownerEmail: property.ownerEmail,
-            ownerPhoneNumber: property.ownerPhoneNumber,
+            owner_email: property.owner_email,
+            owner_phone_number: property.owner_phone_number,
           }
           const propertyFields = [
             formInputs.title,
@@ -220,6 +226,8 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
                 errors,
               });
             }
+            
+
             else {
                 client.query('UPDATE property SET title = $1,description = $2,price = $3,purpose = $4,state = $5,city = $6, address = $7, type = $8, image_url = $9 WHERE id = $10',
                   propertyFields, (ERR, result) => {
@@ -260,26 +268,11 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
         })
       })
 
-
-
-
-
-
-
-
     }
   });
 
 
 });
-
-
-
-
-
-
-
-
 
 
 
@@ -314,8 +307,6 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
           const data = result.rows[0];
           data.price = parseFloat(result.rows[0].price)
           if (parseInt(authData.id, 10) !== parseInt(result.rows[0].owner, 10) && !authData.is_admin) {
-            console.log(authData.id)
-            console.log(result.rows[0].owner)
             return res.status(401).json({
               status: 'error',
               error: 'Only property owner or an Admin can update a property'

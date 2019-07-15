@@ -11,7 +11,7 @@ const schema = Joi.object().keys({
     description: Joi.string().trim(),
     created_on: Joi.date().required(),
     image_url: Joi.string().required(),
-    ownerEmail: Joi.string(),
-    ownerPhoneNumber: Joi.string(),
+    owner_email: Joi.string(),
+    owner_phone_number: Joi.string(),
 });
 export default schema;

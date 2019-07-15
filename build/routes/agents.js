@@ -9,8 +9,6 @@ exports["default"] = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
-var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
-
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 var _express = _interopRequireDefault(require("express"));
@@ -85,7 +83,7 @@ function () {
             result = _context.sent;
 
             if (!result.url.includes('cloudinary')) {
-              _context.next = 12;
+              _context.next = 11;
               break;
             }
 
@@ -102,11 +100,10 @@ function () {
               type: property.type,
               created_on: property.created_on,
               image_url: property.image_url,
-              ownerEmail: property.ownerEmail,
-              ownerPhoneNumber: property.ownerPhoneNumber
+              owner_email: property.ownerEmail,
+              owner_phone_number: property.ownerphone_number
             };
-            console.log((0, _typeof2["default"])(property.price));
-            propertyFields = [req.id, property.ownerId, property.status, property.title, property.description, property.price, property.purpose, property.state, property.city, property.address, property.type, property.created_on, property.image_url, property.ownerEmail, property.ownerPhoneNumber];
+            propertyFields = [req.id, property.owner_id, property.status, property.title, property.description, property.price, property.purpose, property.state, property.city, property.address, property.type, property.created_on, property.image_url, property.owner_email, property.owner_phone_number];
 
             _joi["default"].validate(formInputs, _property_schema["default"], function (error, result) {
               if (error) {
@@ -122,7 +119,7 @@ function () {
                     return res.status(417).json(err);
                   }
 
-                  client.query('INSERT INTO property (id,owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url,"ownerEmail","ownerPhoneNumber") VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)', propertyFields, function (ERR, result) {
+                  client.query('INSERT INTO property (id,owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url,owner_email,owner_phone_number) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)', propertyFields, function (ERR, result) {
                     if (ERR) {
                       return res.status(409).json({
                         status: 'error',
@@ -155,16 +152,16 @@ function () {
               }
             });
 
-            _context.next = 13;
+            _context.next = 12;
             break;
 
-          case 12:
+          case 11:
             return _context.abrupt("return", res.status(406).json({
               status: "error",
               error: 'image URL does not exist'
             }));
 
-          case 13:
+          case 12:
           case "end":
             return _context.stop();
         }
@@ -205,6 +202,8 @@ function () {
 
           case 8:
             _jsonwebtoken["default"].verify(req.token, 'secretkey', function (err, authData) {
+              console.log(authData);
+
               if (err) {
                 return res.sendStatus(401).json({
                   status: 'error',
@@ -223,7 +222,14 @@ function () {
                     if (results.rows.length === 0) {
                       return res.status(404).json({
                         status: 'error',
-                        error: "property with id: ".concat(id, " couldn't be deleted because it does not exist")
+                        error: "property with id: ".concat(id, " couldn't be updated because it does not exist")
+                      });
+                    }
+
+                    if (parseInt(authData.id, 10) !== parseInt(results.rows[0].owner, 10) && !authData.is_admin) {
+                      return res.status(401).json({
+                        status: 'error',
+                        error: 'Only property owner or an Admin can update a property'
                       });
                     }
 
@@ -239,8 +245,8 @@ function () {
                       type: property.type || results.rows[0].type,
                       created_on: property.created_on || results.rows[0].created_on,
                       image_url: property.image_url || results.rows[0].image_url,
-                      ownerEmail: property.ownerEmail,
-                      ownerPhoneNumber: property.ownerPhoneNumber
+                      owner_email: property.owner_email,
+                      owner_phone_number: property.owner_phone_number
                     };
                     var propertyFields = [formInputs.title, formInputs.description, formInputs.price, formInputs.purpose, formInputs.state, formInputs.city, formInputs.address, formInputs.type, formInputs.image_url, id];
 
@@ -331,8 +337,6 @@ agentRouter.patch('/property/:id/sold', _verify_token["default"], function (req,
           data.price = parseFloat(result.rows[0].price);
 
           if (parseInt(authData.id, 10) !== parseInt(result.rows[0].owner, 10) && !authData.is_admin) {
-            console.log(authData.id);
-            console.log(result.rows[0].owner);
             return res.status(401).json({
               status: 'error',
               error: 'Only property owner or an Admin can update a property'

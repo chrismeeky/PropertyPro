@@ -102,10 +102,10 @@ function () {
               created_on: property.created_on,
               image_url: property.image_url,
               ownerEmail: property.ownerEmail,
-              ownerPhoneNumber: property.ownerPhoneNumber
+              ownerphone_number: property.ownerphone_number
             };
             console.log(_typeof(property.price));
-            propertyFields = [req.id, property.ownerId, property.status, property.title, property.description, property.price, property.purpose, property.state, property.city, property.address, property.type, property.created_on, property.image_url, property.ownerEmail, property.ownerPhoneNumber];
+            propertyFields = [req.id, property.ownerId, property.status, property.title, property.description, property.price, property.purpose, property.state, property.city, property.address, property.type, property.created_on, property.image_url, property.ownerEmail, property.ownerphone_number];
 
             _joi["default"].validate(formInputs, _property_schema["default"], function (error, result) {
               if (error) {
@@ -121,7 +121,7 @@ function () {
                     return res.status(417).json(err);
                   }
 
-                  client.query('INSERT INTO property (id,owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url,"ownerEmail","ownerPhoneNumber") VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)', propertyFields, function (ERR, result) {
+                  client.query('INSERT INTO property (id,owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url,"ownerEmail","ownerphone_number") VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)', propertyFields, function (ERR, result) {
                     if (ERR) {
                       return res.status(409).json({
                         status: 'error',
@@ -239,7 +239,7 @@ function () {
                       created_on: property.created_on || results.rows[0].created_on,
                       image_url: property.image_url || results.rows[0].image_url,
                       ownerEmail: property.ownerEmail,
-                      ownerPhoneNumber: property.ownerPhoneNumber
+                      ownerphone_number: property.ownerphone_number
                     };
                     var propertyFields = [formInputs.title, formInputs.description, formInputs.price, formInputs.purpose, formInputs.state, formInputs.city, formInputs.address, formInputs.type, formInputs.image_url, id];
 

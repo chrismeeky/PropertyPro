@@ -291,6 +291,7 @@ function () {
                       }
                     });
                   });
+                  done();
                 });
               }
             });
@@ -400,6 +401,7 @@ agentRouter["delete"]('/property/:id', _verify_token["default"], function (req, 
             });
           }
         });
+        done();
       });
     }
   });

@@ -3,18 +3,15 @@
 import users from '../db/users';
 
 const validateEmail = (email) => {
-	for (let index = 0; index < users.length; index++) {
-		if (users[index].email === email) {
-			return false;
-		}
-	}
-
+	
 	const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return emailRegex.test(email);
 };
 const validatePassword = (password) => {
-	const mediumRegex = new RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})');
-	return mediumRegex.test(password);
+	if (typeof password !== 'string') {
+		return false;
+	}
+	return true;
 };
 
 const validatePhone = (phone) => {
@@ -22,19 +19,19 @@ const validatePhone = (phone) => {
 	return myPhoneRegex.test(phone);
 };
 const validateFirstName = (name) => {
-	if (typeof name !== 'string' || name.length < 2) {
+	if (typeof name !== 'string') {
 		return false;
 	}
 	return true;
 };
 const validateLastName = (name) => {
-	if (typeof name !== 'string' || name.length < 2) {
+	if (typeof name !== 'string') {
 		return false;
 	}
 	return true;
 };
 const validateAddress = (address) => {
-	if (typeof address !== 'string' || address.length < 10) {
+	if (typeof address !== 'string') {
 		return false;
 	}
 	return true;

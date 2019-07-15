@@ -24,8 +24,8 @@ var verifySignup = function verifySignup(req, res, next) {
       _bcrypt["default"].hash(req.body.password, 10, function (err, hash) {
         if (err) {
           return res.status(406).json({
-            success: false,
-            err: err
+            status: 'error',
+            error: err
           });
         }
 

@@ -192,6 +192,7 @@ describe('users property endpoints', function () {
       describe('GET /api/v1/property/:<id>', function () {
         it('should get a specific property', function (done) {
           _chai["default"].request(_index["default"]).get("/api/v1/property/".concat(id)).set('authorization', "Bearer ".concat(userToken)).end(function (err, res) {
+            console.log(res.body);
             (0, _chai.expect)(res.status).to.equal(200);
             (0, _chai.expect)(res.body.status).to.equal('success');
             (0, _chai.expect)(res.body.data).to.be.an('object');

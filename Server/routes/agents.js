@@ -265,6 +265,7 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
             }
           })
         })
+        done();
       })
 
     }
@@ -374,6 +375,7 @@ agentRouter.delete('/property/:id', verifyToken, (req, res) => {
           }
 
         });
+        done();
       })
 
     }

@@ -28,7 +28,7 @@ userRouter.post('/auth/signup',upload.array(), verifySignup, (req, res) => {
 		userData.state,
 		userData.city,
 		userData.address,
-		true];
+		false];
 	let id;
 	pool.connect((err, client, done) => {
 		if (err) {
@@ -134,6 +134,7 @@ userRouter.post('/property/fraud/:id',upload.array(), (req, res) => {
 					})
 			})
 		})
+		done();
 	});
 })
 // users can view all property adverts
@@ -190,6 +191,7 @@ userRouter.get('/property/',upload.array(), verifyToken, (req, res) => {
 						});
 					});
 				}
+				done()
 
 			});
 		}

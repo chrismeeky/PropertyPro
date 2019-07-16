@@ -8,7 +8,7 @@ const validateEmail = (email) => {
 	return emailRegex.test(email);
 };
 const validatePassword = (password) => {
-	if (typeof password !== 'string') {
+	if (typeof password !== 'string' || password.length < 1) {
 		return false;
 	}
 	return true;
@@ -19,19 +19,19 @@ const validatePhone = (phone) => {
 	return myPhoneRegex.test(phone);
 };
 const validateFirstName = (name) => {
-	if (typeof name !== 'string') {
+	if (typeof name !== 'string' || name.length < 1) {
 		return false;
 	}
 	return true;
 };
 const validateLastName = (name) => {
-	if (typeof name !== 'string') {
+	if (typeof name !== 'string' || name.length < 1) {
 		return false;
 	}
 	return true;
 };
 const validateAddress = (address) => {
-	if (typeof address !== 'string') {
+	if (typeof address !== 'string' || address.length < 1) {
 		return false;
 	}
 	return true;

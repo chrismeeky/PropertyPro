@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">31.58% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>19/19</span>
+        <span class='fraction'>6/19</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">31.58% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>19/19</span>
+        <span class='fraction'>6/19</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -101,19 +101,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable no-tabs */
@@ -135,20 +135,20 @@ describe('A function that is used for patching an object using another object', 
 		price: 254025,
 		state: 'Anambra',
 	};
-	it('should patch Object1 Using Object2', (done) =&gt; {
-		patchObject(Object1, Object2);
-		expect(Object1).to.be.an('object');
-		expect(Object2).to.be.an('object');
-		expect(Object1).to.have.property('status');
-		expect(Object1.status).to.be.a('string');
-		expect(Object1.status).to.equal(Object2.status);
-		expect(Object1).to.have.property('price');
-		expect(Object1.price).to.be.a('number');
-		expect(Object1.price).to.equal(Object2.price);
-		expect(Object1).to.have.property('state');
-		expect(Object1.state).to.be.a('string');
-		expect(Object1.state).to.equal(Object2.state);
-		done();
+	it('should patch Object1 Using Object2', <span class="fstat-no" title="function not covered" >(d</span>one) =&gt; {
+<span class="cstat-no" title="statement not covered" >		patchObject(O</span>bject1, Object2);
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1).to.be.an('object');
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject2).to.be.an('object');
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1).to.have.property('status');
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1.status).to.be.a('string');
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1.status).to.equal(Object2.status);
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1).to.have.property('price');
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1.price).to.be.a('number');
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1.price).to.equal(Object2.price);
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1).to.have.property('state');
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1.state).to.be.a('string');
+<span class="cstat-no" title="statement not covered" >		expect(O</span>bject1.state).to.equal(Object2.state);
+<span class="cstat-no" title="statement not covered" >		done();</span>
 	});
 });
 &nbsp;</pre></td></tr>
@@ -157,7 +157,7 @@ describe('A function that is used for patching an object using another object', 
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 15 2019 16:45:35 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 16 2019 10:07:16 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

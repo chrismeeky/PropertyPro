@@ -19,7 +19,7 @@ const userInfo = {
 	email,
 	password: 'testpassword123',
 	address: 'No 2 busy street Mocha Avenue',
-	phone_number: '0806587548',
+	phone_number: '08065875480',
 	state: 'Enugu',
 	city: 'Enugu',
 };
@@ -62,9 +62,7 @@ describe('users property endpoints', () => {
 			console.log(error);
 		}
 	});
-	before('fjhkjhjheke', () => {
-
-	});
+	
 	describe('POST /api/v1/auth/signin', () => {
 		it('should be able to sign users in', (done) => {
 			chai.request(app)
@@ -205,41 +203,11 @@ describe('users property endpoints', () => {
 		});
 	});
 
+
 	pool.connect((err, client, done) => {
 		client.query('SELECT MAX(id) from property', (err, result) => {
+			done();
 			const id = result.rows[0].max + 1;
-			describe('GET /api/v1/property/:<id>', () => {
-				it('should get a specific property', (done) => {
-					chai.request(app)
-						.get(`/api/v1/property/${id}`)
-						.set('authorization', `Bearer ${userToken}`)
-						.end((err, res) => {
-							console.log(res.body)
-							expect(res.status).to.equal(200);
-							expect(res.body.status).to.equal('success');
-							expect(res.body.data).to.be.an('object');
-							expect(res.body).to.have.a.property('data');
-							const result = res.body.data;
-							expect(result).to.have.a.property('id');
-							expect(result.id).to.be.a('number');
-							expect(result).to.have.a.property('price');
-							expect(result.price).to.be.a('number');
-							expect(result).to.have.a.property('status');
-							expect(result.status).to.be.a('string');
-							expect(result).to.have.a.property('state');
-							expect(result.state).to.be.a('string');
-							expect(result).to.have.a.property('city');
-							expect(result.city).to.be.a('string');
-							expect(result).to.have.a.property('address');
-							expect(result.address).to.be.a('string');
-							expect(result).to.have.a.property('created_on');
-							expect(result.created_on).to.be.a('string');
-							expect(result).to.have.a.property('image_url');
-							expect(result.image_url).to.be.a('string');
-							done();
-						});
-				});
-			});
 			describe(`PATCH /api/v1/property/${id}`, () => {
 				it('should be able to update property fields', (done) => {
 					chai.request(app)
@@ -250,6 +218,7 @@ describe('users property endpoints', () => {
 							state: 'Anambra',
 						})
 						.end((err, res) => {
+							console.log(res.body)
 							expect(res.status).to.equal(200);
 							expect(res.body).to.be.an('object');
 							expect(res.body).to.have.a.property('data');
@@ -276,7 +245,12 @@ describe('users property endpoints', () => {
 						});
 				});
 			});
-
+		});
+	});
+	pool.connect((err, client, done) => {
+		client.query('SELECT MAX(id) from property', (err, result) => {
+			done();
+			const id = result.rows[0].max + 1;
 			describe(`PATCH /api/v1/property/${id}/sold`, () => {
 				it('should mark a property as sold', () => {
 					chai.request(app)
@@ -309,7 +283,14 @@ describe('users property endpoints', () => {
 						})
 				})
 			})
+		});
+		
+	})
 
+	pool.connect((err, client, done) => {
+		client.query('SELECT MAX(id) from property', (err, result) => {
+			done();
+			const id = result.rows[0].max + 1;
 			describe('POST /api/v1/property/:<id>', () => {
 				it('should flag a property as fraudlent', () => {
 					chai.request(app)
@@ -338,27 +319,35 @@ describe('users property endpoints', () => {
 						});
 				});
 			});
-
-			describe(`DELETE /api/v1/property/${id}/`, () => [
-				it('should be able to delete a property advert', () => {
-					chai.request(app)
-						.delete(`/api/v1/property/${id}/`)
-						.set('authorization', `Bearer ${userToken}`)
-						.end((error, res) => {
-							expect(res.status).to.equal(200);
-							expect(res.body).to.have.property('status');
-							expect(res.body.status).to.equal('success');
-							expect(res.body).to.have.property('data');
-							expect(res.body.data).to.be.an('object');
-							expect(res.body.data).to.have.property('message');
-							expect(res.body.data.message).to.be.a('string');
-							expect(res.body.data.message).to.equal(`property with id: ${id} has been successfully deleted`);
-							done();
-						})
-				})
-			])
-
-			
 		});
+		
 	});
+
+	// pool.connect((err, client, done) => {
+	// 	client.query('SELECT MAX(id) from property', (err, result) => {
+	// 		done();
+	// 		const id = result.rows[0].max + 1;
+
+	// 		describe(`DELETE /api/v1/property/${id}/`, () => {
+	// 			it('should be able to delete a property advert', () => {
+	// 				chai.request(app)
+	// 					.delete(`/api/v1/property/${id}/`)
+	// 					.set('authorization', `Bearer ${userToken}`)
+	// 					.end((error, res) => {
+	// 						expect(res.status).to.equal(200);
+	// 						expect(res.body).to.have.property('status');
+	// 						expect(res.body.status).to.equal('success');
+	// 						expect(res.body).to.have.property('data');
+	// 						expect(res.body.data).to.be.an('object');
+	// 						expect(res.body.data).to.have.property('message');
+	// 						expect(res.body.data.message).to.be.a('string');
+	// 						expect(res.body.data.message).to.equal(`property with id: ${id} has been successfully deleted`);
+	// 						done();
+	// 					})
+	// 			})
+	// 		})
+	// 	});
+		
+
+	// });
 });

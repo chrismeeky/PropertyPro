@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">91.23% </span>
+        <span class="strong">98.15% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>52/57</span>
+        <span class='fraction'>53/54</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">85.37% </span>
+        <span class="strong">97.67% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>35/41</span>
+        <span class='fraction'>42/43</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">92.31% </span>
+        <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>12/13</span>
+        <span class='fraction'>13/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">91.07% </span>
+        <span class="strong">98.15% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>51/56</span>
+        <span class='fraction'>53/54</span>
       </div>
     </div>
     <p class="quiet">
@@ -156,43 +156,37 @@
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
-<a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a>
-<a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L111'></a><a href='#L111'>111</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -277,18 +271,15 @@
 import users from '../db/users';
 &nbsp;
 const validateEmail = (email) =&gt; {
-	for (let index = 0; index &lt; users.length; index++) {
-		<span class="missing-if-branch" title="if path not taken" >I</span>if (users[index].email === email) {
-<span class="cstat-no" title="statement not covered" >			return f</span>alse;
-		}
-	}
-&nbsp;
+	
 	const emailRegex = /^(([^&lt;&gt;()[\]\\.,;:\s@"]+(\.[^&lt;&gt;()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	return emailRegex.test(email);
 };
 const validatePassword = (password) =&gt; {
-	const mediumRegex = new RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})');
-	return mediumRegex.test(password);
+	if (typeof password !== 'string' || password.length &lt; 1) {
+		return false;
+	}
+	return true;
 };
 &nbsp;
 const validatePhone = (phone) =&gt; {
@@ -296,19 +287,19 @@ const validatePhone = (phone) =&gt; {
 	return myPhoneRegex.test(phone);
 };
 const validateFirstName = (name) =&gt; {
-	if (typeof name !== 'string' || name.length &lt; 2) {
+	if (typeof name !== 'string' || name.length &lt; 1) {
 		return false;
 	}
 	return true;
 };
-const <span class="fstat-no" title="function not covered" >validateLastName </span>= (name) =&gt; {
-<span class="cstat-no" title="statement not covered" >	if (typeof name !== 'string' || name.length &lt; 2) {</span>
-<span class="cstat-no" title="statement not covered" >		return f</span>alse;
+const validateLastName = (name) =&gt; {
+	if (typeof name !== 'string' || name.length &lt; 1) {
+		return false;
 	}
-<span class="cstat-no" title="statement not covered" >	return t</span>rue;
+	return true;
 };
 const validateAddress = (address) =&gt; {
-	if (typeof address !== 'string' || address.length &lt; 10) {
+	if (typeof address !== 'string' || address.length &lt; 1) {
 		return false;
 	}
 	return true;
@@ -391,7 +382,7 @@ export default {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 15 2019 16:45:35 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jul 16 2019 10:07:16 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

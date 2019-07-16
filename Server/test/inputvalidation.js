@@ -17,7 +17,7 @@ describe('Email Validation', () => {
 
 describe('Password validation', () => {
 	const validPassword = inputValidation.validatePassword('hdjksiejsh65');
-	const invalidPassword = inputValidation.validatePassword('djh');
+	const invalidPassword = inputValidation.validatePassword('');
 	it('valid passowrd should return true', () => {
 		expect(validPassword).to.be.true;
 	});
@@ -28,7 +28,7 @@ describe('Password validation', () => {
 
 describe('Phone number validation', () => {
 	const validPhone = inputValidation.validatePhone('08056985458');
-	const invalidPhone = inputValidation.validatePassword('54824');
+	const invalidPhone = inputValidation.validatePhone('');
 	it('valid phone number should return true', () => {
 		expect(validPhone).to.be.true;
 	});
@@ -38,7 +38,7 @@ describe('Phone number validation', () => {
 });
 describe('First Name', () => {
 	const validName = inputValidation.validateFirstName('Emeka');
-	const invalidName = inputValidation.validateFirstName('a');
+	const invalidName = inputValidation.validateFirstName('');
 	it('Valid first name should return true', () => {
 		expect(validName).to.be.true;
 	});
@@ -48,8 +48,8 @@ describe('First Name', () => {
 });
 
 describe('Last Name', () => {
-	const validName = inputValidation.validateFirstName('Nwodo');
-	const invalidName = inputValidation.validateFirstName('a');
+	const validName = inputValidation.validateLastName('Nwodo');
+	const invalidName = inputValidation.validateLastName('');
 	it('Valid last name should return true', () => {
 		expect(validName).to.be.true;
 	});
@@ -60,7 +60,7 @@ describe('Last Name', () => {
 
 describe('Address', () => {
 	const validAddress = inputValidation.validateAddress('no 3 Maxwells street');
-	const invalidAddress = inputValidation.validateAddress('no 3');
+	const invalidAddress = inputValidation.validateAddress('');
 	it('Valid address should return true', () => {
 		expect(validAddress).to.be.true;
 	});

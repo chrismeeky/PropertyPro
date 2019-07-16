@@ -24,7 +24,7 @@ describe('Email Validation', function () {
 describe('Password validation', function () {
   var validPassword = _inputvalidation["default"].validatePassword('hdjksiejsh65');
 
-  var invalidPassword = _inputvalidation["default"].validatePassword('djh');
+  var invalidPassword = _inputvalidation["default"].validatePassword('');
 
   it('valid passowrd should return true', function () {
     (0, _chai.expect)(validPassword).to.be["true"];
@@ -36,7 +36,7 @@ describe('Password validation', function () {
 describe('Phone number validation', function () {
   var validPhone = _inputvalidation["default"].validatePhone('08056985458');
 
-  var invalidPhone = _inputvalidation["default"].validatePassword('54824');
+  var invalidPhone = _inputvalidation["default"].validatePhone('');
 
   it('valid phone number should return true', function () {
     (0, _chai.expect)(validPhone).to.be["true"];
@@ -48,7 +48,7 @@ describe('Phone number validation', function () {
 describe('First Name', function () {
   var validName = _inputvalidation["default"].validateFirstName('Emeka');
 
-  var invalidName = _inputvalidation["default"].validateFirstName('a');
+  var invalidName = _inputvalidation["default"].validateFirstName('');
 
   it('Valid first name should return true', function () {
     (0, _chai.expect)(validName).to.be["true"];
@@ -58,9 +58,9 @@ describe('First Name', function () {
   });
 });
 describe('Last Name', function () {
-  var validName = _inputvalidation["default"].validateFirstName('Nwodo');
+  var validName = _inputvalidation["default"].validateLastName('Nwodo');
 
-  var invalidName = _inputvalidation["default"].validateFirstName('a');
+  var invalidName = _inputvalidation["default"].validateLastName('');
 
   it('Valid last name should return true', function () {
     (0, _chai.expect)(validName).to.be["true"];
@@ -72,7 +72,7 @@ describe('Last Name', function () {
 describe('Address', function () {
   var validAddress = _inputvalidation["default"].validateAddress('no 3 Maxwells street');
 
-  var invalidAddress = _inputvalidation["default"].validateAddress('no 3');
+  var invalidAddress = _inputvalidation["default"].validateAddress('');
 
   it('Valid address should return true', function () {
     (0, _chai.expect)(validAddress).to.be["true"];

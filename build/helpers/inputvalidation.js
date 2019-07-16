@@ -13,19 +13,16 @@ var _users = _interopRequireDefault(require("../db/users"));
 
 /* eslint-disable no-tabs */
 var validateEmail = function validateEmail(email) {
-  for (var index = 0; index < _users["default"].length; index++) {
-    if (_users["default"][index].email === email) {
-      return false;
-    }
-  }
-
   var emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return emailRegex.test(email);
 };
 
 var validatePassword = function validatePassword(password) {
-  var mediumRegex = new RegExp('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})');
-  return mediumRegex.test(password);
+  if (typeof password !== 'string' || password.length < 1) {
+    return false;
+  }
+
+  return true;
 };
 
 var validatePhone = function validatePhone(phone) {
@@ -34,7 +31,7 @@ var validatePhone = function validatePhone(phone) {
 };
 
 var validateFirstName = function validateFirstName(name) {
-  if (typeof name !== 'string' || name.length < 2) {
+  if (typeof name !== 'string' || name.length < 1) {
     return false;
   }
 
@@ -42,7 +39,7 @@ var validateFirstName = function validateFirstName(name) {
 };
 
 var validateLastName = function validateLastName(name) {
-  if (typeof name !== 'string' || name.length < 2) {
+  if (typeof name !== 'string' || name.length < 1) {
     return false;
   }
 
@@ -50,7 +47,7 @@ var validateLastName = function validateLastName(name) {
 };
 
 var validateAddress = function validateAddress(address) {
-  if (typeof address !== 'string' || address.length < 10) {
+  if (typeof address !== 'string' || address.length < 1) {
     return false;
   }
 

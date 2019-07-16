@@ -60,6 +60,8 @@ userRouter.post('/auth/signup', upload.array(), _verify_signup["default"], funct
       }
 
       client.query('SELECT id FROM users where email = $1', [req.body.email], function (Err, results) {
+        done();
+
         if (Err) {
           return res.status(404).json({
             status: 'error',
@@ -91,7 +93,6 @@ userRouter.post('/auth/signup', upload.array(), _verify_signup["default"], funct
         });
       });
     });
-    done();
   });
 });
 userRouter.post('/property/fraud/:id', upload.array(), function (req, res) {
@@ -131,6 +132,8 @@ userRouter.post('/property/fraud/:id', upload.array(), function (req, res) {
         }
 
         client.query('INSERT INTO flags (property_id, created_on, reason, description) VALUES($1,$2,$3,$4)', [data.property_id, data.created_on, data.reason, data.description], function (error, result) {
+          done();
+
           if (error) {
             return res.status(409).json({
               status: 'error',
@@ -148,7 +151,6 @@ userRouter.post('/property/fraud/:id', upload.array(), function (req, res) {
         });
       });
     });
-    done();
   });
 }); // users can view all property adverts
 
@@ -188,6 +190,8 @@ userRouter.get('/property/', upload.array(), _verify_token["default"], function 
           });
         } else {
           client.query('SELECT * FROM property', function (error, result) {
+            done();
+
             if (result.rows.length === 0) {
               return res.status(404).json({
                 status: 'error',
@@ -202,8 +206,6 @@ userRouter.get('/property/', upload.array(), _verify_token["default"], function 
             });
           });
         }
-
-        done();
       });
     }
   });

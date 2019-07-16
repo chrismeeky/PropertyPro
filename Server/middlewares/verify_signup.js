@@ -32,7 +32,8 @@ const verifySignup = (req, res, next) => {
 		if (error === '') {
 			bcrypt.hash(req.body.password, 10, (err, hash) => {
 				if (err) {
-					return res.status(406).json({
+					console.log(err)
+					return res.status(401).json({
 						status: 'error',
 						error: err,
 					});
@@ -41,6 +42,7 @@ const verifySignup = (req, res, next) => {
 				next();
 			});
 		} else {
+			console.log(error)
 			return res.status(406).json({
 				status: 'error',
 				error,

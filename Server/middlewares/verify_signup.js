@@ -7,6 +7,7 @@ import extractErrors from '../helpers/extract_errors';
 import inputValidation from '../helpers/inputvalidation'
 
 const verifySignup = (req, res, next) => {
+	console.log(req.body)
 	let error = '';
 	if (!inputValidation.validateEmail(req.body.email)) {
 		error += 'email is invalid';

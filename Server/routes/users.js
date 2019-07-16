@@ -48,6 +48,7 @@ userRouter.post('/auth/signup',upload.array(), verifySignup, (req, res) => {
 					});
 				}
 				client.query('SELECT id FROM users where email = $1', [req.body.email], (Err, results) => {
+					done();
 					if (Err) {
 						return res.status(404).json({
 							status: 'error',
@@ -79,7 +80,7 @@ userRouter.post('/auth/signup',upload.array(), verifySignup, (req, res) => {
 			}
 		);
 
-		done();
+		
 	});
 
 });
@@ -117,6 +118,7 @@ userRouter.post('/property/fraud/:id',upload.array(), (req, res) => {
 				}
 				client.query('INSERT INTO flags (property_id, created_on, reason, description) VALUES($1,$2,$3,$4)',
 					[data.property_id, data.created_on, data.reason, data.description], (error, result) => {
+						done();
 						if (error) {
 							return res.status(409).json({
 								status: 'error',
@@ -134,7 +136,6 @@ userRouter.post('/property/fraud/:id',upload.array(), (req, res) => {
 					})
 			})
 		})
-		done();
 	});
 })
 // users can view all property adverts
@@ -178,6 +179,7 @@ userRouter.get('/property/',upload.array(), verifyToken, (req, res) => {
 				}
 				else {
 					client.query('SELECT * FROM property', (error, result) => {
+						done();
 						if (result.rows.length === 0) {
 							return res.status(404).json({
 								status: 'error',
@@ -191,7 +193,6 @@ userRouter.get('/property/',upload.array(), verifyToken, (req, res) => {
 						});
 					});
 				}
-				done()
 
 			});
 		}

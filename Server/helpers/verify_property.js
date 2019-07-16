@@ -36,6 +36,7 @@ const verifyProperty = (req, res, next) => {
 		property.owner_email = authData.email;
 		property.owner_phone_number = authData.phone_number;
 		req.property = property;
+		
 		next();
 	});
 };

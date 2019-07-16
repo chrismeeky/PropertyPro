@@ -81,7 +81,6 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
           property.image_url,
           property.owner_email,
           property.owner_phone_number]
-
         Joi.validate(formInputs, propertySchema, (error, result) => {
           if (error) {
             const errors = extractErrors(error);
@@ -98,6 +97,7 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
               }
               client.query('INSERT INTO property (id,owner,status, title,description, price, purpose, state, city, address, type, created_on, image_url,owner_email,owner_phone_number) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)',
                 propertyFields, (ERR, result) => {
+                  done();
                   if (ERR) {
                     return res.status(409).json({
                       status: 'error',
@@ -105,11 +105,12 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
                     });
                   }
                     const owner =  parseInt(property.ownerId, 10);
+                    console.log(req.property.owner_id)
                     return res.status(201).json({
                       status: 'success',
                       data: {
                         id:req.id,
-                        owner,
+                        owner: req.property.owner_id,
                         status: property.status,
                         title: property.title,
                         description: property.description,
@@ -126,7 +127,6 @@ agentRouter.post('/property', upload.single('image_url'), verifyToken, verifyPro
                       
                   
                 })
-              done();
             })
           }
         })
@@ -159,7 +159,6 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
 
 
   jwt.verify(req.token, 'secretkey', (err, authData) => {
-    console.log(authData)
     if (err) {
       return res.sendStatus(401).json({
         status: 'error',
@@ -230,6 +229,7 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
             else {
                 client.query('UPDATE property SET title = $1,description = $2,price = $3,purpose = $4,state = $5,city = $6, address = $7, type = $8, image_url = $9 WHERE id = $10',
                   propertyFields, (ERR, result) => {
+                    done();
                     if (ERR) {
                       return res.status(409).json({
                         status: 'error',
@@ -265,7 +265,6 @@ agentRouter.patch('/property/:id', upload.single('image_url'), verifyToken, asyn
             }
           })
         })
-        done();
       })
 
     }
@@ -313,6 +312,7 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
           }
           else {
             client.query('UPDATE property SET status = $1 WHERE id = $2', ['sold', id], (err, result) => {
+              done();
               data.status = 'sold';
               if (!err) {
                 return res.status(200).json({
@@ -324,7 +324,6 @@ agentRouter.patch('/property/:id/sold', verifyToken, (req, res) => {
           }
 
         });
-        done();
       })
     }
   });
@@ -363,6 +362,7 @@ agentRouter.delete('/property/:id', verifyToken, (req, res) => {
           }
           else {
             client.query('DELETE FROM property WHERE id = $1', [id], (err, result) => {
+              done();
               if (!err) {
                 return res.status(200).json({
                   status: 'success',
@@ -375,7 +375,6 @@ agentRouter.delete('/property/:id', verifyToken, (req, res) => {
           }
 
         });
-        done();
       })
 
     }

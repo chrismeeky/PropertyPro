@@ -123,6 +123,15 @@ const createFlags = () => {
 // // 			console.log(err);
 // // 		});
 // // };
+// const setConnectionLimit = () => {
+// 	pool.query('ALTER ROLE zonuvfyp CONNECTION LIMIT -1;')
+// 	.then((res) =>{
+
+// 	})
+// 	.catch((err) => {
+// 		console.log(err);
+// 	})
+// }
 module.exports = {
 	createFlags,
 	createProperty,

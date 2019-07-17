@@ -80,12 +80,12 @@ paths:
          description: ''
        - name: state
          in: formData
-         required: true
+         required: false
          type: string
          description: ''  
        - name: city
          in: formData
-         required: true
+         required: false
          type: string
          description: ''  
        

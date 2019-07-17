@@ -28,17 +28,14 @@ const verifyProperty = (req, res, next) => {
 		created_on: day.toLocaleDateString(),
 		image_url: req.body.image_url,
 	};
-	jwt.verify(req.token, 'secretkey', (err, authData) => {
-		if (err) {
-			return res.sendStatus(403);
-		}
-		property.owner_id = authData.id;
-		property.owner_email = authData.email;
-		property.owner_phone_number = authData.phone_number;
+		
+		property.owner_id = req.authData.id;
+		property.owner_email = req.authData.email;
+		property.owner_phone_number = req.authData.phone_number;
 		req.property = property;
 		
 		next();
-	});
+	
 };
 
 export default verifyProperty;

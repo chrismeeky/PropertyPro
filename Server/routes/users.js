@@ -5,19 +5,19 @@
 import express from 'express';
 import Joi from 'joi';
 import jwt from 'jsonwebtoken';
+import multer from 'multer';
 import verifySignup from '../middlewares/verify_signup';
 import verifyToken from '../middlewares/verify_token'
 import extractErrors from '../helpers/extract_errors';
 import flagSchema from '../Schemas/flag_schema';
 import pool from '../config/pool';
 import refineData from '../helpers/refine_data';
-import multer from'multer';
 const upload = multer();
 
 
 const userRouter = express.Router();
 
-userRouter.post('/auth/signup',upload.array(), verifySignup, (req, res) => {
+userRouter.post('/auth/signup', upload.array(), verifySignup, (req, res) => {
 	const userData = req.body;
 	const userFields = [
 		userData.email,
@@ -52,7 +52,7 @@ userRouter.post('/auth/signup',upload.array(), verifySignup, (req, res) => {
 					if (Err) {
 						return res.status(404).json({
 							status: 'error',
-							error: err
+							error: err,
 						});
 					}
 					id = parseInt(results.rows[0].id, 10);
@@ -63,38 +63,30 @@ userRouter.post('/auth/signup',upload.array(), verifySignup, (req, res) => {
 								status: 'error',
 								error,
 							});
-						} else {
-							return res.status(201).json({
-								status: 'success',
-								data: {
-									id,
-									token: tokens,
-									first_name: req.body.first_name,
-									last_name: req.body.last_name,
-									email: req.body.email,
-								},
-							});
 						}
+						return res.status(201).json({
+							status: 'success',
+							data: {
+								id,
+								token: tokens,
+								first_name: req.body.first_name,
+								last_name: req.body.last_name,
+								email: req.body.email,
+							},
+						});
+
 					});
 				});
-			}
+			},
 		);
-
-		
 	});
-
 });
 
-userRouter.post('/property/fraud/:id',upload.array(), (req, res) => {
+userRouter.post('/property/fraud/:id', verifyToken, upload.array(), (req, res) => {
 	const { id } = req.params;
-	pool.connect((err, client, done) => {
-		if (err) {
-			return res.status(408).json({
-				status: 'error',
-				error: err,
-			});
-		}
-		client.query('SELECT * FROM property WHERE id = $1', [id], (error, result) => {
+	
+		
+		pool.query('SELECT * FROM property WHERE id = $1', [id], (error, result) => {
 			if (result.rows.length === 0) {
 				return res.status(404).json({
 					status: 'error',
@@ -107,7 +99,7 @@ userRouter.post('/property/fraud/:id',upload.array(), (req, res) => {
 				created_on: day.toLocaleDateString(),
 				reason: req.body.reason,
 				description: req.body.description,
-			}
+			};
 			Joi.validate(data, flagSchema, (err, result) => {
 				if (err) {
 					const errors = extractErrors(err);
@@ -116,9 +108,8 @@ userRouter.post('/property/fraud/:id',upload.array(), (req, res) => {
 						errors,
 					});
 				}
-				client.query('INSERT INTO flags (property_id, created_on, reason, description) VALUES($1,$2,$3,$4)',
+				pool.query('INSERT INTO flags (property_id, created_on, reason, description) VALUES($1,$2,$3,$4)',
 					[data.property_id, data.created_on, data.reason, data.description], (error, result) => {
-						done();
 						if (error) {
 							return res.status(409).json({
 								status: 'error',
@@ -130,95 +121,59 @@ userRouter.post('/property/fraud/:id',upload.array(), (req, res) => {
 							data: {
 								message: 'We appreciate your feedback as it helps us fight spam and fraud',
 								details: data,
-							}
+							},
 
-						})
-					})
-			})
-		})
-	});
-})
+						});
+					});
+			});
+		});
+
+});
 // users can view all property adverts
-userRouter.get('/property/',upload.array(), verifyToken, (req, res) => {
+userRouter.get('/property/', verifyToken, (req, res) => {
 	let data;
-	const type = req.query.type;
-	jwt.verify(req.token, 'secretkey', (err, authData) => {
-		if (err) {
-			res.status(417).json({
-				status: 'error',
-				error: 'invalid authorization token'
-			})
-		}
-		else {
-			pool.connect((err, client, done) => {
+	const { type } = req.query;
 
-				if (err) {
-					return res.status(408).json({
+		if (typeof type !== 'undefined') {
+			pool.query('SELECT * FROM property where type = $1', [req.query.type], (error, result) => {
+				if (result.rows.length === 0) {
+					return res.status(404).json({
 						status: 'error',
-						error: err,
-					})
-				}
-				if (typeof type !== 'undefined') {
-					client.query('SELECT * FROM property where type = $1', [req.query.type], (error, result) => {
-
-						if (result.rows.length === 0) {
-							return res.status(404).json({
-								status: 'error',
-								error: 'Property does not exist',
-							});
-						}
-						data = refineData(result.rows);
-
-
-						return res.status(200).json({
-							status: 'success',
-							data,
-						});
-					});
-
-				}
-				else {
-					client.query('SELECT * FROM property', (error, result) => {
-						done();
-						if (result.rows.length === 0) {
-							return res.status(404).json({
-								status: 'error',
-								error: 'Property does not exist',
-							});
-						}
-						data = refineData(result.rows);
-						return res.status(200).json({
-							status: 'success',
-							data,
-						});
+						error: 'Property does not exist',
 					});
 				}
+				data = refineData(result.rows);
 
+
+				return res.status(200).json({
+					status: 'success',
+					data,
+				});
+			});
+		} else {
+			pool.query('SELECT * FROM property', (error, result) => {
+				if (result.rows.length === 0) {
+					return res.status(404).json({
+						status: 'error',
+						error: 'Property does not exist',
+					});
+				}
+				data = refineData(result.rows);
+				return res.status(200).json({
+					status: 'success',
+					data,
+				});
 			});
 		}
-	});
-
+	
 
 
 });
 
 userRouter.get('/property/:id', verifyToken, (req, res) => {
 	const { id } = req.params;
-	jwt.verify(req.token, 'secretkey', (err, authData) => {
-		if (err) {
-			return res.status(417).json({
-				status: 'error',
-				error: 'invalid authorization token'
-			})
-		}
-		pool.connect((err, client, done) => {
-			if (err) {
-				return res.status(408).json({
-					status: 'error',
-					error: err,
-				});
-			}
-			client.query('SELECT * FROM property where id = $1', [id], (error, result) => {
+		
+			pool.query('SELECT * FROM property where id = $1', [id], (error, result) => {
 				if (result.rows.length === 0) {
 					return res.status(404).json({
 						status: 'error',
@@ -232,10 +187,8 @@ userRouter.get('/property/:id', verifyToken, (req, res) => {
 					data,
 				});
 			});
-			done();
-		});
-	});
-
+		
+	
 });
 
 export default userRouter;

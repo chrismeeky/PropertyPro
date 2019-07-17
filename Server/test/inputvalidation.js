@@ -28,7 +28,7 @@ describe('Password validation', () => {
 
 describe('Phone number validation', () => {
 	const validPhone = inputValidation.validatePhone('08056985458');
-	const invalidPhone = inputValidation.validatePhone('');
+	const invalidPhone = inputValidation.validatePhone(2);
 	it('valid phone number should return true', () => {
 		expect(validPhone).to.be.true;
 	});

@@ -9,18 +9,9 @@ import userRoutes from './routes/users';
 import agentRoutes from './routes/agents'
 import { createProperty, createUsers, createFlags, dropUsers, setConnectionLimit} from './db/databases';
 const swaggerDocument = YAML.load(`${__dirname}/../swagger.yaml`);
-const upload = multer();
-
-createProperty();
-createUsers();
-createFlags();
-// dropUsers()
-// createAdmin()
 
 
 const PORT = process.env.PORT || 5000;
-
-
 
 const app = express();
 

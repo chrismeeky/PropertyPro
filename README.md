@@ -1,11 +1,10 @@
 [![Build Status](https://travis-ci.org/chrismeeky/PropertyPro.svg?branch=master)](https://travis-ci.org/chrismeeky/PropertyPro)
 [![Coverage Status](https://coveralls.io/repos/github/chrismeeky/PropertyPro/badge.svg?branch=develop)](https://coveralls.io/github/chrismeeky/PropertyPro?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b1ac439f44df20327933/maintainability)](https://codeclimate.com/github/chrismeeky/PropertyPro/maintainability)
 # PropertyProLite
 
 To visit Property Pro Lite , Click this link>> https://chrismeeky.github.io/PropertyPro/UI
 
-
-# PropertyPro-lite
 
 Property pro Lite is a website where users can upload users can advertise their property for sale. Users can lookup property advertised for sale or place their own property for sale.
 

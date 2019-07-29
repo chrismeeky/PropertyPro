@@ -1,11 +1,12 @@
 import Joi from 'joi';
+
 const schema = Joi.object().keys({
-	status: Joi.string().trim().min(4),
-	price: Joi.number().required(),
-    state: Joi.string().trim().required(),
-    purpose: Joi.string().trim().max(13),
-    city: Joi.string().trim().required(),
-    address: Joi.string().trim().required(),
+    status: Joi.string().trim().min(4),
+    price: Joi.number().required(),
+    state: Joi.string().trim().min(3).required(),
+    purpose: Joi.string().trim(),
+    city: Joi.string().trim().min(3).required(),
+    address: Joi.string().trim().min(1).required(),
     type: Joi.string().trim().required(),
     title: Joi.string().trim(),
     description: Joi.string().trim(),

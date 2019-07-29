@@ -1,7 +1,11 @@
 /* eslint-disable no-tabs */
 
 /* this function will patch the first parameter using the second */
-
+/**
+ * 
+ * @param {object} object1 [target object]
+ * @param {object} object2 [source object]
+ */
 const patchObject = (object1, object2) => {
 	const target = object1;
 	const source = object2;

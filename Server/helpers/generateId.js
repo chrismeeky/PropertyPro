@@ -1,27 +1,23 @@
 /* eslint-disable no-tabs */
 import pool from '../config/pool';
-
+/**
+ * 
+ * @param {Object} req [payload]
+ * @param {Object} res [response]
+ * @param {function} next [middleware]
+ */
 
 const generateId = (req, res, next) => {
 	let id;
-	pool.connect((error, client, done) => {
-		if (error) {
-			return res.json({
-				status: 'error',
-				error,
-			});
+
+	pool.query('SELECT MAX(id) FROM property', (err, result) => {
+		if (result === undefined) {
+			id = 1;
+		} else {
+			id = result.rows[0].max + 1;
 		}
-		client.query('SELECT MAX(id) FROM property', (err, result) => {
-			if (result === undefined) {
-				id = 1;
-			}
-			else {
-				id = result.rows[0].max  + 1;
-			}
-			req.id = id;
-			next();
-		});
-		done()
+		req.id = id;
+		next();
 	});
 };
 

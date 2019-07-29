@@ -3,7 +3,12 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-tabs */
 import properties from '../db/properties';
-
+/**
+ * 
+ * @param {Object} req [payload]
+ * @param {Object} res [response]
+ * @param {function} next [middleware]
+ */
 const isPropertyFound = (req, res, next) => {
 	let found = false;
 	if (properties.length > 0) {

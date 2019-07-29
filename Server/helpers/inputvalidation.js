@@ -18,13 +18,15 @@ const validatePhone = (phone) => {
 	return myPhoneRegex.test(phone);
 }
 const validateFirstName = (name) => {
-	if (typeof name !== 'string' || name.length < 3) {
+	const nameRegex = /^[A-Za-z0-9 ]+$/;
+	if (typeof name !== 'string' || name.length < 3 || !nameRegex.test(name)) {
 		return false;
 	}
 	return true;
 };
 const validateLastName = (name) => {
-	if (typeof name !== 'string' || name.length < 3) {
+	const nameRegex = /^[A-Za-z0-9 ]+$/;
+	if (typeof name !== 'string' || name.length < 3 || !nameRegex.test(name)) {
 		return false;
 	}
 	return true;

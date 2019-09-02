@@ -1,6 +1,12 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 /* eslint-disable no-tabs */
+/**
+ * 
+ * @param {array} properties [all properties]
+ * @param {integer} id [property id]
+ * @param {object} res [response]
+ */
 const deleteProperty = (properties, id, res) => {
 	let propertyIndex;
 	properties.map((result, index) => {

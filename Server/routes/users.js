@@ -12,9 +12,8 @@ import extractErrors from '../helpers/extract_errors';
 import flagSchema from '../Schemas/flag_schema';
 import pool from '../config/pool';
 import refineData from '../helpers/refine_data';
+
 const upload = multer();
-
-
 const userRouter = express.Router();
 
 userRouter.post('/auth/signup', upload.array(), verifySignup, (req, res) => {
@@ -57,7 +56,13 @@ userRouter.post('/auth/signup', upload.array(), verifySignup, (req, res) => {
 					}
 					id = parseInt(results.rows[0].id, 10);
 					req.body.id = id;
-					jwt.sign(req.body, 'secretkey', (error, tokens) => {
+					const tokenBody = {
+						id: req.body.id,
+						email: req.body.email,
+						phone_number: req.body.phone_number,
+						is_admin: false
+					}
+					jwt.sign(tokenBody, 'secretkey', (error, tokens) => {
 						if (err) {
 							return res.status(403).json({
 								status: 'error',
@@ -84,49 +89,49 @@ userRouter.post('/auth/signup', upload.array(), verifySignup, (req, res) => {
 
 userRouter.post('/property/fraud/:id', verifyToken, upload.array(), (req, res) => {
 	const { id } = req.params;
-	
-		
-		pool.query('SELECT * FROM property WHERE id = $1', [id], (error, result) => {
-			if (result.rows.length === 0) {
-				return res.status(404).json({
+
+
+	pool.query('SELECT * FROM property WHERE id = $1', [id], (error, result) => {
+		if (result.rows.length === 0) {
+			return res.status(404).json({
+				status: 'error',
+				error: `property with id: ${id} couldn't be flagged because it does not exist`,
+			});
+		}
+		const day = new Date();
+		const data = {
+			property_id: parseInt(id, 10),
+			created_on: day.toLocaleDateString(),
+			reason: req.body.reason,
+			description: req.body.description,
+		};
+		Joi.validate(data, flagSchema, (err, result) => {
+			if (err) {
+				const errors = extractErrors(err);
+				return res.status(401).json({
 					status: 'error',
-					error: `property with id: ${id} couldn't be flagged because it does not exist`,
+					errors,
 				});
 			}
-			const day = new Date();
-			const data = {
-				property_id: parseInt(id, 10),
-				created_on: day.toLocaleDateString(),
-				reason: req.body.reason,
-				description: req.body.description,
-			};
-			Joi.validate(data, flagSchema, (err, result) => {
-				if (err) {
-					const errors = extractErrors(err);
-					return res.status(401).json({
-						status: 'error',
-						errors,
-					});
-				}
-				pool.query('INSERT INTO flags (property_id, created_on, reason, description) VALUES($1,$2,$3,$4)',
-					[data.property_id, data.created_on, data.reason, data.description], (error, result) => {
-						if (error) {
-							return res.status(409).json({
-								status: 'error',
-								error: error.detail,
-							});
-						}
-						return res.status(201).json({
-							status: 'success',
-							data: {
-								message: 'We appreciate your feedback as it helps us fight spam and fraud',
-								details: data,
-							},
-
+			pool.query('INSERT INTO flags (property_id, created_on, reason, description) VALUES($1,$2,$3,$4)',
+				[data.property_id, data.created_on, data.reason, data.description], (error, result) => {
+					if (error) {
+						return res.status(409).json({
+							status: 'error',
+							error: error.detail,
 						});
+					}
+					return res.status(201).json({
+						status: 'success',
+						data: {
+							message: 'We appreciate your feedback as it helps us fight spam and fraud',
+							details: data,
+						},
+
 					});
-			});
+				});
 		});
+	});
 
 });
 // users can view all property adverts
@@ -134,61 +139,60 @@ userRouter.get('/property/', verifyToken, (req, res) => {
 	let data;
 	const { type } = req.query;
 
-		if (typeof type !== 'undefined') {
-			pool.query('SELECT * FROM property where type = $1', [req.query.type], (error, result) => {
-				if (result.rows.length === 0) {
-					return res.status(404).json({
-						status: 'error',
-						error: 'Property does not exist',
-					});
-				}
-				data = refineData(result.rows);
+	if (typeof type !== 'undefined') {
+		pool.query('SELECT * FROM property where type = $1', [req.query.type], (error, result) => {
+			if (result.rows.length === 0) {
+				return res.status(404).json({
+					status: 'error',
+					error: 'Property does not exist',
+				});
+			}
+			data = refineData(result.rows);
 
 
-				return res.status(200).json({
-					status: 'success',
-					data,
-				});
+			return res.status(200).json({
+				status: 'success',
+				data,
 			});
-		} else {
-			pool.query('SELECT * FROM property', (error, result) => {
-				if (result.rows.length === 0) {
-					return res.status(404).json({
-						status: 'error',
-						error: 'Property does not exist',
-					});
-				}
-				data = refineData(result.rows);
-				return res.status(200).json({
-					status: 'success',
-					data,
+		});
+	} else {
+		pool.query('SELECT * FROM property', (error, result) => {
+			if (result.rows.length === 0) {
+				return res.status(404).json({
+					status: 'error',
+					error: 'Property does not exist',
 				});
+			}
+			data = refineData(result.rows);
+			return res.status(200).json({
+				status: 'success',
+				data,
 			});
-		}
-	
+		});
+	}
+
 
 
 });
 
 userRouter.get('/property/:id', verifyToken, (req, res) => {
 	const { id } = req.params;
-		
-			pool.query('SELECT * FROM property where id = $1', [id], (error, result) => {
-				if (result.rows.length === 0) {
-					return res.status(404).json({
-						status: 'error',
-						error: 'Property does not exist',
-					});
-				}
-				const data = result.rows[0];
-				data.price = parseFloat(data.price);
-				return res.status(200).json({
-					status: 'success',
-					data,
-				});
+
+	pool.query('SELECT * FROM property where id = $1', [id], (error, result) => {
+		if (result.rows.length === 0) {
+			return res.status(404).json({
+				status: 'error',
+				error: 'Property does not exist',
 			});
-		
-	
+		}
+		const data = result.rows[0];
+		data.price = parseFloat(data.price);
+		return res.status(200).json({
+			status: 'success',
+			data,
+		});
+	});
+
 });
 
 export default userRouter;

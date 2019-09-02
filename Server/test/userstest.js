@@ -206,9 +206,9 @@ describe('users property endpoints', () => {
 
 	// pool.query('SELECT MAX(id) from property', (err, result) => {
 	// 	const id = result.rows[0].max + 1;
-		
+
 	// });
-	
+
 
 
 	pool.query('SELECT MAX(id) from property', (err, result) => {
@@ -254,7 +254,6 @@ describe('users property endpoints', () => {
 						state: 'Anambra',
 					})
 					.end((err, res) => {
-						console.log(res.body);
 						expect(res.status).to.equal(200);
 						expect(res.body).to.be.an('object');
 						expect(res.body).to.have.a.property('data');
@@ -291,7 +290,6 @@ describe('users property endpoints', () => {
 						description: 'this is the description',
 					})
 					.end((err, res) => {
-						console.log(res.body)
 						expect(res.status).to.equal(201);
 						expect(res.body).to.be.an('object');
 						expect(res.body).to.have.property('status');
@@ -335,13 +333,13 @@ describe('users property endpoints', () => {
 
 	// pool.query('SELECT MAX(id) from property', (err, result) => {
 	// 	const id = result.rows[0].max + 1;
-		
+
 	// });
 
 
 	// pool.query('SELECT MAX(id) from property', (err, result) => {
 	// 	const id = result.rows[0].max + 1;
 
-		
+
 	// });
 });

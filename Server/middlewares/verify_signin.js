@@ -4,7 +4,12 @@ import bcrypt from 'bcrypt';
 import pool from '../config/pool';
 
 let user;
-
+/**
+ * 
+ * @param {Object} req [payload]
+ * @param {Object} res [response]
+ * @param {function} next [middleware]
+ */
 const verifySignin = (req, res, next) => {
 	pool.connect((err, client, done) => {
 		if (err) {

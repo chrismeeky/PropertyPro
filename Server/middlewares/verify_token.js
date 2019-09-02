@@ -1,7 +1,12 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-tabs */
 import jwt from 'jsonwebtoken';
-
+/**
+ * 
+ * @param {Object} req [payload]
+ * @param {Object} res [response]
+ * @param {function} next [middleware]
+ */
 const verifyToken = (req, res, next) => {
 	const bearerHeader = req.headers.authorization;
 	if (typeof bearerHeader !== 'undefined') {

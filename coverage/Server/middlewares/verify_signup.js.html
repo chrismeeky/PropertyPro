@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">66.67% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>20/30</span>
+        <span class='fraction'>16/24</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">50% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">66.67% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>20/30</span>
+        <span class='fraction'>16/24</span>
       </div>
     </div>
     <p class="quiet">
@@ -102,26 +102,18 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -130,12 +122,21 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -145,7 +146,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,16 +154,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable no-tabs */
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable no-console */
+/* eslint-disable no-tabs */
 /* eslint-disable linebreak-style */
-import Joi from 'joi';
 import bcrypt from 'bcrypt';
-import userSchema from '../Schemas/users_schema';
-import extractErrors from '../helpers/extract_errors';
 import inputValidation from '../helpers/inputvalidation'
-&nbsp;
+/**
+ * 
+ * @param {Object} req [payload]
+ * @param {Object} res [response]
+ * @param {function} next [middleware]
+ */
 const verifySignup = (req, res, next) =&gt; {
-	console.log(req.body)
 	let error = '';
 	<span class="missing-if-branch" title="if path not taken" >I</span>if (!inputValidation.validateEmail(req.body.email)) {
 <span class="cstat-no" title="statement not covered" >		error </span>+= 'email is invalid';
@@ -175,36 +177,34 @@ const verifySignup = (req, res, next) =&gt; {
 <span class="cstat-no" title="statement not covered" >		error </span>+= ', last name is invalid'
 	}
 	<span class="missing-if-branch" title="if path not taken" >I</span>if (!inputValidation.validatePassword(req.body.password)) {
-		
+&nbsp;
 <span class="cstat-no" title="statement not covered" >		error </span>+= ', password is invalid, ';
 	}
 	<span class="missing-if-branch" title="if path not taken" >I</span>if (!inputValidation.validateAddress(req.body.address)) {
 <span class="cstat-no" title="statement not covered" >		error </span>+= ', invalid address';
 	}
 	<span class="missing-if-branch" title="if path not taken" >I</span>if (!inputValidation.validatePhone(req.body.phone_number)) {
-<span class="cstat-no" title="statement not covered" >		error </span>+= ', invalid phone number'
+<span class="cstat-no" title="statement not covered" >		error </span>+= ', invalid phone number';
 	}
-	
-		<span class="missing-if-branch" title="else path not taken" >E</span>if (error === '') {
-			bcrypt.hash(req.body.password, 10, (err, hash) =&gt; {
-				<span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
-<span class="cstat-no" title="statement not covered" >					console.</span>log(err)
-<span class="cstat-no" title="statement not covered" >					return r</span>es.status(401).json({
-						status: 'error',
-						error: err,
-					});
-				}
-				req.body.password = hash;
-				next();
-			});
-		} else {
-<span class="cstat-no" title="statement not covered" >			console.</span>log(error)
-<span class="cstat-no" title="statement not covered" >			return r</span>es.status(406).json({
-				status: 'error',
-				error,
-			});
-		}
-	
+&nbsp;
+	<span class="missing-if-branch" title="else path not taken" >E</span>if (error === '') {
+		bcrypt.hash(req.body.password, 10, (err, hash) =&gt; {
+			<span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
+<span class="cstat-no" title="statement not covered" >				return r</span>es.status(401).json({
+					status: 'error',
+					error: err,
+				});
+			}
+			req.body.password = hash;
+			next();
+		});
+	} else {
+<span class="cstat-no" title="statement not covered" >		return r</span>es.status(406).json({
+			status: 'error',
+			error,
+		});
+	}
+&nbsp;
 };
 &nbsp;
 export default verifySignup;
@@ -214,7 +214,7 @@ export default verifySignup;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jul 18 2019 13:19:47 GMT+0100 (West Africa Standard Time)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Jul 29 2019 22:08:30 GMT+0100 (West Africa Standard Time)
 </div>
 </div>
 <script src="..\..\prettify.js"></script>

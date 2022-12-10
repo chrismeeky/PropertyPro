@@ -42,7 +42,7 @@
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-router": "0.0.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
